@@ -1,0 +1,38 @@
+c canister for the fission gas experiments
+c cell cards
+1	1	-5.28e-5	-1		IMP:N=1	$inner gas vessel and tube
+2	1	-5.28e-5	-2		IMP:N=1	$inner tube
+c 22	2	-1.94		-22		IMP:N=1	$salt in inner tube
+3	3	-8.00		1 2 -3	IMP:N=1	$upper first middle layer
+4	3	-8.00		2 -4		IMP:N=1	$exterior first middle layer
+5	1	-5.28e-5	3 4 -5	IMP:N=1	$upper second middle layer
+6	1	-5.28e-5	4 -6		IMP:N=1	$exterior second middle layer
+7	3	-8.00		5 6 -7	IMP:N=1	$upper outer layer
+8	3	-8.00		6 -8		IMP:N=1	$exterior outer layer
+9	3	-8.00		2 -9		IMP:N=1	$lower first middle layer
+10	1	-5.28e-5	4 9 -10	IMP:N=1	$lower second middle layer
+11	3	-8.00		6 10 -11	IMP:N=1	$lower outer layer
+100	11	-0.001225	7 8 11	IMP:N=0
+
+c surface cards
+c top block
+1	RCC	0 0 0 0 0 1 0.375
+2	RCC	0 0 0 0 0 -4.71 0.09
+c 2	RCC	0 0 0 0 0 -4.71+x 0.09 $ air in tube
+c 22	RCC	0 0 -4.71+x 0 0 x 0.09 $ salt in tube
+3	RCC	0 0 -0.125 0 0 1.25 0.5
+4	RCC	0 0 -0.125 0 0 -3.85 0.125
+5	RCC	0 0 -0.25 0 0 1.5 0.625
+6	RCC	0 0 -0.25 0 0 -3.535 0.185
+7	RCC	0 0 -0.38 0 0 1.76 0.745
+8	RCC	0 0 -0.38 0 0 -3.23 0.375
+9	RCC	0 0 -3.96 0 0 -1 0.375
+10	RCC	0 0 -3.785 0 0 -1.305 0.56
+11	RCC	0 0 -3.61 0 0 -1.61 0.745
+
+c data cards
+ M1 002000 1 $ helium
+ M11 007014 0.79 008016 0.21 $ air
+ M2 003006 0.004433 003007 63.3289 004000 31.66667 009000 146.6667 092235 0.25303 092238 4.74697 $ FLiBe
+ M3 024000 -16 028000 -10 042000 -2 006000 -0.10 025000 -2 015000 -0.045 016000 -0.030 014000 -0.75 026000 -30.93 $ SS316H
+ NPS 100000
