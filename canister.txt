@@ -10,6 +10,7 @@ c 22	2	-1.94		-22		IMP:N=1	$salt in inner tube
 7	3	-8.00		5 6 -7	IMP:N=1	$upper outer layer
 8	3	-8.00		6 -8		IMP:N=1	$exterior outer layer
 9	3	-8.00		2 -9		IMP:N=1	$lower first middle layer
+c 9	3	-8.00		2 22 -9		IMP:N=1	$lower first middle layer
 10	1	-5.28e-5	4 9 -10	IMP:N=1	$lower second middle layer
 11	3	-8.00		6 10 -11	IMP:N=1	$lower outer layer
 100	11	-0.001225	7 8 11	IMP:N=0
