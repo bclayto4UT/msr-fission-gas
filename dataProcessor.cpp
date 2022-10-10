@@ -1,6 +1,6 @@
 #include <algorithm>
-#include <fstream>
 #include <iostream>
+#include <fstream>
 
 #include "dataProcessor.h"
 
@@ -94,86 +94,6 @@ Output: none
 
 }
 
-void vectToThermO(const std::vector<strVect>& dataVect,
-                  const std::string& outFile,
-                  const strVect* eleList = nullptr)
-/****************************************************************
-Input(s):
-    dataVect: the tabulated data in the form of a 2D vector
-    outFile: the output file name
-    eleList
-Output: none
-    a text file formatted as a Thermochimica input is created
-    if there are multiple rows, multiple files are created
-*****************************************************************/
-{
-    std::ofstream output;
-    auto pos = outFile.find(".");
-    std::string fileEnding;
-    std::string fileStem;
-    std::string fileName;
-
-    if (pos < outFile.size()){
-        fileEnding = outFile.substr(pos, outFile.size());
-        fileStem = outFile.substr(0, pos);
-    } else{
-        fileStem = outFile;
-    }
-
-    for (int i = 1; i < dataVect.size(); i++){
-        fileName = fileStem + std::to_string(i) + fileEnding;
-        output.open(fileName);
-        double sum = 0;
-
-        // Find total moles
-        for (int j = 0; j < dataVect[i].size(); j++){
-            if (!eleList) sum += std::stod(dataVect[i][j]);
-            else{
-                // Determine if element is needed (on eleList)
-                for (int k = 0; k < eleList->size(); k++){
-                    auto str = (*eleList)[k];
-                    auto ele = elementSymb(str);
-                    try{
-                        if (dataVect[0][j] == std::to_string(elementMap.at(ele))){
-                            sum += std::stod(dataVect[i][j]);
-                            break;
-                        }
-                    } catch(const std::out_of_range& ex){
-                        throw std::domain_error("Unrecognizable input.");
-                    }
-                }
-            }
-        }
-
-        // Find mole fractions and outputs
-        output << "\tmol gas_ideal\n\t {";
-        for (int j = 0; j < dataVect[i].size(); j++){
-            if (!eleList){
-                output << "\t\t" << std::stod(dataVect[i][j])/sum;
-                output << "\t" << findElement(std::stoi(dataVect[0][j]));
-                output << std::endl;
-            }
-
-            else{
-                for (int k = 0; k < eleList->size(); k++){
-                    auto str = (*eleList)[k];
-                    auto ele = elementSymb(str);
-                    try{
-                        if (dataVect[0][j] == std::to_string(elementMap.at(ele))){
-                            output << "\t\t" << std::stod(dataVect[i][j])/sum;
-                            output << "\t" << ele << std::endl;
-                        }
-                    } catch(const std::out_of_range& ex){
-                        throw std::domain_error("Unrecognizable input.");
-                    }
-                }
-            }
-        }
-
-        output << "\t }" << std::endl << std::endl;
-        output.close();
-    }
-}
 
 void textToExcel(const std::string& inFile,
                  const std::string& outFile,
@@ -191,6 +111,8 @@ Input(s):
      * ny: the total amount (moles) of gas
      * x_ABC: the mole fraction of species ABC in the salt phase
      * y_ABC: the mole fraction of species ABC in the gas phase
+       "ABC" can be "all", which will output all salts (not ions)
+       and/or all gases
      * T: the system temperature
        For example, dataType = "x_UF3 x_UF4 y ny_UF5 y_UF6"
 Output(s): none
@@ -199,7 +121,10 @@ Output(s): none
 *****************************************************************/
 {
     auto v = strToVect(dataType);
+    const bool has_x_all = std::find(v.cbegin(), v.cend(), "x_all") != v.cend();
+    const bool has_y_all = std::find(v.cbegin(), v.cend(), "y_all") != v.cend();
 
+    // Initializes two std::map's that map a species to its amount
     std::map<std::string, double> vx;
     std::map<std::string, double> vy;
     double T = -1;
@@ -211,48 +136,61 @@ Output(s): none
                 vx["U2"] = 0;
                 vx["U[VI]"] = 0;
                 vx["U[VII]"] = 0;
-            } else if (s == "x_UF4"){
+            } if (s == "x_UF4" || has_x_all){
                 vx["U2F8"] = 0;
                 vx["U[VI]-F4"] = 0;
                 vx["U[VII]-F4"] = 0;
-            } else if (s == "x_UI4"){
+            } if (s == "x_UI4" || has_x_all){
                 vx["U2I8"] = 0;
                 vx["U[VI]-I4"] = 0;
                 vx["U[VII]-I4"] = 0;
-            } else if (s == "x_Be"){
+            } if (s == "x_Be"){
                 vx["Be[IV]"] = 0;
                 vx["Be2"] = 0;
-            } else if (s == "x_BeF2"){
-                vx[s] = 0;
+            } if (s == "x_BeF2" || has_x_all){
+                vx["BeF2"] = 0;
                 vx["Be2F4"] = 0;
-            } else if (s == "x_BeI2"){
-                vx[s] = 0;
+            } if (s == "x_BeI2" || has_x_all){
+                vx["BeI2"] = 0;
                 vx["Be2I4"] = 0;
-            }
-            vx[s.erase(0,2)] = 0;
+            } if (!has_x_all) vx[s.erase(0,2)] = 0;
         }
-        else if (s.substr(0,1) == "y") vy[s.erase(0,2)] = 0;
+        else if (s.substr(0,1) == "y" & !has_y_all) vy[s.erase(0,2)] = 0;
         else if (s == "T") T = 0;
     }
 
-    // Check if a key in the map is one of the data to be extracted
+    // Checks if a key in the map is one of the data to be extracted
+    // This is because more than one entry was created for U4+ and Be2+ species
     auto isLookedFor = [&](const std::string& str) -> bool
         {
-            return std::find(v.cbegin(), v.cend(), str) != v.cend();
+            // List of species to be excluded, unless explicitly looked for
+            // THIS NEEDS FIXING - Not excluding the species as intended.
+            std::vector<std::string> configs{"x_U2F8", "x_U[VI]-F4", "x_U[VII]-F4",
+                                             "x_U2I8", "x_U[VI]-I4", "x_U[VII]-I4",
+                                             "x_Be2F4", "x_Be2I4"};
+
+            auto it1 = std::find(v.cbegin(), v.cend(), str);
+            auto it2 = std::find(configs.cbegin(), configs.cend(), str);
+            if (it2 != configs.cend() && it1 == v.cend()) return true;
+            return has_x_all || it1 != v.cend();
         };
 
     std::ofstream output(outFile);
     if (output.is_open()){
-        for (auto const& it: vx){
-            std::string label = "";
-            if (it.first != "nx" && it.first != "ni") label = "x_";
-            label += it.first;
-            if (isLookedFor(label)) output << label << " ";
+        if (!has_x_all){
+            for (auto const& it: vx){
+                std::string label = "";
+                if (it.first != "nx" && it.first != "ni") label = "x_";
+                label += it.first;
+                if (isLookedFor(label)) output << label << " ";
+            }
         }
-        for (auto const& it: vy){
-            std::string prefix = "";
-            if (it.first != "ny") prefix = "y_";
-            output << prefix << it.first << " ";
+        if (!has_y_all){
+            for (auto const& it: vy){
+                std::string prefix = "";
+                if (it.first != "ny") prefix = "y_";
+                output << prefix << it.first << " ";
+            }
         }
         if (T >= 0) output << "T" << " ";
         output << std::endl;
@@ -261,10 +199,12 @@ Output(s): none
     std::ifstream input(inFile);
     std::string line;
     auto* phaseRef = &vx;
+    bool hasAll = false;
     bool vxIsFilled = false;
     bool vyIsFilled = false;
 
     if (input.is_open()){
+        bool firstRowChanged = false;
         while (getline(input, line)){
             if (containsNumber(line)){
                 if (!vxIsFilled && line.find("mol MSFL") < line.size()){
@@ -272,59 +212,62 @@ Output(s): none
                     if (vx.count("ni")){
                         line.erase(line.find("mol MSFL"), line.size());
                         convertibleNum(line);
-                        vx["ni"] = stod(line);
+                        vx["ni"] = std::stod(line);
                     }
                 }
 
                 else if (!vxIsFilled && line.find("Moles of pairs") < line.size()){
                     phaseRef = &vx;
+                    hasAll = has_x_all;
                     if (vx.count("nx")){
                         line.erase(line.find("Moles of pairs"), line.size());
                         convertibleNum(line);
-                        vx["nx"] = stod(line);
+                        vx["nx"] = std::stod(line);
                     }
                 }
 
                 else if (!vyIsFilled && line.find("mol gas") < line.size()){
                     phaseRef = &vy;
+                    hasAll = has_y_all;
+
                     if (vy.count("ny")){
                         line.erase(line.find("mol gas"), line.size());
                         convertibleNum(line);
-                        vy["ny"] = stod(line);
+                        vy["ny"] = std::stod(line);
                     }
                 }
 
                 else if (T >= 0 && line.find("Temperature") < line.size()){
                     line.erase(line.size()-3, line.size());
                     convertibleNum(line);
-                    T = stod(line);
+                    T = std::stod(line);
                 }
 
                 else{
                     auto vect = strToVect(line);
                     if (vect.back() == "}") vect.pop_back();
-                    for (auto const& it: *phaseRef){
-                        if (vect.back() == it.first && it.second == 0){
-                            (*phaseRef)[it.first] = std::stod(vect[vect.size()-2]);
-                            break;
+                    if (hasAll){
+                    /* If the species is not current in phaseRef, it means it
+                        is a new species to be added, and the label row has to
+                        be re-printed. */
+                        if (!phaseRef->count(vect.back())) firstRowChanged = true;
+                        (*phaseRef)[vect.back()] = std::stod(vect[vect.size()-2]);
+                    }
+
+                    else{
+                        for (auto const& it: *phaseRef){
+                            if (vect.back() == it.first && it.second == 0){
+                                (*phaseRef)[it.first] = std::stod(vect[vect.size()-2]);
+                                break;
+                            }
                         }
-
-                        /**
-                        if (line.find(it.first) < line.size()
-                            && it.second == 0){
-                            convertibleNum(line);
-                            (*phaseRef)[it.first] = stod(line);
-                            break;
-                        } **/
-
                     }
                 }
 
                 auto isFilled = [](const std::map<std::string, double>& m) -> bool
                 {
-                    for (auto const& it: m){
-                        if (it.second == 0) return false;
-                    }
+                    if (m.empty()) return false;
+                    for (auto const& it: m) if (it.second == 0) return false;
                     return true;
                 };
                 vxIsFilled = isFilled(vx);
@@ -332,7 +275,30 @@ Output(s): none
 
             }
 
+            else if (line.find("Quadruplet") < line.size()
+                     || line.find("System properties") < line.size()){
+                hasAll = false;
+                // So that amount of quadruplet fractions are not extracted.
+            }
+
             else if (line.find("DEBUG") < line.size()){
+                if (firstRowChanged){
+                    for (auto const& it: vx){
+                        std::string label = "";
+                        if (it.first != "nx" && it.first != "ni") label = "x_";
+                        label += it.first;
+                        if (isLookedFor(label)) output << label << " ";
+                    }
+                    for (auto const& it: vy){
+                        std::string prefix = "";
+                        if (it.first != "ny") prefix = "y_";
+                        output << prefix << it.first << " ";
+                    }
+                    if (T >= 0) output << "T" << " ";
+                    output << std::endl;
+                    firstRowChanged = false;
+                }
+
                 for (auto const& it: vx){
                     std::string label = "";
                     if (it.first != "nx" && it.first != "ni") label = "x_";
@@ -353,14 +319,19 @@ Output(s): none
                         } else if (it.first == "BeI2"){
                             sum = it.second + vx["Be2I4"]*2;
                         } else sum = it.second;
-                        output << sum << " ";
+
+                        if (it.second <= 1) output << sum << " ";
+                        /* it.second > 1 usually means it is actually 1e-100 or less,
+                        and the small exponential tends not to be left out. */
+                        else output << 0.00 << " ";
                     }
                 }
 
                 for (auto const&it: vx) vx[it.first] = 0;
 
                 for (auto const& it: vy){
-                    output << it.second << " ";
+                    if (it.second <= 1) output << it.second << " ";
+                    else output << 0.00 << " ";
                     vy[it.first] = 0;
                 }
 
@@ -371,6 +342,8 @@ Output(s): none
             }
         }
     } else throw std::invalid_argument("Cannot open input file.");
+
+
 
     input.close();
     output.close();
