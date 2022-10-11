@@ -4,50 +4,71 @@
 
 #include "dataProcessor.h"
 
-std::vector<strVect> scaleToVector(const std::string& inFile)
+std::vector<strVect> scaleToVector(const std::string& inFile,
+                                   bool timeOnRows)
 /****************************************************************
 Input(s):
     inFile: the name of the file with the SCALE output to be read
+    timeOnRows: if the orientation of the file is such that the
+                elements are on the columns and the time intervals
+                are on the rows (DEFAULT: true).
 Output:
-    a 2D vector of strings that transposes and tabulates the data
-    (e.g. the rows in the text file will be the columns)
+    a 2D vector of strings that tabulates the data such that the
+    elements are on the columns and the time intervals are on the
+    rows.
 *****************************************************************/
 {
-    // Opens input file and counts the days
+    // Opens input file
     std::ifstream input(inFile);
     std::string line;
-    std::size_t n;
     strVect v;
     std::vector<strVect> vect;
 
-    if (input.is_open()){
-        getline(input, line);
+    if (input.is_open()) getline(input,line);
+    else throw std::invalid_argument("Cannot open input file.");
+
+    if (timeOnRows){
+        v = strToVect(line);
+        for (int i = 0; i < v.size(); i++) v[i][0] = toupper(v[i][0]);
+        vect.push_back(v);
+
+         while(getline(input, line)){
+            v = strToVect(line);
+            v.erase(v.cbegin());
+            // Consider changing into a deque for the more efficient pop_front function
+            vect.push_back(v);
+         }
+
+    } else{
+        // Counts the days
+        std::size_t n;
         n = strToVect(line).size();
         for (int i = 0; i <= n; i++) vect.push_back(v);
-    } else throw std::invalid_argument("Cannot open input file.");
 
-    // Inputs data into vector
-    while(getline(input, line)){
-        // Converts element symbol to atomic number and stores it
-        auto pos = std::min(line.find("\t"), line.find(" "));
-        while (pos == 0){
-            line.erase(0, 1);
-            pos = std::min(line.find("\t"), line.find(" "));
-        }
-        std::string ele = line.substr(0, pos);
-        ele[0] = toupper(ele[0]);
-        line.erase(0, pos);
+        // Inputs data into vector
+        while(getline(input, line)){
+            // Converts element symbol to atomic number and stores it
+            auto pos = std::min(line.find("\t"), line.find(" "));
+            while (pos == 0){
+                line.erase(0, 1);
+                pos = std::min(line.find("\t"), line.find(" "));
+            }
+            std::string ele = line.substr(0, pos);
+            ele[0] = toupper(ele[0]);
+            line.erase(0, pos);
 
-        try{
-            vect[0].push_back(std::to_string(elementMap.at(ele)));
-        } catch (std::out_of_range ex){
-            break;
-        }
+            try{
+                elementMap.at(ele); // To check if ele is a chemical element
+                vect[0].push_back(ele);
+            } catch (std::out_of_range ex){
+                break;
+            }
 
-        // Stores the rest of the data
-        v = strToVect(line);
-        for (int i = 0; i < v.size(); i++){
-            vect[i+1].push_back(v[i]);
+            // Stores the rest of the data
+            v = strToVect(line);
+            for (int i = 0; i < v.size(); i++){
+                vect[i+1].push_back(v[i]);
+            }
         }
     }
 
@@ -84,7 +105,7 @@ Output: none
         output.open(fileName);
         for (int j = 0; j < dataVect[i].size(); j++){
             output << "dElementMass(";
-            output << dataVect[0][j];
+            output << elementMap.at(dataVect[0][j]);
             output << ") = ";
             output << dataVect[i][j];
             output << "\n";
@@ -436,6 +457,29 @@ Warning:
         }
         output << "\t }" << std::endl;
     }
+}
+
+void decoupleSurr(const std::vector<strVect>& scaleData,
+                  const std::string& thermoRes,
+                  const std::string& thermoOut)
+/****************************************************************
+Input(s):
+    scaleData: the 2-D vector (table) containing the amount of
+               each species as a function of time (can be obtained
+               using the scaleToVector function)
+    thermoRes: the name of the file containing Thermochimica re-
+               results that have been ran on data with surrogates
+    thermoOut: the output file name
+Output: none
+    New Thermochimica results are written in the output file,
+    in which each salt containing a surrogate metal or nonmetal
+    has been broken further down to its original counterpart(s),
+    with the ratio of the corresponding elements preserved.
+Warning:
+    only a prediction, works best on hypo-stoichiometric systems.
+*****************************************************************/
+{
+
 }
 
 void massToMole(const std::string& outFile,
