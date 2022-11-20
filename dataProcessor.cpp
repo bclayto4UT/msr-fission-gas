@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "dataProcessor.h"
+#include "thermoElectroChem.h"
 
 std::vector<strVect> scaleToVector(const std::string& inFile,
                                    bool timeOnRows)
@@ -58,9 +59,9 @@ Output:
             line.erase(0, pos);
 
             try{
-                elementMap.at(ele); // To check if ele is a chemical element
+                atomNumMap.at(ele); // To check if ele is a chemical element
                 vect[0].push_back(ele);
-            } catch (std::out_of_range ex){
+            } catch (std::out_of_range& ex){
                 break;
             }
 
@@ -105,7 +106,7 @@ Output: none
         output.open(fileName);
         for (int j = 0; j < dataVect[i].size(); j++){
             output << "dElementMass(";
-            output << elementMap.at(dataVect[0][j]);
+            output << atomNumMap.at(dataVect[0][j]);
             output << ") = ";
             output << dataVect[i][j];
             output << "\n";
@@ -461,15 +462,22 @@ Warning:
 
 void decoupleSurr(const std::vector<strVect>& scaleData,
                   const std::string& thermoRes,
-                  const std::string& thermoOut)
+                  const std::string& thermoOut,
+                  const bool includesSSol,
+                  const bool includesHF)
 /****************************************************************
 Input(s):
-    scaleData: the 2-D vector (table) containing the amount of
-               each species as a function of time (can be obtained
-               using the scaleToVector function)
-    thermoRes: the name of the file containing Thermochimica re-
-               results that have been ran on data with surrogates
-    thermoOut: the output file name
+    scaleData:    the 2-D vector (table) containing the amount of
+                  each species as a function of time (can be ob-
+                  tained using the scaleToVector function)
+    thermoRes:    the name of the file containing Thermochimica re-
+                  results that have been ran on data with surrogates
+    thermoOut:    the output file name
+    includesSSol: whether the solid solution of the reactor struc-
+                  ture is considered (DEFAULT: false).
+                  The input file must contain the mole fraction of
+                  Cr, Fe, and Ni in the solid solution (not their
+                  amount in moles).
 Output: none
     New Thermochimica results are written in the output file,
     in which each salt containing a surrogate metal or nonmetal
@@ -479,9 +487,333 @@ Warning:
     only a prediction, works best on hypo-stoichiometric systems.
 *****************************************************************/
 {
+    std::ifstream input(thermoRes);
+    std::string line;
+    if (input.is_open()) getline(input,line);
+    else throw std::invalid_argument("Cannot open input file.");
+    std::ofstream output(thermoOut);
 
+    std::vector<std::vector<std::string>> surrElem; // List of surrogated elements
+    surrElem.push_back(strVect{"Ca", "Ba", "Sr"});
+    surrElem.push_back(strVect{"La", "Pr", "Pm", "Sm", "Eu", "Gd", "Tb",
+                               "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Y"});
+    surrElem.push_back(strVect{"Th", "Zr", "Hf"});
+    surrElem.push_back(strVect{"I", "Br"});
+    surrElem.push_back(strVect{"H", "He", "Ne", "Ar", "Kr", "Xe"});
+
+    std::vector<std::map<std::string, double>> surrElemMaps(surrElem.size());
+
+    // lambda to extract the cation and anion from a species formula
+    auto getIonPair = [](std::string str) -> std::pair<std::string, std::string>
+    {
+        if (str.size() < 2) throw std::domain_error("String is too short.");
+        std::string cat;
+        cat.push_back(str[0]);
+        for (int i = 1; i < str.size(); i++){
+            if (islower(str[i])) cat += str[i];
+            else break;
+        }
+
+        std::string an = "";
+        for (int i = str.size()-1; i >= 0; i--){
+            if (islower(str[i])) an = str[i] + an;
+            else if (isupper(str[i])){
+                an = str[i] + an;
+                break;
+            }
+        }
+
+        return std::pair<std::string, std::string>{cat, an};
+    };
+
+    for (int i = 1; i < scaleData.size(); i++){
+        std::map<std::string, double> specMap; // To access and modify values
+        std::vector<std::pair<std::string, double>> specPair, specGas;
+        // specPair and specGas can be sorted
+        double T;
+        double P;
+
+        // Populate surrElemMap with the mole fraction of each surrogated
+        // element in each group.
+        for (int group = 0; group < surrElem.size(); group++){
+            std::map<std::string, double> m;
+            double sumSurr = 0;
+
+            for (int j = 0; j < surrElem[group].size(); j++){
+                std::string ele = surrElem[group][j];
+                auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), ele);
+                if (it != scaleData[0].cend()){ // If the element is found
+                    m[ele] = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+                    if (ele == "H"){
+                        if (includesHF) m[ele] = 0;
+                        else m[ele] = m[ele] / 2;
+                    }
+                    sumSurr += m.at(ele);
+                } else m[ele] = 0;
+            }
+
+            if (sumSurr > 0 && group < 4){
+                for (auto& it: m) it.second /= sumSurr;
+                surrElemMaps[group] = m;
+            } else if (group == 4){
+                // Now it is a gas;
+                for (auto it: m){
+                    if (it.second == 0) continue;
+                    std::pair<std::string, double> spec{it.first, it.second};
+                    if (it.first == "H") spec.first = "H2";
+                    specGas.push_back(spec);
+                }
+            }
+        }
+
+        while (line.find("Moles of pairs") >= line.size()) getline(input,line);
+
+        auto v = strToVect(line);
+        double n = std::stod(v[0]); // Total amount (moles) of salts
+        double xUF4 = 0;
+        double xUI4 = 0;
+
+        while (line.find("Quadruplet") >= line.size()){
+            getline(input,line);
+            if (!containsNumber(line)) continue;
+
+            auto v = strToVect(line);
+            if (v.back() == "}") v.pop_back();
+            double x = std::stod(v[v.size()-2]);
+
+            if (v.back() == "U2F8") xUF4 += x*2;
+            else if (v.back() == "U2I8") xUI4 += x*2;
+            else if (v.back() == "U[VI]-F4" || v.back() == "U[VII]-F4")
+                xUF4 += x;
+            else if (v.back() == "U[VI]-I4" || v.back() == "U[VII]-I4")
+                xUI4 += x;
+            else if (v.back() == "Be2F4") specMap["BeF2"] += x*2;
+            else if (v.back() == "Be2I4") specMap["BeI2"] += x*2;
+            else specMap[v.back()] = x;
+        }
+
+        if (xUF4 > 0) specMap["UF4"] = xUF4; // Sum of all configurations
+        if (xUI4 > 0) specMap["UI4"] = xUI4;
+
+        if (includesHF || includesSSol){
+            while (line.find("Temperature") >= line.size()) getline(input,line);
+            v = strToVect(line);
+            T = std::stod(v[v.size()-2]); // System temperature
+        }
+
+        if (includesHF){
+            while (line.find("Pressure") >= line.size()) getline(input,line);
+            v = strToVect(line);
+            P = std::stod(v[v.size()-2]);
+            if (v.back() == "[atm]") P *= 1.01325;
+            // System pressure divided by 1 bar
+        }
+
+        // Decouples data in the map and put the results in the vector
+        for (auto& it: specMap){
+            if (it.second == 0) continue;
+            it.second *= n;
+
+            std::pair<std::string, std::string> ions;
+            try{
+                ions =  getIonPair(it.first);
+            } catch (const std::domain_error& ex){
+                continue;
+            }
+
+            if (ions.second == "I"){
+                if (ions.first == "Ca" || ions.first == "La" ||
+                    ions.first == "Th"){
+
+                    char oxiState;
+                    if (ions.first == "Ca") oxiState = '2';
+                    else if (ions.first == "La") oxiState = '3';
+                    else oxiState = '4';
+                    int mapIndex = oxiState - '2';
+
+                    for (auto cat: surrElem[mapIndex]){
+                        for (auto an: surrElem[3]){
+                            std::string specName = cat + an + oxiState;
+                            double amount = it.second * surrElemMaps[mapIndex][cat]
+                                                      * surrElemMaps[3][an];
+                            if (amount == 0) continue;
+                            std::pair<std::string, double> spec{specName, amount};
+                            specPair.push_back(spec);
+                        }
+                    }
+
+                } else{
+                    char oxiState = it.first.back() == 'I' ? ' ' : it.first.back();
+                    for (auto an: surrElem[3]){
+                        std::string specName = ions.first + an + oxiState;
+                        double amount = it.second * surrElemMaps[3][an];
+                        if (amount == 0) continue;
+                        std::pair<std::string, double> spec{specName, amount};
+                        specPair.push_back(spec);
+                    }
+                }
+
+            } else if (ions.first == "Ca" || ions.first == "La" ||
+                       ions.first == "Th"){
+
+                char oxiState;
+                if (ions.first == "Ca") oxiState = '2';
+                else if (ions.first == "La") oxiState = '3';
+                else oxiState = '4';
+                int mapIndex = oxiState - '2';
+
+                for (auto cat: surrElem[mapIndex]){
+                    std::string specName = cat + ions.second + oxiState;
+                    double amount = it.second * surrElemMaps[mapIndex][cat];
+                    if (amount == 0) continue;
+                    std::pair<std::string, double> spec{specName, amount};
+                    specPair.push_back(spec);
+                }
+            } else{
+                std::pair<std::string, double> spec{it.first, it.second};
+                specPair.push_back(spec);
+            }
+        }
+
+        double sumSalt = 0.0;
+        double sumGas = 0.0;
+        for (auto it: specPair) sumSalt += it.second;
+        for (auto it: specGas) sumGas += it.second;
+
+        if (includesSSol){
+            // Codes to check for mole fraction in solid
+            double XCr, XFe, XNi;
+            auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Cr");
+            if (it != scaleData[0].cend()){
+                XCr = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Fe");
+            if (it != scaleData[0].cend()){
+                XFe = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Ni");
+            if (it != scaleData[0].cend()){
+                XNi = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+
+            if (XCr >= 0 && XFe >= 0 && XNi >= 0 && XCr + XFe + XNi > 0){
+                if (XCr > 1 || XFe > 1 || XNi > 1 || XCr + XFe + XNi > 1){
+                    double sum = XCr + XFe + XNi;
+                    XCr /= sum;
+                    XFe /= sum;
+                    XNi /= sum;
+                }
+
+                std::vector<std::pair<std::string, double>> specSol;
+                specSol.push_back(std::pair<std::string, double>{"Cr", XCr});
+                specSol.push_back(std::pair<std::string, double>{"Fe", XFe});
+                specSol.push_back(std::pair<std::string, double>{"Ni", XNi});
+
+                std::sort(specGas.begin(), specGas.end(),
+                          [](std::pair<std::string, double> p, std::pair<std::string, double> q)
+                            { return p.second > q.second; }
+                         );
+
+                output << "Solid solution\n";
+                for (int i = 0; i < specSol.size(); i++){
+                    std::string start = i == 0 ? "\t{" : "\t+";
+                    output << start << " " << specSol[i].second;
+                    output << "\t\t" << specSol[i].first;
+                    if (i == specSol.size()-1) output << "\t}";
+                    output << "\n";
+                }
+
+                // Calculates the fraction of corrosion products
+                double GF = G_F(specMap["UF3"], specMap["UF4"], T);
+                double xCrF2 = XCr * exp((GF - G_CrF2(T))/(R*T))/gamma_Inf_CrF2; // x_CrF2 in salt
+                double xCrF3 = xCrF2*gamma_Inf_CrF2 * exp((GF-2*G_CrF3(T))/2/R/T); // x_CrF3 in salt
+                double xFeF2 = XFe * exp((GF - G_FeF2(T))/(R*T))/gamma_Inf_FeF2; // x_FeF2 in salt
+                //XNi *= exp((GF - G_NiF2(T))/(R*T))/gamma_Inf_NiF2; // x_NiF2 in salt
+
+                double nCrF2 = xCrF2*sumSalt/(1-xCrF2);
+                // Assuming only the CrF2 changes the total amount of salt.
+                double nCrF3 = xCrF3*(sumSalt+=nCrF2);
+                double nFeF2 = xFeF2*sumSalt;
+                sumSalt += (nCrF3+nFeF2);
+                specPair.push_back(std::pair<std::string, double>{"CrF2", nCrF2});
+                specPair.push_back(std::pair<std::string, double>{"CrF3", nCrF3});
+                specPair.push_back(std::pair<std::string, double>{"FeF2", nFeF2});
+                for (auto& it: specPair){
+                    if (it.first.substr(0,2) == "Ni") it.second *= XNi;
+                }
+
+            } else{
+                std::cout << "WARNING: Negative amount of solid entered at entry number "
+                          << i << std::endl;
+            }
+        }
+
+        if (includesHF){
+            double nH;
+            auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "H");
+            if (it != scaleData[0].cend()){
+                nH = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+
+            if (nH > 0){
+               double GF = G_F(specMap["UF3"], specMap["UF4"], T);
+               double K = exp((GF-2*G_HF(T))/2/8.314/T);
+               double a = 4+K*K/P;
+               double b = 4*nH + K*K/P*(nH+sumGas);
+               double c = nH*nH;
+
+               double nH2 = (b-sqrt(b*b-4*a*c))/2/a;
+               double nHF = nH - 2*nH2;
+               specGas.push_back(std::pair<std::string, double>{"H2", nH2});
+               specGas.push_back(std::pair<std::string, double>{"HF", nHF});
+               sumGas += nH2+nHF;
+
+               double nF2 = exp(GF/8.314/T)/P*sumGas;
+               specGas.push_back(std::pair<std::string, double>{"F2", nF2});
+            }
+        }
+
+        // Sorts the vector and outputs its data
+        std::sort(specPair.begin(), specPair.end(),
+                  [](std::pair<std::string, double> p, std::pair<std::string, double> q)
+                  { return p.second > q.second; }
+                 );
+        std::sort(specGas.begin(), specGas.end(),
+                  [](std::pair<std::string, double> p, std::pair<std::string, double> q)
+                  { return p.second > q.second; }
+                 );
+
+        if (sumSalt > 0){
+            output << sumSalt << " Moles of pairs\n";
+            output << "Pair fractions:\n";
+            for (int i = 0; i < specPair.size(); i++){
+                std::string start = i == 0 ? "\t{" : "\t+";
+                output << start << " " << specPair[i].second/sumSalt;
+                output << "\t\t" << specPair[i].first;
+                if (i == specPair.size()-1) output << "\t}";
+                output << "\n";
+            }
+        }
+
+        if (sumGas > 0){
+            output << sumGas << " mol gas_ideal\n";
+            for (int i = 0; i < specGas.size(); i++){
+                std::string start = i == 0 ? "\t{" : "\t+";
+                output << start << " " << specGas[i].second/sumGas;
+                output << "\t\t" << specGas[i].first;
+                if (i == specGas.size()-1) output << "\t}";
+                output << "\n";
+            }
+        }
+
+        output << "DEBUG: Successful exit.\n\n";
+    }
+
+    input.close();
+    output.close();
 }
 
+/*
 void massToMole(const std::string& outFile,
                 const std::map<std::string, double>& comp,
                 double mass)
@@ -497,4 +829,4 @@ void massToMole(const std::string& outFile,
         }
     }
     vectToThermI(v, outFile);
-}
+} */
