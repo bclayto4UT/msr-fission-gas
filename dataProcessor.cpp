@@ -535,7 +535,8 @@ Warning:
         std::map<std::string, double> specMap; // To access and modify values
         std::vector<std::pair<std::string, double>> specPair, specGas;
         // specPair and specGas are vectors so that they can be sorted
-        double T, P;
+        double T, P, XCr, XFe, XNi;
+        bool validSolids = false;
 
         // Populate surrElemMap with the mole fraction of each surrogated
         // element in each group.
@@ -557,14 +558,14 @@ Warning:
                 for (auto& it: m) it.second /= sumSurr;
                 surrElemMaps[group] = m;
             } else if (group == 4){
-                // Now it is a gas;
+                // Group 4 is a group of gases;
                 for (auto it: m){
                     if (it.second == 0) continue;
                     std::pair<std::string, double> spec{it.first, it.second};
                     if (it.first == "H") spec.first = "H2";
                     specGas.push_back(spec);
                 }
-            }
+            } // Group 5 does not count
         }
 
         while (line.find("Moles of pairs") >= line.size()) getline(input,line);
@@ -610,6 +611,31 @@ Warning:
             // System pressure in bar
         }
 
+        if (includesSSol){
+            auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Cr");
+            if (it != scaleData[0].cend()){
+                XCr = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Fe");
+            if (it != scaleData[0].cend()){
+                XFe = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Ni");
+            if (it != scaleData[0].cend()){
+                XNi = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+            }
+
+            if (XCr >= 0 && XFe >= 0 && XNi >= 0 && XCr + XFe + XNi > 0){
+                validSolids = true;
+                if (XCr > 1 || XFe > 1 || XNi > 1 || XCr + XFe + XNi > 1){
+                    double sum = XCr + XFe + XNi;
+                    XCr /= sum;
+                    XFe /= sum;
+                    XNi /= sum;
+                }
+            }
+        }
+
         // Decouples data in the map and put the results in the vector
         for (auto& it: specMap){
             if (it.second == 0) continue;
@@ -620,6 +646,9 @@ Warning:
                 ions =  getIonPair(it.first);
             } catch (const std::domain_error& ex){
                 continue;
+            }
+
+            if (includesSSol & ions.first == "Ni"){
             }
 
             if (ions.second == "I"){
@@ -645,6 +674,7 @@ Warning:
 
                 } else{
                     char oxiState = it.first.back() == 'I' ? ' ' : it.first.back();
+                    if (includesSSol && ions.first == "Ni") it.second *= XNi;
                     for (auto an: surrElem[3]){
                         std::string specName = ions.first + an + oxiState;
                         double amount = it.second * surrElemMaps[3][an];
@@ -671,8 +701,10 @@ Warning:
                     specPair.push_back(spec);
                 }
             } else{
-                std::pair<std::string, double> spec{it.first, it.second};
-                specPair.push_back(spec);
+                if (!(includesSSol && ions.first == "Ni")){
+                    std::pair<std::string, double> spec{it.first, it.second};
+                    specPair.push_back(spec);
+                }
             }
         }
 
@@ -684,28 +716,7 @@ Warning:
 
         if (includesSSol){
             // Codes to check for mole fraction in solid
-            double XCr, XFe, XNi;
-            auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Cr");
-            if (it != scaleData[0].cend()){
-                XCr = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
-            }
-            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Fe");
-            if (it != scaleData[0].cend()){
-                XFe = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
-            }
-            it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Ni");
-            if (it != scaleData[0].cend()){
-                XNi = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
-            }
-
-            if (XCr >= 0 && XFe >= 0 && XNi >= 0 && XCr + XFe + XNi > 0){
-                if (XCr > 1 || XFe > 1 || XNi > 1 || XCr + XFe + XNi > 1){
-                    double sum = XCr + XFe + XNi;
-                    XCr /= sum;
-                    XFe /= sum;
-                    XNi /= sum;
-                }
-
+            if (validSolids){
                 // Outputs solid phase
                 std::vector<std::pair<std::string, double>> specSol;
                 specSol.push_back(std::pair<std::string, double>{"Cr", XCr});
@@ -723,23 +734,24 @@ Warning:
                     output << "\n";
                 }
 
-                // Calculates the fraction of corrosion products
+                    // Calculates the fraction of corrosion products
                 std::function<Vector(const Vector&)> thermoFunc =
                 [&](const Vector& zeta) -> Vector
                 {
                     double xUF3 = specMap["UF3"]*sumSalt;
                     xUF4 = specMap["UF4"]*sumSalt;
 
-                    double nSalt = sumSalt+zeta(1)+zeta(3);
+                    double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5);
                     double aCrF2 = 0.5*(zeta(1)-zeta(2))/nSalt;
                     double aCrF3 = 1.0*zeta(2)/nSalt;
                     double aFeF2 = 1.6*(zeta(3)-zeta(4))/nSalt;
                     double aFeF3 = 1.0*zeta(4)/nSalt;
-                    xUF3 = (xUF3+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4))/nSalt;
-                    xUF4 = (xUF4-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4))/nSalt;
+                    double aNiF2 = 1.0*zeta(5)/nSalt;
+                    xUF3 = (xUF3+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5))/nSalt;
+                    xUF4 = (xUF4-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4)-2*zeta(5))/nSalt;
                     double GF2 = G_F(xUF3, xUF4, T);
 
-                    Vector y(5);
+                    Vector y(6);
                     if (!includesHF || sumGas == 0) y(0) = zeta(0);
                     else{
                         double nH2;
@@ -762,6 +774,7 @@ Warning:
                     y(2) = aCrF3/aCrF2 - exp((0.5*GF2 - G_CrF3(T))/(R*T));
                     y(3) = aFeF2/XFe - exp((GF2 - G_FeF2(T))/(R*T));
                     y(4) = aFeF3/aFeF2 - exp((0.5*GF2 - G_FeF3(T))/(R*T));
+                    y(5) = aNiF2/XNi - exp((GF2 - G_NiF2(T))/(R*T));
                     return y;
                 };
 
@@ -769,6 +782,7 @@ Warning:
                             1e-4*sumSalt,
                             1e-9*sumSalt,
                             1e-9*sumSalt,
+                            1e-12*sumSalt,
                             1e-12*sumSalt};
 
                 try{
@@ -778,12 +792,10 @@ Warning:
                     specPair.push_back(std::pair<std::string, double>{"CrF3", zeta(2)});
                     specPair.push_back(std::pair<std::string, double>{"FeF2", zeta(3)-zeta(4)});
                     specPair.push_back(std::pair<std::string, double>{"FeF3", zeta(4)});
+                    specPair.push_back(std::pair<std::string, double>{"NiF2", zeta(5)});
                     for (auto& it: specPair){
-                        if (it.first.substr(0,2) == "Ni") it.second *= XNi;
-                    }
-                    for (auto& it: specPair){
-                        if (it.first == "UF3") it.second += (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4));
-                        if (it.first == "UF4") it.second -= (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4));
+                        if (it.first == "UF3") it.second += (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5));
+                        if (it.first == "UF4") it.second -= (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5));
                     }
 
                     if (includesHF && sumGas > 0){
@@ -798,12 +810,12 @@ Warning:
                     message += "WARNING: Unable to solve for zeta.\n";
                 }
 
-            } else{
-                message += "WARNING: Negative amount of solid entered at entry number ";
-                message += std::to_string(i);
-                message += ".\n";
-            }
+        } else{
+            message += "WARNING: Invalid solid solution specification at number ";
+            message += std::to_string(i);
+            message += ".\n";
         }
+    }
 
         else if (includesHF && sumGas > 0){
             double nH2;
