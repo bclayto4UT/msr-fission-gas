@@ -1,12 +1,12 @@
 #include "miscellaneous.h"
 
-std::string findElement(int num){
-    if (num < 0 || num > 118)
-        throw std::out_of_range("Atomic number out of range");
-    for (auto const& it: elementMap){
-        if (it.second == num) return it.first;
-    }
-}
+//std::string findElement(int num){
+//    if (num < 0 || num > 118)
+//        throw std::out_of_range("Atomic number out of range");
+//    for (auto const& it: atomNumMap){
+//        if (it.second == num) return it.first;
+//    }
+//}
 
 std::string elementSymb(const std::string& str){
     std::string ele;
@@ -58,3 +58,4 @@ void convertibleNum(std::string& str){
         }
     }
 }
+

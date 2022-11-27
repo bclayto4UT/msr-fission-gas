@@ -94,6 +94,9 @@ const std::map<std::string, std::array<double,8>> heatData = {
     {"Fe0", std::array<double, 8>{0, 27.321, 18.42868, 0.02464301, -8.9137E-06, 9.66471E-09, 12643, 298.15}},
     {"Fe1", std::array<double, 8>{0, 0, -57767.65, 137.9197, -0.1227732, 3.86824E-05, 3.9931E+09, 700}},
     {"FeF2", std::array<double, 8>{-674.55, 92.54, 98.324, 0, 0, 0, 0, 298.15}},
+    {"FeF30", std::array<double, 8>{-1041.82, 98.28, -29794.50, 192.68, -0.464154, 3.96689e-4, 2.83084e8, 298.15}},
+    {"FeF31", std::array<double, 8>{0, 0, 15482.7, -77.2309, 0.144403, -9.54538e-5, -2.38266e8, 367}},
+    {"FeF32", std::array<double, 8>{0, 0, 86.66, 0.0170956, -2.794011e-6, 5.82977e-10, 293204, 450}},
     {"Ni0", std::array<double, 8>{0, 29.87, 13.6916, 0.08249509, -0.000174955, 1.6160E-07, -92417, 298.15}},
     {"Ni1", std::array<double, 8>{0, 0, 1248.045, -1.25751, 0, 0, -165126600, 600}},
     {"Ni2", std::array<double, 8>{0, 0, 16.49839, 0.01874913, -6.6398E-06, 1.71728E-09, 1872051, 700}},
@@ -113,6 +116,7 @@ double G_UF4(const double T);
 double G_CrF2(const double T);
 double G_CrF3(const double T);
 double G_FeF2(const double T);
+double G_FeF3(const double T);
 double G_NiF2(const double T);
 double G_F(const double xUF3, const double xUF4, const double T);
 

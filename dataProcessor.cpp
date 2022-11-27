@@ -3,6 +3,8 @@
 #include <fstream>
 
 #include "dataProcessor.h"
+#include "iterativeNL.h"
+#include "rootFinding.h"
 #include "thermoElectroChem.h"
 
 std::vector<strVect> scaleToVector(const std::string& inFile,
@@ -526,12 +528,14 @@ Warning:
         return std::pair<std::string, std::string>{cat, an};
     };
 
+    auto compVector = [](std::pair<std::string, double> p,
+                         std::pair<std::string, double> q)
+                        { return p.second > q.second; };
     for (int i = 1; i < scaleData.size(); i++){
         std::map<std::string, double> specMap; // To access and modify values
         std::vector<std::pair<std::string, double>> specPair, specGas;
-        // specPair and specGas can be sorted
-        double T;
-        double P;
+        // specPair and specGas are vectors so that they can be sorted
+        double T, P;
 
         // Populate surrElemMap with the mole fraction of each surrogated
         // element in each group.
@@ -544,10 +548,7 @@ Warning:
                 auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), ele);
                 if (it != scaleData[0].cend()){ // If the element is found
                     m[ele] = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
-                    if (ele == "H"){
-                        if (includesHF) m[ele] = 0;
-                        else m[ele] = m[ele] / 2;
-                    }
+                    if (ele == "H") m[ele] /= 2;
                     sumSurr += m.at(ele);
                 } else m[ele] = 0;
             }
@@ -605,8 +606,8 @@ Warning:
             while (line.find("Pressure") >= line.size()) getline(input,line);
             v = strToVect(line);
             P = std::stod(v[v.size()-2]);
-            if (v.back() == "[atm]") P *= 1.01325;
-            // System pressure divided by 1 bar
+            P *= 1.01325;
+            // System pressure in bar
         }
 
         // Decouples data in the map and put the results in the vector
@@ -677,6 +678,7 @@ Warning:
 
         double sumSalt = 0.0;
         double sumGas = 0.0;
+        std::string message;
         for (auto it: specPair) sumSalt += it.second;
         for (auto it: specGas) sumGas += it.second;
 
@@ -704,15 +706,13 @@ Warning:
                     XNi /= sum;
                 }
 
+                // Outputs solid phase
                 std::vector<std::pair<std::string, double>> specSol;
                 specSol.push_back(std::pair<std::string, double>{"Cr", XCr});
                 specSol.push_back(std::pair<std::string, double>{"Fe", XFe});
                 specSol.push_back(std::pair<std::string, double>{"Ni", XNi});
 
-                std::sort(specGas.begin(), specGas.end(),
-                          [](std::pair<std::string, double> p, std::pair<std::string, double> q)
-                            { return p.second > q.second; }
-                         );
+                std::sort(specGas.begin(), specGas.end(), compVector);
 
                 output << "Solid solution\n";
                 for (int i = 0; i < specSol.size(); i++){
@@ -724,64 +724,135 @@ Warning:
                 }
 
                 // Calculates the fraction of corrosion products
-                double GF = G_F(specMap["UF3"], specMap["UF4"], T);
-                double xCrF2 = XCr * exp((GF - G_CrF2(T))/(R*T))/gamma_Inf_CrF2; // x_CrF2 in salt
-                double xCrF3 = xCrF2*gamma_Inf_CrF2 * exp((GF-2*G_CrF3(T))/2/R/T); // x_CrF3 in salt
-                double xFeF2 = XFe * exp((GF - G_FeF2(T))/(R*T))/gamma_Inf_FeF2; // x_FeF2 in salt
-                //XNi *= exp((GF - G_NiF2(T))/(R*T))/gamma_Inf_NiF2; // x_NiF2 in salt
+                std::function<Vector(const Vector&)> thermoFunc =
+                [&](const Vector& zeta) -> Vector
+                {
+                    double xUF3 = specMap["UF3"]*sumSalt;
+                    xUF4 = specMap["UF4"]*sumSalt;
 
-                double nCrF2 = xCrF2*sumSalt/(1-xCrF2);
-                // Assuming only the CrF2 changes the total amount of salt.
-                double nCrF3 = xCrF3*(sumSalt+=nCrF2);
-                double nFeF2 = xFeF2*sumSalt;
-                sumSalt += (nCrF3+nFeF2);
-                specPair.push_back(std::pair<std::string, double>{"CrF2", nCrF2});
-                specPair.push_back(std::pair<std::string, double>{"CrF3", nCrF3});
-                specPair.push_back(std::pair<std::string, double>{"FeF2", nFeF2});
-                for (auto& it: specPair){
-                    if (it.first.substr(0,2) == "Ni") it.second *= XNi;
+                    double nSalt = sumSalt+zeta(1)+zeta(3);
+                    double aCrF2 = 0.5*(zeta(1)-zeta(2))/nSalt;
+                    double aCrF3 = 1.0*zeta(2)/nSalt;
+                    double aFeF2 = 1.6*(zeta(3)-zeta(4))/nSalt;
+                    double aFeF3 = 1.0*zeta(4)/nSalt;
+                    xUF3 = (xUF3+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4))/nSalt;
+                    xUF4 = (xUF4-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4))/nSalt;
+                    double GF2 = G_F(xUF3, xUF4, T);
+
+                    Vector y(5);
+                    if (!includesHF || sumGas == 0) y(0) = zeta(0);
+                    else{
+                        double nH2;
+                        for (auto& it: specGas){
+                            if (it.first == "H2"){
+                                nH2 = it.second;
+                                break;
+                            }
+                        }
+
+                        if (nH2 > 0.0){
+                            double nGas = sumGas+zeta(0)/2;
+                            double pH2 = (nH2-zeta(0)/2)/nGas*P;
+                            double pHF = zeta(0)/nGas*P;
+                            y(0) = pHF*pHF/pH2 - exp((GF2 - 2*G_HF(T))/(R*T));
+                        } else y(0) = zeta(0);
+                    }
+
+                    y(1) = aCrF2/XCr - exp((GF2 - G_CrF2(T))/(R*T));
+                    y(2) = aCrF3/aCrF2 - exp((0.5*GF2 - G_CrF3(T))/(R*T));
+                    y(3) = aFeF2/XFe - exp((GF2 - G_FeF2(T))/(R*T));
+                    y(4) = aFeF3/aFeF2 - exp((0.5*GF2 - G_FeF3(T))/(R*T));
+                    return y;
+                };
+
+                Vector zeta{1e-6*std::max(sumGas,1e-10), // sumGas being 0 breaks the code.
+                            1e-4*sumSalt,
+                            1e-9*sumSalt,
+                            1e-9*sumSalt,
+                            1e-12*sumSalt};
+
+                try{
+                    zeta = newton(thermoFunc, zeta, 100, 1e-6);
+                    sumSalt += zeta(1) + zeta(3);
+                    specPair.push_back(std::pair<std::string, double>{"CrF2", zeta(1)-zeta(2)});
+                    specPair.push_back(std::pair<std::string, double>{"CrF3", zeta(2)});
+                    specPair.push_back(std::pair<std::string, double>{"FeF2", zeta(3)-zeta(4)});
+                    specPair.push_back(std::pair<std::string, double>{"FeF3", zeta(4)});
+                    for (auto& it: specPair){
+                        if (it.first.substr(0,2) == "Ni") it.second *= XNi;
+                    }
+                    for (auto& it: specPair){
+                        if (it.first == "UF3") it.second += (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4));
+                        if (it.first == "UF4") it.second -= (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4));
+                    }
+
+                    if (includesHF && sumGas > 0){
+                        sumGas += zeta(0)/2;
+                        specGas.push_back(std::pair<std::string, double>{"HF", zeta(0)});
+                        for (auto& it: specGas){
+                            if (it.first == "H2") it.second -= zeta(0)/2;
+                        }
+                    }
+                } catch(const std::exception& ex){
+                    zeta = 0.0;
+                    message += "WARNING: Unable to solve for zeta.\n";
                 }
 
             } else{
-                std::cout << "WARNING: Negative amount of solid entered at entry number "
-                          << i << std::endl;
+                message += "WARNING: Negative amount of solid entered at entry number ";
+                message += std::to_string(i);
+                message += ".\n";
             }
         }
 
-        if (includesHF){
-            double nH;
-            auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "H");
-            if (it != scaleData[0].cend()){
-                nH = std::stod(scaleData[i][it - scaleData[0].cbegin()]);
+        else if (includesHF && sumGas > 0){
+            double nH2;
+            for (auto& it: specGas){
+                if (it.first == "H2"){
+                    nH2 = it.second;
+                    break;
+                }
             }
 
-            if (nH > 0){
-               double GF = G_F(specMap["UF3"], specMap["UF4"], T);
-               double K = exp((GF-2*G_HF(T))/2/8.314/T);
-               double a = 4+K*K/P;
-               double b = 4*nH + K*K/P*(nH+sumGas);
-               double c = nH*nH;
+            if (nH2 > 0.0){
+                std::function<double(const double)> thermoFunc =
+                [&](const double zeta) -> double
+                {
+                    double xUF3 = specMap["UF3"]*sumSalt + zeta;
+                    xUF4 = specMap["UF4"]*sumSalt + zeta;
+                    double GF2 = G_F(xUF3, xUF4, T);
 
-               double nH2 = (b-sqrt(b*b-4*a*c))/2/a;
-               double nHF = nH - 2*nH2;
-               specGas.push_back(std::pair<std::string, double>{"H2", nH2});
-               specGas.push_back(std::pair<std::string, double>{"HF", nHF});
-               sumGas += nH2+nHF;
+                    double nGas = sumGas+zeta/2;
+                    double pH2 = (nH2-zeta/2)/nGas*P;
+                    double pHF = zeta/nGas*P;
 
-               double nF2 = exp(GF/8.314/T)/P*sumGas;
-               specGas.push_back(std::pair<std::string, double>{"F2", nF2});
+                    return pHF*pHF/pH2 - exp((GF2 - 2*G_HF(T))/(R*T));
+                };
+
+                try{
+                    double zeta = 1e-6*std::max(sumGas, 1e-10);
+                    zeta = newton(thermoFunc, zeta, 100, 1e-12);
+                    sumGas += zeta/2;
+                    specGas.push_back(std::pair<std::string, double>{"HF", zeta});
+                    for (auto& it: specGas){
+                        if (it.first == "H2"){
+                            it.second -= zeta/2;
+                            break;
+                        }
+                    }
+                    for (auto& it: specPair){
+                        if (it.first == "UF3") it.second += zeta;
+                        if (it.first == "UF4") it.second -= zeta;
+                    }
+                } catch(const std::exception& ex){
+                    message += "WARNING: Unable to solve for zeta.\n";
+                }
             }
         }
 
         // Sorts the vector and outputs its data
-        std::sort(specPair.begin(), specPair.end(),
-                  [](std::pair<std::string, double> p, std::pair<std::string, double> q)
-                  { return p.second > q.second; }
-                 );
-        std::sort(specGas.begin(), specGas.end(),
-                  [](std::pair<std::string, double> p, std::pair<std::string, double> q)
-                  { return p.second > q.second; }
-                 );
+        std::sort(specPair.begin(), specPair.end(), compVector);
+        std::sort(specGas.begin(), specGas.end(), compVector);
 
         if (sumSalt > 0){
             output << sumSalt << " Moles of pairs\n";
@@ -806,7 +877,9 @@ Warning:
             }
         }
 
-        output << "DEBUG: Successful exit.\n\n";
+        if (message.empty()) message = "DEBUG: Successful exit.\n\n";
+        else message += "WARNING: Erroneous calculations may have occurred.\n\n";
+        output << message;
     }
 
     input.close();

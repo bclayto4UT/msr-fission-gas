@@ -85,6 +85,29 @@ double G_FeF2(const double T){
     return g_FeF2 - g_F2 - g_Fe;
 }
 
+double G_FeF3(const double T){
+    // Free energy of reaction FeF2 + 1/2 F2 <-> FeF3 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_FeF2 = calc_G(heatData.at("FeF2"), T);
+    double g_FeF3;
+
+    if (T <= 367) g_FeF3 = calc_G(heatData.at("FeF30"), T);
+    else if (T <= 450){
+        double h_FeF3 = calc_H(heatData.at("FeF30"), 367) + calc_H(heatData.at("FeF31"), T);
+        double s_FeF3 = calc_S(heatData.at("FeF30"), 367) + calc_S(heatData.at("FeF31"), T);
+        g_FeF3 = h_FeF3-T*s_FeF3;
+    } else{
+        double h_FeF3 = calc_H(heatData.at("FeF30"), 367) + calc_H(heatData.at("FeF31"), 450)
+                        + calc_H(heatData.at("FeF32"), T);
+        double s_FeF3 = calc_S(heatData.at("FeF30"), 367) + calc_S(heatData.at("FeF31"), 450)
+                        + calc_S(heatData.at("FeF32"), T);
+        g_FeF3 = h_FeF3-T*s_FeF3;
+    }
+
+    return g_FeF3 - 0.5*g_F2 - g_FeF2;
+}
+
+
 double G_NiF2(const double T){
     // Free energy of formation of NiF2 in J/mol
     double g_Ni;
