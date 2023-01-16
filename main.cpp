@@ -8,7 +8,6 @@ using namespace std;
 
 int main()
 {
-
     string inFile, outFile;
     int option = -1;
     do{
@@ -126,42 +125,51 @@ int main()
             } else if (option == 5){ // Work on this
             } else if (option == 6){
                 string inFile, thermoIn, thermoOut, ansYN;
-                cout << "Enter SCALE output file: ";
-                cin >> inFile;
-                auto v = scaleToVector(inFile, false);
+                try{
+                    cout << "Enter SCALE output file: ";
+                    cin >> inFile;
+                    auto v = scaleToVector(inFile, false);
 
-                cout << "Enter original Thermochimica output file of the above SCALE output: ";
-                cin >> thermoIn;
-                cout << "Enter new output file: ";
-                cin >> thermoOut;
+                    cout << "Enter original Thermochimica output file of the above SCALE output: ";
+                    cin >> thermoIn;
+                    cout << "Enter new output file: ";
+                    cin >> thermoOut;
 
-                cout << "The default setting excludes any solid solution and HF.\n";
-                do{
-                    cout << "Is that how you wish to proceed? Enter Y/N: ";
-                    cin >> ansYN;
-                    try{
-                        if (ansYN == "N" || ansYN == "n"){
-                            bool includesSS, includesHF;
-                            cout << "Include solid solution? If yes, make sure the fraction ";
-                            cout << "of each metal is in the SCALE output, not the actual amount.\n";
-                            cout << "Type Y/N: ";
-                            cin >> ansYN;
-                            includesSS = (ansYN == "Y" || ansYN == "y");
+                    cout << "The default setting excludes any solid solution and HF.\n";
+                    do{
+                        cout << "Is that how you wish to proceed? Enter Y/N: ";
+                        cin >> ansYN;
+                        try{
+                            if (ansYN == "N" || ansYN == "n"){
+                                bool includesSS, includesHF;
+                                cout << "Include solid solution? If yes, make sure the fraction ";
+                                cout << "of each metal is in the SCALE output, not the actual amount.\n";
+                                cout << "Type Y/N: ";
+                                cin >> ansYN;
+                                includesSS = (ansYN == "Y" || ansYN == "y");
 
-                            cout << "Include HF/H2 calculation? Type Y/N: ";
-                            cin >> ansYN;
-                            includesHF = (ansYN == "Y" || ansYN == "y");
-                            decoupleSurr(v, thermoIn, thermoOut, includesSS, includesHF);
-                            cout << "Successful!" << endl << endl;
+                                cout << "Include HF/H2 calculation? Type Y/N: ";
+                                cin >> ansYN;
+                                includesHF = (ansYN == "Y" || ansYN == "y");
+                                decoupleSurr(v, thermoIn, thermoOut, includesSS, includesHF);
+                                cout << "Successful!" << endl << endl;
 
-                        } else{
-                            decoupleSurr(v, thermoIn, thermoOut);
-                            cout << "Successful!" << endl << endl;
+                            } else{
+                                decoupleSurr(v, thermoIn, thermoOut);
+                                cout << "Successful!" << endl << endl;
+                            }
+                        } catch (...){
+                            cerr << "Error encountered!" << endl;
+                            continue;
                         }
-                    } catch (...){
-                        cerr << "Error encountered!" << endl;
-                    }
-                } while (ansYN != "N" && ansYN != "n" && ansYN != "Y" && ansYN != "y");
+                    } while (ansYN != "N" && ansYN != "n" && ansYN != "Y" && ansYN != "y");
+                } catch(const invalid_argument& ex){
+                    cerr << ex.what() << endl;
+                    continue;
+                } catch(...){
+                    cerr << "Error encountered!" << endl;
+                    continue;
+                }
             }
 
         } while (option < 0 || option > 4);

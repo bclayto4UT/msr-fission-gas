@@ -80,7 +80,8 @@ Output:
 }
 
 void vectToThermI(const std::vector<strVect>& dataVect,
-                  const std::string& outFile)
+                  const std::string& outFile,
+                  bool includesSurr)
 /****************************************************************
 Input(s):
     dataVect: the tabulated data in the form of a 2D vector
@@ -103,21 +104,50 @@ Output: none
         fileStem = outFile;
     }
 
-    for (int i = 1; i < dataVect.size(); i++){
+    std::vector<strVect> dataVect2(dataVect.size());
+    std::copy(dataVect.cbegin(), dataVect.cend(), dataVect2.begin());
+
+    if (includesSurr){
+        for (int i = 1; i < dataVect2.size(); i++){
+            for (int j = 0; j < dataVect[i].size(); j++){
+                std::string ele = dataVect[0][j];
+                int pos;
+
+                try{
+                    std::string surr = surrogateMapInv.at(ele);
+                    auto it = std::find(dataVect2[0].begin(), dataVect2[0].end(), surr);
+                    pos = it - dataVect2[0].begin();
+
+                    if (pos >= dataVect2[0].size()) dataVect2[0].push_back(surr);
+                    if (pos >= dataVect2[i].size()) dataVect2[i].push_back("0");
+                } catch (std::out_of_range& ex){
+                    pos = j;
+                }
+                if (pos != j){
+                    double orig = stod(dataVect2[i][j]);
+                    double surr = stod(dataVect2[i][pos]);
+                    dataVect2[i][pos] = std::to_string(orig+surr);
+                    dataVect2[i][j] = "0";
+                }
+            }
+        }
+    }
+
+    for (int i = 1; i < dataVect2.size(); i++){
         fileName = fileStem + std::to_string(i) + fileEnding;
         output.open(fileName);
-        for (int j = 0; j < dataVect[i].size(); j++){
-            output << "dElementMass(";
-            output << atomNumMap.at(dataVect[0][j]);
-            output << ") = ";
-            output << dataVect[i][j];
-            output << "\n";
+        for (int j = 0; j < dataVect2[i].size(); j++){
+            if (stod(dataVect2[i][j]) > 0){
+                output << "dElementMass(";
+                output << atomNumMap.at(dataVect2[0][j]);
+                output << ") = ";
+                output << dataVect2[i][j];
+                output << "\n";
+            }
         }
         output.close();
     }
-
 }
-
 
 void textToExcel(const std::string& inFile,
                  const std::string& outFile,
@@ -497,9 +527,10 @@ Warning:
 
     std::vector<std::vector<std::string>> surrElem; // List of surrogated elements
     surrElem.push_back(strVect{"Ca", "Ba", "Sr"});
-    surrElem.push_back(strVect{"La", "Pr", "Pm", "Sm", "Eu", "Gd", "Tb",
-                               "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Y"});
-    surrElem.push_back(strVect{"Th", "Zr", "Hf"});
+    surrElem.push_back(strVect{"La", "Pr", "Pm", "Sm", "Eu", "Gd",
+                               "Tb", "Dy", "Ho", "Er", "Tm", "Y"});
+    surrElem.push_back(strVect{"Np", "Pu", "Am", "Cm"});
+    surrElem.push_back(strVect{"Th", "Zr", "Pa"});
     surrElem.push_back(strVect{"I", "Br"});
     surrElem.push_back(strVect{"H", "He", "Ne", "Ar", "Kr", "Xe"});
 
@@ -554,11 +585,11 @@ Warning:
                 } else m[ele] = 0;
             }
 
-            if (sumSurr > 0 && group < 4){
+            if (sumSurr > 0 && group < surrElem.size()-1){
                 for (auto& it: m) it.second /= sumSurr;
                 surrElemMaps[group] = m;
-            } else if (group == 4){
-                // Group 4 is a group of gases;
+            } else if (group == surrElem.size()-1){
+                // Group 5 is a group of gases;
                 for (auto it: m){
                     if (it.second == 0) continue;
                     std::pair<std::string, double> spec{it.first, it.second};
@@ -597,19 +628,14 @@ Warning:
         if (xUF4 > 0) specMap["UF4"] = xUF4; // Sum of all configurations
         if (xUI4 > 0) specMap["UI4"] = xUI4;
 
-        if (includesHF || includesSSol){
-            while (line.find("Temperature") >= line.size()) getline(input,line);
-            v = strToVect(line);
-            T = std::stod(v[v.size()-2]); // System temperature
-        }
+        while (line.find("Temperature") >= line.size()) getline(input,line);
+        v = strToVect(line);
+        T = std::stod(v[v.size()-2]); // System temperature
 
-        if (includesHF){
-            while (line.find("Pressure") >= line.size()) getline(input,line);
-            v = strToVect(line);
-            P = std::stod(v[v.size()-2]);
-            P *= 1.01325;
-            // System pressure in bar
-        }
+        while (line.find("Pressure") >= line.size()) getline(input,line);
+        v = strToVect(line);
+        P = std::stod(v[v.size()-2]);
+        P *= 1.01325; // System pressure in bar
 
         if (includesSSol){
             auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), "Cr");
@@ -653,19 +679,20 @@ Warning:
 
             if (ions.second == "I"){
                 if (ions.first == "Ca" || ions.first == "La" ||
-                    ions.first == "Th"){
+                    ions.first == "Pu" || ions.first == "Th"){
 
                     char oxiState;
-                    if (ions.first == "Ca") oxiState = '2';
-                    else if (ions.first == "La") oxiState = '3';
-                    else oxiState = '4';
-                    int mapIndex = oxiState - '2';
+                    int mapIndex;
+                    if (ions.first == "Ca"){ oxiState = '2'; mapIndex = 0;}
+                    else if (ions.first == "La"){ oxiState = '3'; mapIndex = 1;}
+                    else if (ions.first == "Pu"){ oxiState = '3'; mapIndex = 2;}
+                    else{ oxiState = '4'; mapIndex = 3;}
 
                     for (auto cat: surrElem[mapIndex]){
-                        for (auto an: surrElem[3]){
+                        for (auto an: surrElem[surrElem.size()-2]){
                             std::string specName = cat + an + oxiState;
                             double amount = it.second * surrElemMaps[mapIndex][cat]
-                                                      * surrElemMaps[3][an];
+                                                      * surrElemMaps[surrElem.size()-2][an];
                             if (amount == 0) continue;
                             std::pair<std::string, double> spec{specName, amount};
                             specPair.push_back(spec);
@@ -675,9 +702,9 @@ Warning:
                 } else{
                     char oxiState = it.first.back() == 'I' ? ' ' : it.first.back();
                     if (includesSSol && ions.first == "Ni") it.second *= XNi;
-                    for (auto an: surrElem[3]){
+                    for (auto an: surrElem[surrElem.size()-2]){
                         std::string specName = ions.first + an + oxiState;
-                        double amount = it.second * surrElemMaps[3][an];
+                        double amount = it.second * surrElemMaps[surrElem.size()-2][an];
                         if (amount == 0) continue;
                         std::pair<std::string, double> spec{specName, amount};
                         specPair.push_back(spec);
@@ -685,13 +712,14 @@ Warning:
                 }
 
             } else if (ions.first == "Ca" || ions.first == "La" ||
-                       ions.first == "Th"){
+                       ions.first == "Pu" || ions.first == "Th"){
 
                 char oxiState;
-                if (ions.first == "Ca") oxiState = '2';
-                else if (ions.first == "La") oxiState = '3';
-                else oxiState = '4';
-                int mapIndex = oxiState - '2';
+                int mapIndex;
+                if (ions.first == "Ca"){ oxiState = '2'; mapIndex = 0;}
+                else if (ions.first == "La"){ oxiState = '3'; mapIndex = 1;}
+                else if (ions.first == "Pu"){ oxiState = '3'; mapIndex = 2;}
+                else{ oxiState = '4'; mapIndex = 3;}
 
                 for (auto cat: surrElem[mapIndex]){
                     std::string specName = cat + ions.second + oxiState;
@@ -738,17 +766,14 @@ Warning:
                 std::function<Vector(const Vector&)> thermoFunc =
                 [&](const Vector& zeta) -> Vector
                 {
-                    double xUF3 = specMap["UF3"]*sumSalt;
-                    xUF4 = specMap["UF4"]*sumSalt;
-
                     double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5);
-                    double aCrF2 = 0.5*(zeta(1)-zeta(2))/nSalt;
+                    double aCrF2 = gamma_Inf_CrF2*(zeta(1)-zeta(2))/nSalt;
                     double aCrF3 = 1.0*zeta(2)/nSalt;
-                    double aFeF2 = 1.6*(zeta(3)-zeta(4))/nSalt;
+                    double aFeF2 = gamma_Inf_FeF2*(zeta(3)-zeta(4))/nSalt;
                     double aFeF3 = 1.0*zeta(4)/nSalt;
-                    double aNiF2 = 1.0*zeta(5)/nSalt;
-                    xUF3 = (xUF3+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5))/nSalt;
-                    xUF4 = (xUF4-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4)-2*zeta(5))/nSalt;
+                    double aNiF2 = gamma_Inf_NiF2(specMap["LiF"]/sumSalt)*zeta(5)/nSalt;
+                    double xUF3 = (specMap["UF3"]+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5))/nSalt;
+                    double xUF4 = (specMap["UF4"]-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4)-2*zeta(5))/nSalt;
                     double GF2 = G_F(xUF3, xUF4, T);
 
                     Vector y(6);
@@ -793,9 +818,11 @@ Warning:
                     specPair.push_back(std::pair<std::string, double>{"FeF2", zeta(3)-zeta(4)});
                     specPair.push_back(std::pair<std::string, double>{"FeF3", zeta(4)});
                     specPair.push_back(std::pair<std::string, double>{"NiF2", zeta(5)});
+
+                    double del = zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5);
                     for (auto& it: specPair){
-                        if (it.first == "UF3") it.second += (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5));
-                        if (it.first == "UF4") it.second -= (zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5));
+                        if (it.first == "UF3") it.second += del;
+                        if (it.first == "UF4") it.second -= del;
                     }
 
                     if (includesHF && sumGas > 0){
@@ -807,6 +834,8 @@ Warning:
                     }
                 } catch(const std::exception& ex){
                     zeta = 0.0;
+                    std::string errMsg = ex.what();
+                    message += errMsg + "\n";
                     message += "WARNING: Unable to solve for zeta.\n";
                 }
 
@@ -830,8 +859,8 @@ Warning:
                 std::function<double(const double)> thermoFunc =
                 [&](const double zeta) -> double
                 {
-                    double xUF3 = specMap["UF3"]*sumSalt + zeta;
-                    xUF4 = specMap["UF4"]*sumSalt + zeta;
+                    double xUF3 = (specMap["UF3"] + zeta)/sumSalt;
+                    double xUF4 = (specMap["UF4"] + zeta)/sumSalt;
                     double GF2 = G_F(xUF3, xUF4, T);
 
                     double nGas = sumGas+zeta/2;
@@ -857,6 +886,8 @@ Warning:
                         if (it.first == "UF4") it.second -= zeta;
                     }
                 } catch(const std::exception& ex){
+                    std::string errMsg = ex.what();
+                    message += errMsg + "\n";
                     message += "WARNING: Unable to solve for zeta.\n";
                 }
             }
@@ -888,6 +919,9 @@ Warning:
                 output << "\n";
             }
         }
+
+        output << "Temperature: T = " << T << " K.\n";
+        output << "Pressure: P = " << P/1.01325 << " atm.\n";
 
         if (message.empty()) message = "DEBUG: Successful exit.\n\n";
         else message += "WARNING: Erroneous calculations may have occurred.\n\n";

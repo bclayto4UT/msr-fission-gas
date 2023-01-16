@@ -73,6 +73,13 @@ const std::map<std::string, strVect> surrogateMap{
     {"Th", strVect{"Zr", "Th", "Pa"}}
 }; // List of surrogated elements
 
+const std::map<std::string, std::string> surrogateMapInv{
+    {"Br", "I"}, {"Ba", "Ca"}, {"Sr", "Ca"}, {"Y", "La"}, {"Pr", "La"},
+    {"Pm", "La"}, {"Sm", "La"}, {"Eu", "La"}, {"Gd", "La"}, {"Tb", "La"},
+    {"Dy", "La"}, {"Ho", "La"}, {"Er", "La"}, {"Tm", "La"}, {"Np", "Pu"},
+    {"Am", "Pu"}, {"Cm", "Pu"}, {"Zr", "Th"}, {"Pa", "Th"}
+};
+
 const std::map<std::string, std::array<double,8>> heatData = {
     /* The std::array stores numbers in this order:
     ΔHf: Enthalpy of formation at 298.15 K (kJ/mol)
@@ -109,7 +116,7 @@ const double gamma_UF3 = 50;
 const double gamma_UF4 = 0.55;
 const double gamma_Inf_CrF2 = 0.5;
 const double gamma_Inf_FeF2 = 1.6;
-const double gamma_Inf_NiF2 = 1.0;
+double gamma_Inf_NiF2(double xLiF);
 
 double G_HF(const double T);
 double G_UF4(const double T);

@@ -1,8 +1,9 @@
 #include "thermoElectroChem.h"
 
-#include <cmath>
 
-static const std::array<double,8> nullArray{};
+double gamma_Inf_NiF2(double xLiF){
+    return exp(-17.36486818 + 68.16877934*xLiF - 81.06301593*pow(xLiF,2) + 26.70117623*pow(xLiF,3));
+}
 
 static double calc_H(const std::array<double,8>& data, const double T){
     // Enthalpy in J/mol

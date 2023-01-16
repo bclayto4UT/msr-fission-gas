@@ -4,7 +4,8 @@
 #include "miscellaneous.h"
 
 std::vector<strVect> scaleToVector(const std::string&, bool=true);
-void vectToThermI(const std::vector<strVect>&, const std::string&);
+void vectToThermI(const std::vector<strVect>&, const std::string&,
+                  bool=true);
 
 void textToExcel(const std::string&, const std::string&, std::string&);
 
