@@ -11,7 +11,12 @@ std::vector<strVect> scaleToVector(const std::string& inFile,
                                    bool timeOnRows)
 /****************************************************************
 Input(s):
-    inFile: the name of the file with the SCALE output to be read
+    inFile:     the name of the file with the SCALE output to be read
+                The format of the file must be identical to the .F71
+                table from SCALE. The columns must display elements
+                as opposed to isotopes, the "Subtotals" and "Totals"
+                must be excluded, and all numerical values must have
+                the unit of moles (unless otherwise specified).
     timeOnRows: if the orientation of the file is such that the
                 elements are on the columns and the time intervals
                 are on the rows (DEFAULT: true).
@@ -79,13 +84,15 @@ Output:
     return vect;
 }
 
-void vectToThermI(const std::vector<strVect>& dataVect,
-                  const std::string& outFile,
-                  bool includesSurr)
+void vectToTherm(const std::vector<strVect>& dataVect,
+                 const std::string& outFile,
+                 bool includesSurr)
 /****************************************************************
 Input(s):
-    dataVect: the tabulated data in the form of a 2D vector
-    outFile: the output file name
+    dataVect:     the tabulated data in the form of a 2D vector
+    outFile:      the output file name
+    includesSurr: whether surrogate elements are to be included
+                  (DEFAULT: true)
 Output: none
     a text file formatted as a Thermochimica input is created
     if there are multiple rows, multiple files are created
@@ -107,6 +114,7 @@ Output: none
     std::vector<strVect> dataVect2(dataVect.size());
     std::copy(dataVect.cbegin(), dataVect.cend(), dataVect2.begin());
 
+    // Recalculates species amounts for surrogated elements
     if (includesSurr){
         for (int i = 1; i < dataVect2.size(); i++){
             for (int j = 0; j < dataVect[i].size(); j++){
@@ -154,20 +162,20 @@ void textToExcel(const std::string& inFile,
                  std::string& dataType)
 /****************************************************************
 Input(s):
-    inFile: the name of the input file that contains a
-            Thermochimica output
-    outFile: the output file name
+    inFile:   the name of the input file that contains a
+              Thermochimica output
+    outFile:  the output file name
     dataType: a string that contains the types of data that the
               user wishes to extract. It can include as many
               types as necessary. The accepted types include:
-     * ni: the total amount (moles) of ions
-     * nx: the total amount (moles) of salt
-     * ny: the total amount (moles) of gas
+     * ni:    the total amount (moles) of ions
+     * nx:    the total amount (moles) of salt
+     * ny:    the total amount (moles) of gas
      * x_ABC: the mole fraction of species ABC in the salt phase
      * y_ABC: the mole fraction of species ABC in the gas phase
-       "ABC" can be "all", which will output all salts (not ions)
-       and/or all gases
-     * T: the system temperature
+              "ABC" can be "all", which will output all salts
+              (not ions) and all gases
+     * T:     the system temperature
        For example, dataType = "x_UF3 x_UF4 y ny_UF5 y_UF6"
 Output(s): none
     a textfile in tabulated form, with each data type on the
@@ -510,6 +518,8 @@ Input(s):
                   The input file must contain the mole fraction of
                   Cr, Fe, and Ni in the solid solution (not their
                   amount in moles).
+    includesHF:   whether the HF content is calculated from H2 gas
+                  (DEFAULT: false)
 Output: none
     New Thermochimica results are written in the output file,
     in which each salt containing a surrogate metal or nonmetal
@@ -803,12 +813,15 @@ Warning:
                     return y;
                 };
 
-                Vector zeta{1e-6*std::max(sumGas,1e-10), // sumGas being 0 breaks the code.
+                Vector zeta{1e-6*std::max(sumGas,1e-10),
                             1e-4*sumSalt,
                             1e-9*sumSalt,
                             1e-9*sumSalt,
                             1e-12*sumSalt,
                             1e-12*sumSalt};
+                /* sumGas being 0 breaks the code, so if I don't want to solve for
+                   the gas phase it will be taken cared of by the bool includesHF.
+                */
 
                 try{
                     zeta = newton(thermoFunc, zeta, 100, 1e-6);
@@ -931,21 +944,3 @@ Warning:
     input.close();
     output.close();
 }
-
-/*
-void massToMole(const std::string& outFile,
-                const std::map<std::string, double>& comp,
-                double mass)
-{
-    std::vector<strVect> v(2);
-    for (auto p: comp){
-        try{
-            auto m = p.second * mass / elementMap.at(p.first);
-            v[0].push_back(std::to_string(elementMap.at(p.first)));
-            v[1].push_back(std::to_string(m));
-        } catch(std::out_of_range& ex){
-            throw ex;
-        }
-    }
-    vectToThermI(v, outFile);
-} */
