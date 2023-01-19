@@ -1,10 +1,11 @@
 # Read Me
 This is the entirety of the code I used to update the molten salt's chemical composition. SCALE and Thermochimica is required.
 
-# Title
+## Using the code
+All code files are under the dataProcessor folder. Most of them are numerical methods file that Dr. Pencheva and I wrote while in M 348 and M 368K (I wasn't able to install a library).
+The project can be compiled in any way you'd like. There should be an executable file if compilation is sucessful. I like to copy that executable file (named ``dataProcessor.exe``)
 
-The main.cpp should display a few options to extract and process data from input files. Refer to dataProcessor.cpp for any details as to how each function works.
-The steps are detailed below:
+## Sample problem
 
 1. Create an ORIGEN file with the appropriate starting fuel composition, flux, and irradiation time. For my project, the fuel is 5% UF4 in 2LiF-BeF2. The uranium is enriched to 20 weight-% U-235 and the lithium to 99.99 mol-% Li-7, so the specification should be:
 
