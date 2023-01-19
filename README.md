@@ -21,5 +21,12 @@ The steps are detailed below:
 3. Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If needed, the values of the elements Cu, Fe, and Zn can be modified into their respective mole fraction in the structural metal alloy (should be the same throughout the irradiation time). Copy the table into a text file.
 4. Run main.cpp (Option 1) on the text file to convert it into TC input files. There should be multiple TC inputs corresponding to however many time intervals there are.
 5. Run TC on all the input files and have the results printed out in one single result file (Use a loop).
+```
+make
+for i in $(seq 1 1 5)
+do
+./bin/TC_output$i >> results.txt
+done
+```
 6. Run main.cpp (Option 4) on the TC result file to decouple the surrogate elements into the actual elements they represent. Optionally, it can also calculate fission products and HF composition. This should give you a new, updated result file in roughly the same format as TC.
 7. Run main.cpp (Option 2) on the result file to extract any value of interest.
