@@ -58,4 +58,4 @@ if (INFOThermo == 0) call Thermochimica
 if (iPrintResultsMode > 0) call PrintResults
 if (INFOThermo == 0) call ResetThermoAll
 call ThermoDebug
-end program standard_flibe
+end program flibe
