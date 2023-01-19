@@ -1,0 +1,24 @@
+=shell
+xcopy ${INPUT_DIR}/MSRR_ContinuousDepletion.f33 .
+end
+
+=origen
+case{
+    lib{file = "MSRR_ContinuousDepletion.f33"}
+
+    mat{
+        units = MOLES
+        iso = [li6 = 0.00633
+               li7 = 63.32367
+               be9 = 31.78905
+               f19 = 146.67
+               u235 = 0.98989
+               u238 = 4.01011]
+        }
+
+
+    time = [181i 10 1830]
+    flux = [183r1e13]
+    save{file = "isotopics.f71"}
+}
+end
