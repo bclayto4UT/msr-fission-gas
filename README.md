@@ -25,7 +25,7 @@ The steps are detailed below:
 make
 for i in $(seq 1 1 5)
 do
-./bin/TC_output$i >> TC_first_results.txt
+./bin/TC_input$i >> TC_first_results.txt
 done
 ```
 6. Run main.cpp (Option 4) on the TC result file to decouple the surrogate elements into the actual elements they represent. Optionally, it can also calculate fission products and HF composition. This should give you a new, updated result file in roughly the same format as TC.
