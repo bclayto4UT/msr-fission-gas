@@ -5,6 +5,7 @@ The steps are detailed below:
 
 1. Create an ORIGEN file with the appropriate starting fuel composition, flux, and irradiation time. For my project, the fuel is 5% UF4 in 2LiF-BeF2. The uranium is enriched to 20 weight-% U-235 and the lithium to 99.99 mol-% Li-7, so the specification should be:
 
+
     mat{
     
         units = MOLES
