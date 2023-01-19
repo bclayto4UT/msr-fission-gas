@@ -5,24 +5,17 @@ The steps are detailed below:
 
 1. Create an ORIGEN file with the appropriate starting fuel composition, flux, and irradiation time. For my project, the fuel is 5% UF4 in 2LiF-BeF2. The uranium is enriched to 20 weight-% U-235 and the lithium to 99.99 mol-% Li-7, so the specification should be:
 
-
+```
     mat{
-    
         units = MOLES
-        
         iso = [li6 = 0.00633
-        
                li7 = 63.32367
-               
                be9 = 31.78905
-               
                f19 = 146.67
-               
                u235 = 0.98989
-               
                u238 = 4.01011]
-               
         }
+ ```
         
 2. Run the ORIGEN file, open the result .F71 file, go to Table, filter the data to display elements (preferably all elements, but an nrank of about 50-60 should be fine) in moles.
 3. Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If needed, the values of the elements Cu, Fe, and Zn can be modified into their respective mole fraction in the structural metal alloy (should be the same throughout the irradiation time). Copy the table into a text file.
