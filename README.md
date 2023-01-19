@@ -1,5 +1,8 @@
 # Read Me
 This is the entirety of the code I used to update the molten salt's chemical composition. SCALE and Thermochimica is required.
+
+# Title
+
 The main.cpp should display a few options to extract and process data from input files. Refer to dataProcessor.cpp for any details as to how each function works.
 The steps are detailed below:
 
@@ -23,7 +26,7 @@ The steps are detailed below:
 5. Run TC on all the input files and have the results printed out in one single result file (Use a loop).
 ```
 make
-for i in $(seq 1 1 5)
+for i in $(seq 1 1 184) # the last number should be how many TC input files there are
 do
 ./bin/TC_input$i >> TC_first_results.txt
 done
