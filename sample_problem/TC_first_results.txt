@@ -1,0 +1,2237 @@
+ WARNING: Element Cr  not in database and therefore omitted from calculation
+ WARNING: Element Fe  not in database and therefore omitted from calculation
+
+ ===========================================================
+ |                  THERMOCHIMICA RESULTS                  |
+ ===========================================================
+
+       164.76 mol MSFL           
+    Cation fractions:
+                  { 0.73316        Li                            
+                  + 6.1797E-02     Be[IV]                        
+                  + 5.9515E-03     U2                            
+                  + 2.7565E-03     U3+                           
+                  + 0.15311        Be2                           
+                  + 2.7499E-15     Ni                            
+                  + 3.1255E-09     U[VI]                         
+                  + 4.3225E-02     U[VII] }                      
+    Anion fractions:
+                  { 1.00000        F      }                      
+
+      86.37945 Moles of pairs
+    Pair fractions:
+                  { 0.73316        LiF                           
+                  + 6.1797E-02     BeF2                          
+                  + 5.9515E-03     U2F8                          
+                  + 2.7565E-03     UF3                           
+                  + 0.15311        Be2F4                         
+                  + 2.7499E-15     NiF2                          
+                  + 3.1255E-09     U[VI]-F4                      
+                  + 4.3225E-02     U[VII]-F4 }                   
+
+    Quadruplet fractions:
+                  { 0.21798        Li-Li-F-F                     
+                  + 6.8756E-04     Be[IV]-Be[IV]-F-F             
+                  + 3.7602E-05     U2-U2-F-F                     
+                  + 8.8128E-05     U3+-U3+-F-F                   
+                  + 2.2045E-02     Be2-Be2-F-F                   
+                  + 5.2132E-29     Ni-Ni-F-F                     
+                  + 5.8027E-17     U[VI]-U[VI]-F-F               
+                  + 4.6236E-05     U[VII]-U[VII]-F-F             
+                  + 0.17715        Li-Be[IV]-F-F                 
+                  + 1.5593E-02     Li-U2-F-F                     
+                  + 1.1934E-03     Be[IV]-U2-F-F                 
+                  + 5.1377E-03     Li-U3+-F-F                    
+                  + 4.5918E-04     Be[IV]-U3+-F-F                
+                  + 1.7870E-04     U2-U3+-F-F                    
+                  + 0.41154        Li-Be2-F-F                    
+                  + 7.7864E-03     Be[IV]-Be2-F-F                
+                  + 1.5958E-03     U2-Be2-F-F                    
+                  + 2.6001E-03     U3+-Be2-F-F                   
+                  + 5.9219E-15     Li-Ni-F-F                     
+                  + 3.6397E-16     Be[IV]-Ni-F-F                 
+                  + 8.7567E-17     U2-Ni-F-F                     
+                  + 1.2154E-16     U3+-Ni-F-F                    
+                  + 2.0609E-15     Be2-Ni-F-F                    
+                  + 6.8372E-09     Li-U[VI]-F-F                  
+                  + 3.9948E-10     Be[IV]-U[VI]-F-F              
+                  + 9.6112E-11     U2-U[VI]-F-F                  
+                  + 1.3340E-10     U3+-U[VI]-F-F                 
+                  + 2.2620E-09     Be2-U[VI]-F-F                 
+                  + 1.0574E-22     Ni-U[VI]-F-F                  
+                  + 0.12130        Li-U[VII]-F-F                 
+                  + 3.5659E-04     Be[IV]-U[VII]-F-F             
+                  + 8.5793E-05     U2-U[VII]-F-F                 
+                  + 1.1907E-04     U3+-U[VII]-F-F                
+                  + 1.4019E-02     Be2-U[VII]-F-F                
+                  + 9.4384E-17     Ni-U[VII]-F-F                 
+                  + 1.0359E-10     U[VI]-U[VII]-F-F }            
+
+    + 0.65000 mol Ni_Solid_FCC(s)
+
+ ===========================================================
+ |                    System properties                    |
+ ===========================================================
+
+  Temperature =     900.00 [K]
+  Pressure    =     1.0000 [atm]
+
+  System Component | Mass [mol] | Chemical potential [J/mol]
+ ------------------|------------|---------------------------
+      U            | 5.0000E+00 |  -2.900544E+05
+      Ni           | 6.5000E-01 |  -3.832971E+04
+      F            | 1.4667E+02 |  -4.562222E+05
+      Be           | 3.1789E+01 |  -2.065388E+05
+      Li           | 6.3330E+01 |  -2.190532E+05
+
+  Integral Gibbs energy = -8.88276E+07 [J]
+
+ ===========================================================
+
+
+ DEBUG: Successful exit.
+
+ WARNING: Element H   not in database and therefore omitted from calculation
+ WARNING: Element He  not in database and therefore omitted from calculation
+ WARNING: Element B   not in database and therefore omitted from calculation
+ WARNING: Element C   not in database and therefore omitted from calculation
+ WARNING: Element N   not in database and therefore omitted from calculation
+ WARNING: Element O   not in database and therefore omitted from calculation
+ WARNING: Element Ne  not in database and therefore omitted from calculation
+ WARNING: Element Cr  not in database and therefore omitted from calculation
+ WARNING: Element Fe  not in database and therefore omitted from calculation
+ WARNING: Element Cu  not in database and therefore omitted from calculation
+ WARNING: Element Zn  not in database and therefore omitted from calculation
+ WARNING: Element Ga  not in database and therefore omitted from calculation
+ WARNING: Element Ge  not in database and therefore omitted from calculation
+ WARNING: Element As  not in database and therefore omitted from calculation
+ WARNING: Element Se  not in database and therefore omitted from calculation
+ WARNING: Element Kr  not in database and therefore omitted from calculation
+ WARNING: Element Nb  not in database and therefore omitted from calculation
+ WARNING: Element Mo  not in database and therefore omitted from calculation
+ WARNING: Element Tc  not in database and therefore omitted from calculation
+ WARNING: Element Ru  not in database and therefore omitted from calculation
+ WARNING: Element Rh  not in database and therefore omitted from calculation
+ WARNING: Element Pd  not in database and therefore omitted from calculation
+ WARNING: Element Ag  not in database and therefore omitted from calculation
+ WARNING: Element Cd  not in database and therefore omitted from calculation
+ WARNING: Element In  not in database and therefore omitted from calculation
+ WARNING: Element Sn  not in database and therefore omitted from calculation
+ WARNING: Element Sb  not in database and therefore omitted from calculation
+ WARNING: Element Te  not in database and therefore omitted from calculation
+ WARNING: Element Xe  not in database and therefore omitted from calculation
+ WARNING: Element Yb  not in database and therefore omitted from calculation
+ WARNING: Element Pb  not in database and therefore omitted from calculation
+
+ ===========================================================
+ |                  THERMOCHIMICA RESULTS                  |
+ ===========================================================
+
+       164.76 mol MSFL           
+    Cation fractions:
+                  { 0.73316        Li                            
+                  + 6.1798E-02     Be[IV]                        
+                  + 5.9508E-03     U2                            
+                  + 1.4471E-06     Th                            
+                  + 2.7527E-03     U3+                           
+                  + 9.4930E-07     Pu                            
+                  + 1.6323E-07     Rb                            
+                  + 9.3772E-07     La                            
+                  + 6.5409E-07     Cs                            
+                  + 1.1808E-06     Ca                            
+                  + 8.4742E-07     Ce                            
+                  + 5.3948E-07     Nd                            
+                  + 0.15311        Be2                           
+                  + 2.7574E-15     Ni                            
+                  + 3.1268E-09     U[VI]                         
+                  + 4.3224E-02     U[VII] }                      
+    Anion fractions:
+                  { 1.00000        F                             
+                  + 1.0236E-07     I      }                      
+
+      86.37965 Moles of pairs
+    Pair fractions:
+                  { 0.73316        LiF                           
+                  + 6.1798E-02     BeF2                          
+                  + 5.9508E-03     U2F8                          
+                  + 1.4471E-06     ThF4                          
+                  + 2.7527E-03     UF3                           
+                  + 9.4930E-07     PuF3                          
+                  + 1.6323E-07     RbF                           
+                  + 9.3772E-07     LaF3                          
+                  + 6.5409E-07     CsF                           
+                  + 1.1808E-06     CaF2                          
+                  + 8.4742E-07     CeF3                          
+                  + 5.3948E-07     NdF3                          
+                  + 0.15311        Be2F4                         
+                  + 2.7574E-15     NiF2                          
+                  + 3.1268E-09     U[VI]-F4                      
+                  + 4.3224E-02     U[VII]-F4                     
+                  + 7.7409E-08     LiI                           
+                  + 1.3962E-12     CsI                           
+                  + 2.5033E-09     U2I8                          
+                  + 6.7418E-15     U[VI]-I4                      
+                  + 1.0150E-08     U[VII]-I4                     
+                  + 1.3879E-09     BeI2	                         
+                  + 3.0020E-13     ThI4                          
+                  + 1.0284E-08     UI3	                          
+                  + 9.5583E-13     PuI3	                         
+                  + 3.4257E-13     RbI	                          
+                  + 1.3817E-12     LaI3	                         
+                  + 4.2893E-13     CaI2	                         
+                  + 7.9626E-13     CeI3	                         
+                  + 4.8154E-13     NdI3	                         
+                  + 5.6233E-10     Be2I4                         
+                  + 1.3396E-20     NiI2      }                   
+
+    Quadruplet fractions:
+                  { 0.21798        Li-Li-F-F                     
+                  + 6.8757E-04     Be[IV]-Be[IV]-F-F             
+                  + 3.7595E-05     U2-U2-F-F                     
+                  + 1.1277E-11     Th-Th-F-F                     
+                  + 8.7894E-05     U3+-U3+-F-F                   
+                  + 5.9084E-12     Pu-Pu-F-F                     
+                  + 9.6409E-14     Rb-Rb-F-F                     
+                  + 7.1395E-12     La-La-F-F                     
+                  + 1.3205E-13     Cs-Cs-F-F                     
+                  + 1.0949E-12     Ca-Ca-F-F                     
+                  + 5.1729E-12     Ce-Ce-F-F                     
+                  + 2.1294E-12     Nd-Nd-F-F                     
+                  + 2.2044E-02     Be2-Be2-F-F                   
+                  + 5.2415E-29     Ni-Ni-F-F                     
+                  + 5.8065E-17     U[VI]-U[VI]-F-F               
+                  + 4.6234E-05     U[VII]-U[VII]-F-F             
+                  + 0.17715        Li-Be[IV]-F-F                 
+                  + 1.5591E-02     Li-U2-F-F                     
+                  + 1.1933E-03     Be[IV]-U2-F-F                 
+                  + 3.1024E-06     Li-Th-F-F                     
+                  + 5.5750E-07     Be[IV]-Th-F-F                 
+                  + 3.1240E-08     U2-Th-F-F                     
+                  + 5.1306E-03     Li-U3+-F-F                    
+                  + 4.5856E-04     Be[IV]-U3+-F-F                
+                  + 1.7843E-04     U2-U3+-F-F                    
+                  + 4.3305E-08     Th-U3+-F-F                    
+                  + 1.7497E-06     Li-Pu-F-F                     
+                  + 9.8289E-08     Be[IV]-Pu-F-F                 
+                  + 3.1145E-08     U2-Pu-F-F                     
+                  + 7.6522E-12     Th-Pu-F-F                     
+                  + 4.2507E-08     U3+-Pu-F-F                    
+                  + 3.9609E-07     Li-Rb-F-F                     
+                  + 1.5652E-08     Be[IV]-Rb-F-F                 
+                  + 3.7653E-09     U2-Rb-F-F                     
+                  + 1.4781E-12     Th-Rb-F-F                     
+                  + 5.2194E-09     U3+-Rb-F-F                    
+                  + 9.9174E-12     Pu-Rb-F-F                     
+                  + 1.9530E-06     Li-La-F-F                     
+                  + 1.3297E-07     Be[IV]-La-F-F                 
+                  + 3.1986E-08     U2-La-F-F                     
+                  + 1.2557E-11     Th-La-F-F                     
+                  + 4.4339E-08     U3+-La-F-F                    
+                  + 1.2326E-11     Pu-La-F-F                     
+                  + 9.8165E-12     Rb-La-F-F                     
+                  + 4.1075E-07     Li-Cs-F-F                     
+                  + 1.8318E-08     Be[IV]-Cs-F-F                 
+                  + 7.7092E-08     U2-Cs-F-F                     
+                  + 1.4483E-11     Th-Cs-F-F                     
+                  + 2.6784E-08     U3+-Cs-F-F                    
+                  + 1.6980E-12     Pu-Cs-F-F                     
+                  + 2.2566E-13     Rb-Cs-F-F                     
+                  + 1.7712E-12     La-Cs-F-F                     
+                  + 1.7260E-06     Li-Ca-F-F                     
+                  + 6.5522E-07     Be[IV]-Ca-F-F                 
+                  + 2.8882E-08     U2-Ca-F-F                     
+                  + 1.4250E-11     Th-Ca-F-F                     
+                  + 4.0036E-08     U3+-Ca-F-F                    
+                  + 1.1129E-11     Pu-Ca-F-F                     
+                  + 1.3666E-12     Rb-Ca-F-F                     
+                  + 1.1917E-11     La-Ca-F-F                     
+                  + 1.5993E-12     Cs-Ca-F-F                     
+                  + 1.7544E-06     Li-Ce-F-F                     
+                  + 1.2157E-07     Be[IV]-Ce-F-F                 
+                  + 2.9246E-08     U2-Ce-F-F                     
+                  + 8.6276E-12     Th-Ce-F-F                     
+                  + 4.0541E-08     U3+-Ce-F-F                    
+                  + 1.1270E-11     Pu-Ce-F-F                     
+                  + 1.3838E-12     Rb-Ce-F-F                     
+                  + 1.1755E-11     La-Ce-F-F                     
+                  + 1.6195E-12     Cs-Ce-F-F                     
+                  + 1.0615E-11     Ca-Ce-F-F                     
+                  + 1.1234E-06     Li-Nd-F-F                     
+                  + 7.6527E-08     Be[IV]-Nd-F-F                 
+                  + 1.8409E-08     U2-Nd-F-F                     
+                  + 7.2271E-12     Th-Nd-F-F                     
+                  + 2.5519E-08     U3+-Nd-F-F                    
+                  + 7.0939E-12     Pu-Nd-F-F                     
+                  + 8.7105E-13     Rb-Nd-F-F                     
+                  + 7.3997E-12     La-Nd-F-F                     
+                  + 1.0194E-12     Cs-Nd-F-F                     
+                  + 6.6815E-12     Ca-Nd-F-F                     
+                  + 6.7657E-12     Ce-Nd-F-F                     
+                  + 0.41154        Li-Be2-F-F                    
+                  + 7.7864E-03     Be[IV]-Be2-F-F                
+                  + 1.5956E-03     U2-Be2-F-F                    
+                  + 5.5912E-07     Th-Be2-F-F                    
+                  + 2.5965E-03     U3+-Be2-F-F                   
+                  + 7.2178E-07     Pu-Be2-F-F                    
+                  + 8.8627E-08     Rb-Be2-F-F                    
+                  + 7.5290E-07     La-Be2-F-F                    
+                  + 1.0372E-07     Cs-Be2-F-F                    
+                  + 1.2331E-06     Ca-Be2-F-F                    
+                  + 6.8839E-07     Ce-Be2-F-F                    
+                  + 4.3332E-07     Nd-Be2-F-F                    
+                  + 5.9380E-15     Li-Ni-F-F                     
+                  + 3.6496E-16     Be[IV]-Ni-F-F                 
+                  + 8.7794E-17     U2-Ni-F-F                     
+                  + 3.4466E-20     Th-Ni-F-F                     
+                  + 1.2170E-16     U3+-Ni-F-F                    
+                  + 3.3830E-20     Pu-Ni-F-F                     
+                  + 4.4959E-21     Rb-Ni-F-F                     
+                  + 3.5289E-20     La-Ni-F-F                     
+                  + 5.2617E-21     Cs-Ni-F-F                     
+                  + 3.1864E-20     Ca-Ni-F-F                     
+                  + 3.2265E-20     Ce-Ni-F-F                     
+                  + 2.0310E-20     Nd-Ni-F-F                     
+                  + 2.0665E-15     Be2-Ni-F-F                    
+                  + 6.8395E-09     Li-U[VI]-F-F                  
+                  + 3.9962E-10     Be[IV]-U[VI]-F-F              
+                  + 9.6132E-11     U2-U[VI]-F-F                  
+                  + 3.7739E-14     Th-U[VI]-F-F                  
+                  + 1.3326E-10     U3+-U[VI]-F-F                 
+                  + 3.7044E-14     Pu-U[VI]-F-F                  
+                  + 4.5485E-15     Rb-U[VI]-F-F                  
+                  + 3.8641E-14     La-U[VI]-F-F                  
+                  + 7.6179E-13     Cs-U[VI]-F-F                  
+                  + 3.4890E-14     Ca-U[VI]-F-F                  
+                  + 3.5330E-14     Ce-U[VI]-F-F                  
+                  + 2.2239E-14     Nd-U[VI]-F-F                  
+                  + 2.2628E-09     Be2-U[VI]-F-F                 
+                  + 1.0606E-22     Ni-U[VI]-F-F                  
+                  + 0.12130        Li-U[VII]-F-F                 
+                  + 3.5659E-04     Be[IV]-U[VII]-F-F             
+                  + 8.5781E-05     U2-U[VII]-F-F                 
+                  + 2.5845E-07     Th-U[VII]-F-F                 
+                  + 1.1891E-04     U3+-U[VII]-F-F                
+                  + 3.4268E-07     Pu-U[VII]-F-F                 
+                  + 4.0588E-09     Rb-U[VII]-F-F                 
+                  + 3.4480E-08     La-U[VII]-F-F                 
+                  + 7.3080E-07     Cs-U[VII]-F-F                 
+                  + 3.1134E-08     Ca-U[VII]-F-F                 
+                  + 3.1526E-08     Ce-U[VII]-F-F                 
+                  + 1.9845E-08     Nd-U[VII]-F-F                 
+                  + 1.4019E-02     Be2-U[VII]-F-F                
+                  + 9.4638E-17     Ni-U[VII]-F-F                 
+                  + 1.0363E-10     U[VI]-U[VII]-F-F              
+                  + 3.3184E-14     Li-Li-I-I                     
+                  + 6.9000E-20     Be[IV]-Be[IV]-I-I             
+                  + 7.2470E-17     U2-U2-I-I                     
+                  + 1.8226E-25     Th-Th-I-I                     
+                  + 9.6667E-14     U3+-U3+-I-I                   
+                  + 4.6647E-23     Pu-Pu-I-I                     
+                  + 3.9644E-23     Rb-Rb-I-I                     
+                  + 2.5808E-22     La-La-I-I                     
+                  + 8.4297E-23     Cs-Cs-I-I                     
+                  + 3.2634E-24     Ca-Ca-I-I                     
+                  + 3.2715E-23     Ce-Ce-I-I                     
+                  + 1.0738E-23     Nd-Nd-I-I                     
+                  + 1.2763E-22     Be2-Be2-I-I                   
+                  + 3.3511E-37     Ni-Ni-I-I                     
+                  + 1.6917E-26     U[VI]-U[VI]-I-I               
+                  + 7.3471E-16     U[VII]-U[VII]-I-I             
+                  + 9.5701E-17     Li-Be[IV]-I-I                 
+                  + 3.1015E-15     Li-U2-I-I                     
+                  + 4.4723E-18     Be[IV]-U2-I-I                 
+                  + 1.5554E-19     Li-Th-I-I                     
+                  + 2.2429E-22     Be[IV]-Th-I-I                 
+                  + 7.2687E-21     U2-Th-I-I                     
+                  + 1.1327E-13     Li-U3+-I-I                    
+                  + 1.6334E-16     Be[IV]-U3+-I-I                
+                  + 5.2936E-15     U2-U3+-I-I                    
+                  + 2.6547E-19     Th-U3+-I-I                    
+                  + 2.4883E-18     Li-Pu-I-I                     
+                  + 3.5881E-21     Be[IV]-Pu-I-I                 
+                  + 1.1628E-19     U2-Pu-I-I                     
+                  + 5.8316E-24     Th-Pu-I-I                     
+                  + 4.2470E-18     U3+-Pu-I-I                    
+                  + 2.2939E-18     Li-Rb-I-I                     
+                  + 3.3078E-21     Be[IV]-Rb-I-I                 
+                  + 1.0720E-19     U2-Rb-I-I                     
+                  + 5.3761E-24     Th-Rb-I-I                     
+                  + 3.9152E-18     U3+-Rb-I-I                    
+                  + 8.6006E-23     Pu-Rb-I-I                     
+                  + 5.8529E-18     Li-La-I-I                     
+                  + 8.4398E-21     Be[IV]-La-I-I                 
+                  + 2.7352E-19     U2-La-I-I                     
+                  + 1.3717E-23     Th-La-I-I                     
+                  + 9.9896E-18     U3+-La-I-I                    
+                  + 2.1944E-22     Pu-La-I-I                     
+                  + 2.0230E-22     Rb-La-I-I                     
+                  + 3.3450E-18     Li-Cs-I-I                     
+                  + 4.8235E-21     Be[IV]-Cs-I-I                 
+                  + 1.5632E-19     U2-Cs-I-I                     
+                  + 7.8395E-24     Th-Cs-I-I                     
+                  + 5.7092E-18     U3+-Cs-I-I                    
+                  + 1.2541E-22     Pu-Cs-I-I                     
+                  + 1.1562E-22     Rb-Cs-I-I                     
+                  + 2.9500E-22     La-Cs-I-I                     
+                  + 6.5816E-19     Li-Ca-I-I                     
+                  + 9.4905E-22     Be[IV]-Ca-I-I                 
+                  + 3.0757E-20     U2-Ca-I-I                     
+                  + 1.5425E-24     Th-Ca-I-I                     
+                  + 1.1233E-18     U3+-Ca-I-I                    
+                  + 2.4676E-23     Pu-Ca-I-I                     
+                  + 2.2748E-23     Rb-Ca-I-I                     
+                  + 5.8042E-23     La-Ca-I-I                     
+                  + 3.3172E-23     Cs-Ca-I-I                     
+                  + 2.0839E-18     Li-Ce-I-I                     
+                  + 3.0049E-21     Be[IV]-Ce-I-I                 
+                  + 9.7383E-20     U2-Ce-I-I                     
+                  + 4.8838E-24     Th-Ce-I-I                     
+                  + 3.5567E-18     U3+-Ce-I-I                    
+                  + 7.8130E-23     Pu-Ce-I-I                     
+                  + 7.2026E-23     Rb-Ce-I-I                     
+                  + 1.8377E-22     La-Ce-I-I                     
+                  + 1.0503E-22     Cs-Ce-I-I                     
+                  + 2.0665E-23     Ca-Ce-I-I                     
+                  + 1.1939E-18     Li-Nd-I-I                     
+                  + 1.7215E-21     Be[IV]-Nd-I-I                 
+                  + 5.5792E-20     U2-Nd-I-I                     
+                  + 2.7980E-24     Th-Nd-I-I                     
+                  + 2.0377E-18     U3+-Nd-I-I                    
+                  + 4.4761E-23     Pu-Nd-I-I                     
+                  + 4.1265E-23     Rb-Nd-I-I                     
+                  + 1.0529E-22     La-Nd-I-I                     
+                  + 6.0173E-23     Cs-Nd-I-I                     
+                  + 1.1839E-23     Ca-Nd-I-I                     
+                  + 3.7486E-23     Ce-Nd-I-I                     
+                  + 4.1159E-18     Li-Be2-I-I                    
+                  + 5.9350E-21     Be[IV]-Be2-I-I                
+                  + 1.9234E-19     U2-Be2-I-I                    
+                  + 9.6460E-24     Th-Be2-I-I                    
+                  + 7.0249E-18     U3+-Be2-I-I                   
+                  + 1.5432E-22     Pu-Be2-I-I                    
+                  + 1.4226E-22     Rb-Be2-I-I                    
+                  + 3.6298E-22     La-Be2-I-I                    
+                  + 2.0745E-22     Cs-Be2-I-I                    
+                  + 4.0816E-23     Ca-Be2-I-I                    
+                  + 1.2923E-22     Ce-Be2-I-I                    
+                  + 7.4039E-23     Nd-Be2-I-I                    
+                  + 2.1091E-25     Li-Ni-I-I                     
+                  + 3.0412E-28     Be[IV]-Ni-I-I                 
+                  + 9.8560E-27     U2-Ni-I-I                     
+                  + 4.9428E-31     Th-Ni-I-I                     
+                  + 3.5997E-25     U3+-Ni-I-I                    
+                  + 7.9074E-30     Pu-Ni-I-I                     
+                  + 7.2897E-30     Rb-Ni-I-I                     
+                  + 1.8599E-29     La-Ni-I-I                     
+                  + 1.0630E-29     Cs-Ni-I-I                     
+                  + 2.0915E-30     Ca-Ni-I-I                     
+                  + 6.6221E-30     Ce-Ni-I-I                     
+                  + 3.7939E-30     Nd-Ni-I-I                     
+                  + 1.3080E-29     Be2-Ni-I-I                    
+                  + 4.7387E-20     Li-U[VI]-I-I                  
+                  + 6.8331E-23     Be[IV]-U[VI]-I-I              
+                  + 2.2145E-21     U2-U[VI]-I-I                  
+                  + 1.1106E-25     Th-U[VI]-I-I                  
+                  + 8.0878E-20     U3+-U[VI]-I-I                 
+                  + 1.7767E-24     Pu-U[VI]-I-I                  
+                  + 1.6379E-24     Rb-U[VI]-I-I                  
+                  + 4.1790E-24     La-U[VI]-I-I                  
+                  + 2.3884E-24     Cs-U[VI]-I-I                  
+                  + 4.6992E-25     Ca-U[VI]-I-I                  
+                  + 1.4879E-24     Ce-U[VI]-I-I                  
+                  + 8.5242E-25     Nd-U[VI]-I-I                  
+                  + 2.9387E-24     Be2-U[VI]-I-I                 
+                  + 1.5059E-31     Ni-U[VI]-I-I                  
+                  + 9.8753E-15     Li-U[VII]-I-I                 
+                  + 1.4240E-17     Be[IV]-U[VII]-I-I             
+                  + 4.6150E-16     U2-U[VII]-I-I                 
+                  + 2.3144E-20     Th-U[VII]-I-I                 
+                  + 1.6855E-14     U3+-U[VII]-I-I                
+                  + 3.7025E-19     Pu-U[VII]-I-I                 
+                  + 3.4133E-19     Rb-U[VII]-I-I                 
+                  + 8.7090E-19     La-U[VII]-I-I                 
+                  + 4.9773E-19     Cs-U[VII]-I-I                 
+                  + 9.7931E-20     Ca-U[VII]-I-I                 
+                  + 3.1007E-19     Ce-U[VII]-I-I                 
+                  + 1.7764E-19     Nd-U[VII]-I-I                 
+                  + 6.1243E-19     Be2-U[VII]-I-I                
+                  + 3.1382E-26     Ni-U[VII]-I-I                 
+                  + 7.0510E-21     U[VI]-U[VII]-I-I              
+                  + 1.4075E-07     Li-Li-F-I                     
+                  + 1.3776E-11     Be[IV]-Be[IV]-F-I             
+                  + 1.0439E-10     U2-U2-F-I                     
+                  + 2.8673E-18     Th-Th-F-I                     
+                  + 5.8297E-09     U3+-U3+-F-I                   
+                  + 3.3203E-17     Pu-Pu-F-I                     
+                  + 3.9100E-18     Rb-Rb-F-I                     
+                  + 8.5850E-17     La-La-F-I                     
+                  + 8.0724E-18     Cs-Cs-F-I                     
+                  + 3.7806E-18     Ca-Ca-F-I                     
+                  + 2.6018E-17     Ce-Ce-F-I                     
+                  + 9.5636E-18     Nd-Nd-F-I                     
+                  + 3.3547E-12     Be2-Be2-F-I                   
+                  + 8.3820E-33     Ni-Ni-F-I                     
+                  + 1.9822E-21     U[VI]-U[VI]-F-I               
+                  + 3.6861E-10     U[VII]-U[VII]-F-I             
+                  + 8.1129E-09     Li-Be[IV]-F-I                 
+                  + 1.3327E-08     Li-U2-F-I                     
+                  + 6.6701E-12     Be[IV]-U2-F-I                 
+                  + 1.5632E-12     Li-Th-F-I                     
+                  + 1.1323E-14     Be[IV]-Th-F-I                 
+                  + 3.0138E-14     U2-Th-F-I                     
+                  + 5.0672E-08     Li-U3+-F-I                    
+                  + 4.8217E-10     Be[IV]-U3+-F-I                
+                  + 1.9437E-09     U2-U3+-F-I                    
+                  + 2.1444E-13     Th-U3+-F-I                    
+                  + 4.5619E-12     Li-Pu-F-I                     
+                  + 3.3119E-14     Be[IV]-Pu-F-I                 
+                  + 1.2036E-13     U2-Pu-F-I                     
+                  + 1.2827E-17     Th-Pu-F-I                     
+                  + 8.4977E-13     U3+-Pu-F-I                    
+                  + 1.7341E-12     Li-Rb-F-I                     
+                  + 1.2784E-14     Be[IV]-Rb-F-I                 
+                  + 4.0181E-14     U2-Rb-F-I                     
+                  + 5.6379E-18     Th-Rb-F-I                     
+                  + 2.8590E-13     U3+-Rb-F-I                    
+                  + 1.2363E-16     Pu-Rb-F-I                     
+                  + 7.1824E-12     Li-La-F-I                     
+                  + 6.0767E-14     Be[IV]-La-F-I                 
+                  + 1.8707E-13     U2-La-F-I                     
+                  + 2.6248E-17     Th-La-F-I                     
+                  + 1.3311E-12     U3+-La-F-I                    
+                  + 1.0401E-16     Pu-La-F-I                     
+                  + 1.8607E-16     Rb-La-F-I                     
+                  + 2.3527E-12     Li-Cs-F-I                     
+                  + 1.8238E-14     Be[IV]-Cs-F-I                 
+                  + 3.3916E-13     U2-Cs-F-I                     
+                  + 4.1918E-17     Th-Cs-F-I                     
+                  + 2.1082E-12     U3+-Cs-F-I                    
+                  + 3.2102E-17     Pu-Cs-F-I                     
+                  + 1.1236E-17     Rb-Cs-F-I                     
+                  + 5.0284E-17     La-Cs-F-I                     
+                  + 2.1556E-12     Li-Ca-F-I                     
+                  + 4.6523E-14     Be[IV]-Ca-F-I                 
+                  + 5.9610E-14     U2-Ca-F-I                     
+                  + 1.3185E-17     Th-Ca-F-I                     
+                  + 4.2414E-13     U3+-Ca-F-I                    
+                  + 3.3144E-17     Pu-Ca-F-I                     
+                  + 1.1151E-17     Rb-Ca-F-I                     
+                  + 5.2599E-17     La-Ca-F-I                     
+                  + 1.6023E-17     Cs-Ca-F-I                     
+                  + 4.1505E-12     Li-Ce-F-I                     
+                  + 3.5272E-14     Be[IV]-Ce-F-I                 
+                  + 1.0673E-13     U2-Ce-F-I                     
+                  + 1.2188E-17     Th-Ce-F-I                     
+                  + 7.5945E-13     U3+-Ce-F-I                    
+                  + 5.9346E-17     Pu-Ce-F-I                     
+                  + 1.9967E-17     Rb-Ce-F-I                     
+                  + 9.2959E-17     La-Ce-F-I                     
+                  + 2.8690E-17     Cs-Ce-F-I                     
+                  + 2.9621E-17     Ca-Ce-F-I                     
+                  + 2.5150E-12     Li-Nd-F-I                     
+                  + 2.1215E-14     Be[IV]-Nd-F-I                 
+                  + 6.4097E-14     U2-Nd-F-I                     
+                  + 8.9936E-18     Th-Nd-F-I                     
+                  + 4.5607E-13     U3+-Nd-F-I                    
+                  + 3.5639E-17     Pu-Nd-F-I                     
+                  + 1.1991E-17     Rb-Nd-F-I                     
+                  + 5.5824E-17     La-Nd-F-I                     
+                  + 1.7229E-17     Cs-Nd-F-I                     
+                  + 1.7788E-17     Ca-Nd-F-I                     
+                  + 3.1851E-17     Ce-Nd-F-I                     
+                  + 3.2089E-09     Li-Be2-F-I                    
+                  + 1.4988E-11     Be[IV]-Be2-F-I                
+                  + 3.5037E-11     U2-Be2-F-I                    
+                  + 4.6447E-15     Th-Be2-F-I                    
+                  + 2.7011E-10     U3+-Be2-F-I                   
+                  + 2.1108E-14     Pu-Be2-F-I                    
+                  + 7.1016E-15     Rb-Be2-F-I                    
+                  + 3.3063E-14     La-Be2-F-I                    
+                  + 1.0204E-14     Cs-Be2-F-I                    
+                  + 1.4189E-14     Ca-Be2-F-I                    
+                  + 1.8864E-14     Ce-Be2-F-I                    
+                  + 1.1328E-14     Nd-Be2-F-I                    
+                  + 6.9445E-20     Li-Ni-F-I                     
+                  + 5.7877E-22     Be[IV]-Ni-F-I                 
+                  + 1.8604E-21     U2-Ni-F-I                     
+                  + 2.6104E-25     Th-Ni-F-I                     
+                  + 1.3237E-20     U3+-Ni-F-I                    
+                  + 1.0344E-24     Pu-Ni-F-I                     
+                  + 3.6207E-25     Rb-Ni-F-I                     
+                  + 1.6203E-24     La-Ni-F-I                     
+                  + 5.2024E-25     Cs-Ni-F-I                     
+                  + 5.1631E-25     Ca-Ni-F-I                     
+                  + 9.2448E-25     Ce-Ni-F-I                     
+                  + 5.5517E-25     Nd-Ni-F-I                     
+                  + 3.2881E-22     Be2-Ni-F-I                    
+                  + 3.2752E-14     Li-U[VI]-F-I                  
+                  + 2.9311E-16     Be[IV]-U[VI]-F-I              
+                  + 9.2278E-16     U2-U[VI]-F-I                  
+                  + 1.2948E-19     Th-U[VI]-F-I                  
+                  + 6.5659E-15     U3+-U[VI]-F-I                 
+                  + 5.1308E-19     Pu-U[VI]-F-I                  
+                  + 1.7263E-19     Rb-U[VI]-F-I                  
+                  + 8.0369E-19     La-U[VI]-F-I                  
+                  + 5.7071E-18     Cs-U[VI]-F-I                  
+                  + 2.5609E-19     Ca-U[VI]-F-I                  
+                  + 4.5855E-19     Ce-U[VI]-F-I                  
+                  + 2.7537E-19     Nd-U[VI]-F-I                  
+                  + 1.6309E-16     Be2-U[VI]-F-I                 
+                  + 7.9927E-27     Ni-U[VI]-F-I                  
+                  + 6.1895E-08     Li-U[VII]-F-I                 
+                  + 1.2584E-10     Be[IV]-U[VII]-F-I             
+                  + 3.9793E-10     U2-U[VII]-F-I                 
+                  + 1.5468E-13     Th-U[VII]-F-I                 
+                  + 2.8314E-09     U3+-U[VII]-F-I                
+                  + 7.1240E-13     Pu-U[VII]-F-I                 
+                  + 7.4441E-14     Rb-U[VII]-F-I                 
+                  + 3.4657E-13     La-U[VII]-F-I                 
+                  + 1.8984E-12     Cs-U[VII]-F-I                 
+                  + 1.1043E-13     Ca-U[VII]-F-I                 
+                  + 1.9774E-13     Ce-U[VII]-F-I                 
+                  + 1.1875E-13     Nd-U[VII]-F-I                 
+                  + 1.8531E-10     Be2-U[VII]-F-I                
+                  + 3.4467E-21     Ni-U[VII]-F-I                 
+                  + 1.7096E-15     U[VI]-U[VII]-F-I }            
+
+    + 0.65000 mol Ni_Solid_FCC(s)
+
+ ===========================================================
+ |                    System properties                    |
+ ===========================================================
+
+  Temperature =     900.00 [K]
+  Pressure    =     1.0000 [atm]
+
+  System Component | Mass [mol] | Chemical potential [J/mol]
+ ------------------|------------|---------------------------
+      Pu           | 8.2000E-05 |  -4.316774E+05
+      U            | 4.9995E+00 |  -2.900948E+05
+      Th           | 1.2500E-04 |  -5.344329E+05
+      Nd           | 4.6600E-05 |  -5.050677E+05
+      Ce           | 7.3200E-05 |  -5.193560E+05
+      La           | 8.1000E-05 |  -4.866433E+05
+      Cs           | 5.6500E-05 |  -3.392805E+05
+      I            | 1.5000E-05 |  -2.498313E+05
+      Rb           | 1.4100E-05 |  -2.994665E+05
+      Ni           | 6.5000E-01 |  -3.832971E+04
+      Ca           | 1.0200E-04 |  -4.800708E+05
+      F            | 1.4667E+02 |  -4.562122E+05
+      Be           | 3.1789E+01 |  -2.065588E+05
+      Li           | 6.3330E+01 |  -2.190632E+05
+
+  Integral Gibbs energy = -8.88277E+07 [J]
+
+ ===========================================================
+
+
+ DEBUG: Successful exit.
+
+ WARNING: Element H   not in database and therefore omitted from calculation
+ WARNING: Element He  not in database and therefore omitted from calculation
+ WARNING: Element B   not in database and therefore omitted from calculation
+ WARNING: Element C   not in database and therefore omitted from calculation
+ WARNING: Element N   not in database and therefore omitted from calculation
+ WARNING: Element O   not in database and therefore omitted from calculation
+ WARNING: Element Ne  not in database and therefore omitted from calculation
+ WARNING: Element Cr  not in database and therefore omitted from calculation
+ WARNING: Element Fe  not in database and therefore omitted from calculation
+ WARNING: Element Cu  not in database and therefore omitted from calculation
+ WARNING: Element Zn  not in database and therefore omitted from calculation
+ WARNING: Element Ga  not in database and therefore omitted from calculation
+ WARNING: Element Ge  not in database and therefore omitted from calculation
+ WARNING: Element As  not in database and therefore omitted from calculation
+ WARNING: Element Se  not in database and therefore omitted from calculation
+ WARNING: Element Kr  not in database and therefore omitted from calculation
+ WARNING: Element Nb  not in database and therefore omitted from calculation
+ WARNING: Element Mo  not in database and therefore omitted from calculation
+ WARNING: Element Tc  not in database and therefore omitted from calculation
+ WARNING: Element Ru  not in database and therefore omitted from calculation
+ WARNING: Element Rh  not in database and therefore omitted from calculation
+ WARNING: Element Pd  not in database and therefore omitted from calculation
+ WARNING: Element Ag  not in database and therefore omitted from calculation
+ WARNING: Element Cd  not in database and therefore omitted from calculation
+ WARNING: Element In  not in database and therefore omitted from calculation
+ WARNING: Element Sn  not in database and therefore omitted from calculation
+ WARNING: Element Sb  not in database and therefore omitted from calculation
+ WARNING: Element Te  not in database and therefore omitted from calculation
+ WARNING: Element Xe  not in database and therefore omitted from calculation
+ WARNING: Element Yb  not in database and therefore omitted from calculation
+ WARNING: Element Pb  not in database and therefore omitted from calculation
+
+ ===========================================================
+ |                  THERMOCHIMICA RESULTS                  |
+ ===========================================================
+
+       164.76 mol MSFL           
+    Cation fractions:
+                  { 0.73316        Li                            
+                  + 6.1799E-02     Be[IV]                        
+                  + 5.9500E-03     U2                            
+                  + 2.9058E-06     Th                            
+                  + 2.7492E-03     U3+                           
+                  + 1.9102E-06     Pu                            
+                  + 3.2762E-07     Rb                            
+                  + 1.8754E-06     La                            
+                  + 1.4681E-06     Cs                            
+                  + 2.2227E-06     Ca                            
+                  + 1.6935E-06     Ce                            
+                  + 1.1449E-06     Nd                            
+                  + 0.15311        Be2                           
+                  + 2.7643E-15     Ni                            
+                  + 3.1284E-09     U[VI]                         
+                  + 4.3224E-02     U[VII] }                      
+    Anion fractions:
+                  { 1.00000        F                             
+                  + 1.5013E-07     I      }                      
+
+      86.37985 Moles of pairs
+    Pair fractions:
+                  { 0.73316        LiF                           
+                  + 6.1799E-02     BeF2                          
+                  + 5.9500E-03     U2F8                          
+                  + 2.9058E-06     ThF4                          
+                  + 2.7492E-03     UF3                           
+                  + 1.9102E-06     PuF3                          
+                  + 3.2762E-07     RbF                           
+                  + 1.8754E-06     LaF3                          
+                  + 1.4681E-06     CsF                           
+                  + 2.2227E-06     CaF2                          
+                  + 1.6935E-06     CeF3                          
+                  + 1.1449E-06     NdF3                          
+                  + 0.15311        Be2F4                         
+                  + 2.7643E-15     NiF2                          
+                  + 3.1284E-09     U[VI]-F4                      
+                  + 4.3224E-02     U[VII]-F4                     
+                  + 1.1354E-07     LiI                           
+                  + 4.5948E-12     CsI                           
+                  + 3.6724E-09     U2I8                          
+                  + 9.8951E-15     U[VI]-I4                      
+                  + 1.4891E-08     U[VII]-I4                     
+                  + 2.0361E-09     BeI2	                         
+                  + 8.8432E-13     ThI4                          
+                  + 1.5066E-08     UI3	                          
+                  + 2.8213E-12     PuI3	                         
+                  + 1.0086E-12     RbI	                          
+                  + 4.0535E-12     LaI3	                         
+                  + 1.1842E-12     CaI2	                         
+                  + 2.3340E-12     CeI3	                         
+                  + 1.4990E-12     NdI3	                         
+                  + 8.2493E-10     Be2I4                         
+                  + 1.9697E-20     NiI2      }                   
+
+    Quadruplet fractions:
+                  { 0.21798        Li-Li-F-F                     
+                  + 6.8757E-04     Be[IV]-Be[IV]-F-F             
+                  + 3.7586E-05     U2-U2-F-F                     
+                  + 4.4624E-11     Th-Th-F-F                     
+                  + 8.7674E-05     U3+-U3+-F-F                   
+                  + 2.3924E-11     Pu-Pu-F-F                     
+                  + 3.8829E-13     Rb-Rb-F-F                     
+                  + 2.8457E-11     La-La-F-F                     
+                  + 6.6529E-13     Cs-Cs-F-F                     
+                  + 3.8827E-12     Ca-Ca-F-F                     
+                  + 2.0653E-11     Ce-Ce-F-F                     
+                  + 9.5912E-12     Nd-Nd-F-F                     
+                  + 2.2044E-02     Be2-Be2-F-F                   
+                  + 5.2677E-29     Ni-Ni-F-F                     
+                  + 5.8114E-17     U[VI]-U[VI]-F-F               
+                  + 4.6232E-05     U[VII]-U[VII]-F-F             
+                  + 0.17715        Li-Be[IV]-F-F                 
+                  + 1.5589E-02     Li-U2-F-F                     
+                  + 1.1931E-03     Be[IV]-U2-F-F                 
+                  + 6.2295E-06     Li-Th-F-F                     
+                  + 1.1194E-06     Be[IV]-Th-F-F                 
+                  + 6.2721E-08     U2-Th-F-F                     
+                  + 5.1240E-03     Li-U3+-F-F                    
+                  + 4.5797E-04     Be[IV]-U3+-F-F                
+                  + 1.7817E-04     U2-U3+-F-F                    
+                  + 8.6844E-08     Th-U3+-F-F                    
+                  + 3.5207E-06     Li-Pu-F-F                     
+                  + 1.9778E-07     Be[IV]-Pu-F-F                 
+                  + 6.2661E-08     U2-Pu-F-F                     
+                  + 3.0916E-11     Th-Pu-F-F                     
+                  + 8.5422E-08     U3+-Pu-F-F                    
+                  + 7.9490E-07     Li-Rb-F-F                     
+                  + 3.1412E-08     Be[IV]-Rb-F-F                 
+                  + 7.5554E-09     U2-Rb-F-F                     
+                  + 5.9565E-12     Th-Rb-F-F                     
+                  + 1.0461E-08     U3+-Rb-F-F                    
+                  + 4.0046E-11     Pu-Rb-F-F                     
+                  + 3.9060E-06     Li-La-F-F                     
+                  + 2.6593E-07     Be[IV]-La-F-F                 
+                  + 6.3964E-08     U2-La-F-F                     
+                  + 5.0428E-11     Th-La-F-F                     
+                  + 8.8564E-08     U3+-La-F-F                    
+                  + 4.9603E-11     Pu-La-F-F                     
+                  + 3.9398E-11     Rb-La-F-F                     
+                  + 9.2197E-07     Li-Cs-F-F                     
+                  + 4.1117E-08     Be[IV]-Cs-F-F                 
+                  + 1.7302E-07     U2-Cs-F-F                     
+                  + 6.5277E-11     Th-Cs-F-F                     
+                  + 6.0044E-08     U3+-Cs-F-F                    
+                  + 7.6693E-12     Pu-Cs-F-F                     
+                  + 1.0165E-12     Rb-Cs-F-F                     
+                  + 7.9513E-12     La-Cs-F-F                     
+                  + 3.2489E-06     Li-Ca-F-F                     
+                  + 1.2334E-06     Be[IV]-Ca-F-F                 
+                  + 5.4359E-08     U2-Ca-F-F                     
+                  + 5.4667E-11     Th-Ca-F-F                     
+                  + 7.5265E-08     U3+-Ca-F-F                    
+                  + 4.2154E-11     Pu-Ca-F-F                     
+                  + 5.1623E-12     Rb-Ca-F-F                     
+                  + 4.4970E-11     La-Ca-F-F                     
+                  + 6.7573E-12     Cs-Ca-F-F                     
+                  + 3.5059E-06     Li-Ce-F-F                     
+                  + 2.4295E-07     Be[IV]-Ce-F-F                 
+                  + 5.8437E-08     U2-Ce-F-F                     
+                  + 3.4621E-11     Th-Ce-F-F                     
+                  + 8.0911E-08     U3+-Ce-F-F                    
+                  + 4.5317E-11     Pu-Ce-F-F                     
+                  + 5.5496E-12     Rb-Ce-F-F                     
+                  + 4.6983E-11     La-Ce-F-F                     
+                  + 7.2643E-12     Cs-Ce-F-F                     
+                  + 3.9928E-11     Ca-Ce-F-F                     
+                  + 2.3841E-06     Li-Nd-F-F                     
+                  + 1.6241E-07     Be[IV]-Nd-F-F                 
+                  + 3.9065E-08     U2-Nd-F-F                     
+                  + 3.0798E-11     Th-Nd-F-F                     
+                  + 5.4090E-08     U3+-Nd-F-F                    
+                  + 3.0294E-11     Pu-Nd-F-F                     
+                  + 3.7100E-12     Rb-Nd-F-F                     
+                  + 3.1409E-11     La-Nd-F-F                     
+                  + 4.8562E-12     Cs-Nd-F-F                     
+                  + 2.6692E-11     Ca-Nd-F-F                     
+                  + 2.8695E-11     Ce-Nd-F-F                     
+                  + 0.41154        Li-Be2-F-F                    
+                  + 7.7864E-03     Be[IV]-Be2-F-F                
+                  + 1.5954E-03     U2-Be2-F-F                    
+                  + 1.1227E-06     Th-Be2-F-F                    
+                  + 2.5931E-03     U3+-Be2-F-F                   
+                  + 1.4524E-06     Pu-Be2-F-F                    
+                  + 1.7786E-07     Rb-Be2-F-F                    
+                  + 1.5058E-06     La-Be2-F-F                    
+                  + 2.3281E-07     Cs-Be2-F-F                    
+                  + 2.3211E-06     Ca-Be2-F-F                    
+                  + 1.3757E-06     Ce-Be2-F-F                    
+                  + 9.1963E-07     Nd-Be2-F-F                    
+                  + 5.9528E-15     Li-Ni-F-F                     
+                  + 3.6587E-16     Be[IV]-Ni-F-F                 
+                  + 8.8002E-17     U2-Ni-F-F                     
+                  + 6.9379E-20     Th-Ni-F-F                     
+                  + 1.2185E-16     U3+-Ni-F-F                    
+                  + 6.8243E-20     Pu-Ni-F-F                     
+                  + 9.0452E-21     Rb-Ni-F-F                     
+                  + 7.0754E-20     La-Ni-F-F                     
+                  + 1.1840E-20     Cs-Ni-F-F                     
+                  + 6.0129E-20     Ca-Ni-F-F                     
+                  + 6.4640E-20     Ce-Ni-F-F                     
+                  + 4.3212E-20     Nd-Ni-F-F                     
+                  + 2.0716E-15     Be2-Ni-F-F                    
+                  + 6.8423E-09     Li-U[VI]-F-F                  
+                  + 3.9979E-10     Be[IV]-U[VI]-F-F              
+                  + 9.6160E-11     U2-U[VI]-F-F                  
+                  + 7.5811E-14     Th-U[VI]-F-F                  
+                  + 1.3314E-10     U3+-U[VI]-F-F                 
+                  + 7.4570E-14     Pu-U[VI]-F-F                  
+                  + 9.1321E-15     Rb-U[VI]-F-F                  
+                  + 7.7313E-14     La-U[VI]-F-F                  
+                  + 1.7107E-12     Cs-U[VI]-F-F                  
+                  + 6.5703E-14     Ca-U[VI]-F-F                  
+                  + 7.0632E-14     Ce-U[VI]-F-F                  
+                  + 4.7218E-14     Nd-U[VI]-F-F                  
+                  + 2.2637E-09     Be2-U[VI]-F-F                 
+                  + 1.0637E-22     Ni-U[VI]-F-F                  
+                  + 0.12129        Li-U[VII]-F-F                 
+                  + 3.5658E-04     Be[IV]-U[VII]-F-F             
+                  + 8.5768E-05     U2-U[VII]-F-F                 
+                  + 5.1896E-07     Th-U[VII]-F-F                 
+                  + 1.1875E-04     U3+-U[VII]-F-F                
+                  + 6.8952E-07     Pu-U[VII]-F-F                 
+                  + 8.1453E-09     Rb-U[VII]-F-F                 
+                  + 6.8958E-08     La-U[VII]-F-F                 
+                  + 1.6403E-06     Cs-U[VII]-F-F                 
+                  + 5.8603E-08     Ca-U[VII]-F-F                 
+                  + 6.2999E-08     Ce-U[VII]-F-F                 
+                  + 4.2115E-08     Nd-U[VII]-F-F                 
+                  + 1.4018E-02     Be2-U[VII]-F-F                
+                  + 9.4872E-17     Ni-U[VII]-F-F                 
+                  + 1.0367E-10     U[VI]-U[VII]-F-F              
+                  + 7.1399E-14     Li-Li-I-I                     
+                  + 1.4851E-19     Be[IV]-Be[IV]-I-I             
+                  + 1.5609E-16     U2-U2-I-I                     
+                  + 1.5821E-24     Th-Th-I-I                     
+                  + 2.0752E-13     U3+-U3+-I-I                   
+                  + 4.0652E-22     Pu-Pu-I-I                     
+                  + 3.4357E-22     Rb-Rb-I-I                     
+                  + 2.2218E-21     La-La-I-I                     
+                  + 9.1343E-22     Cs-Cs-I-I                     
+                  + 2.4881E-23     Ca-Ca-I-I                     
+                  + 2.8119E-22     Ce-Ce-I-I                     
+                  + 1.0410E-22     Nd-Nd-I-I                     
+                  + 2.7476E-22     Be2-Be2-I-I                   
+                  + 7.2472E-37     Ni-Ni-I-I                     
+                  + 3.6450E-26     U[VI]-U[VI]-I-I               
+                  + 1.5818E-15     U[VII]-U[VII]-I-I             
+                  + 2.0594E-16     Li-Be[IV]-I-I                 
+                  + 6.6768E-15     Li-U2-I-I                     
+                  + 9.6293E-18     Be[IV]-U2-I-I                 
+                  + 6.7219E-19     Li-Th-I-I                     
+                  + 9.6944E-22     Be[IV]-Th-I-I                 
+                  + 3.1429E-20     U2-Th-I-I                     
+                  + 2.4345E-13     Li-U3+-I-I                    
+                  + 3.5110E-16     Be[IV]-U3+-I-I                
+                  + 1.1383E-14     U2-U3+-I-I                    
+                  + 1.1460E-18     Th-U3+-I-I                    
+                  + 1.0775E-17     Li-Pu-I-I                     
+                  + 1.5540E-20     Be[IV]-Pu-I-I                 
+                  + 5.0380E-19     U2-Pu-I-I                     
+                  + 5.0721E-23     Th-Pu-I-I                     
+                  + 1.8370E-17     U3+-Pu-I-I                    
+                  + 9.9057E-18     Li-Rb-I-I                     
+                  + 1.4286E-20     Be[IV]-Rb-I-I                 
+                  + 4.6316E-19     U2-Rb-I-I                     
+                  + 4.6629E-23     Th-Rb-I-I                     
+                  + 1.6888E-17     U3+-Rb-I-I                    
+                  + 7.4744E-22     Pu-Rb-I-I                     
+                  + 2.5190E-17     Li-La-I-I                     
+                  + 3.6330E-20     Be[IV]-La-I-I                 
+                  + 1.1778E-18     U2-La-I-I                     
+                  + 1.1858E-22     Th-La-I-I                     
+                  + 4.2946E-17     U3+-La-I-I                    
+                  + 1.9008E-21     Pu-La-I-I                     
+                  + 1.7474E-21     Rb-La-I-I                     
+                  + 1.6152E-17     Li-Cs-I-I                     
+                  + 2.3294E-20     Be[IV]-Cs-I-I                 
+                  + 7.5519E-19     U2-Cs-I-I                     
+                  + 7.6030E-23     Th-Cs-I-I                     
+                  + 2.7536E-17     U3+-Cs-I-I                    
+                  + 1.2187E-21     Pu-Cs-I-I                     
+                  + 1.1204E-21     Rb-Cs-I-I                     
+                  + 2.8492E-21     La-Cs-I-I                     
+                  + 2.6657E-18     Li-Ca-I-I                     
+                  + 3.8444E-21     Be[IV]-Ca-I-I                 
+                  + 1.2464E-19     U2-Ca-I-I                     
+                  + 1.2548E-23     Th-Ca-I-I                     
+                  + 4.5446E-18     U3+-Ca-I-I                    
+                  + 2.0114E-22     Pu-Ca-I-I                     
+                  + 1.8491E-22     Rb-Ca-I-I                     
+                  + 4.7024E-22     La-Ca-I-I                     
+                  + 3.0151E-22     Cs-Ca-I-I                     
+                  + 8.9614E-18     Li-Ce-I-I                     
+                  + 1.2924E-20     Be[IV]-Ce-I-I                 
+                  + 4.1900E-19     U2-Ce-I-I                     
+                  + 4.2184E-23     Th-Ce-I-I                     
+                  + 1.5278E-17     U3+-Ce-I-I                    
+                  + 6.7619E-22     Pu-Ce-I-I                     
+                  + 6.2164E-22     Rb-Ce-I-I                     
+                  + 1.5808E-21     La-Ce-I-I                     
+                  + 1.0136E-21     Cs-Ce-I-I                     
+                  + 1.6729E-22     Ca-Ce-I-I                     
+                  + 5.4525E-18     Li-Nd-I-I                     
+                  + 7.8636E-21     Be[IV]-Nd-I-I                 
+                  + 2.5494E-19     U2-Nd-I-I                     
+                  + 2.5666E-23     Th-Nd-I-I                     
+                  + 9.2957E-18     U3+-Nd-I-I                    
+                  + 4.1142E-22     Pu-Nd-I-I                     
+                  + 3.7823E-22     Rb-Nd-I-I                     
+                  + 9.6185E-22     La-Nd-I-I                     
+                  + 6.1672E-22     Cs-Nd-I-I                     
+                  + 1.0178E-22     Ca-Nd-I-I                     
+                  + 3.4217E-22     Ce-Nd-I-I                     
+                  + 8.8584E-18     Li-Be2-I-I                    
+                  + 1.2776E-20     Be[IV]-Be2-I-I                
+                  + 4.1419E-19     U2-Be2-I-I                    
+                  + 4.1699E-23     Th-Be2-I-I                    
+                  + 1.5102E-17     U3+-Be2-I-I                   
+                  + 6.6842E-22     Pu-Be2-I-I                    
+                  + 6.1449E-22     Rb-Be2-I-I                    
+                  + 1.5627E-21     La-Be2-I-I                    
+                  + 1.0020E-21     Cs-Be2-I-I                    
+                  + 1.6536E-22     Ca-Be2-I-I                    
+                  + 5.5592E-22     Ce-Be2-I-I                    
+                  + 3.3824E-22     Nd-Be2-I-I                    
+                  + 4.5495E-25     Li-Ni-I-I                     
+                  + 6.5613E-28     Be[IV]-Ni-I-I                 
+                  + 2.1272E-26     U2-Ni-I-I                     
+                  + 2.1416E-30     Th-Ni-I-I                     
+                  + 7.7562E-25     U3+-Ni-I-I                    
+                  + 3.4329E-29     Pu-Ni-I-I                     
+                  + 3.1559E-29     Rb-Ni-I-I                     
+                  + 8.0255E-29     La-Ni-I-I                     
+                  + 5.1458E-29     Cs-Ni-I-I                     
+                  + 8.4927E-30     Ca-Ni-I-I                     
+                  + 2.8550E-29     Ce-Ni-I-I                     
+                  + 1.7371E-29     Nd-Ni-I-I                     
+                  + 2.8222E-29     Be2-Ni-I-I                    
+                  + 1.0203E-19     Li-U[VI]-I-I                  
+                  + 1.4715E-22     Be[IV]-U[VI]-I-I              
+                  + 4.7706E-21     U2-U[VI]-I-I                  
+                  + 4.8028E-25     Th-U[VI]-I-I                  
+                  + 1.7395E-19     U3+-U[VI]-I-I                 
+                  + 7.6988E-24     Pu-U[VI]-I-I                  
+                  + 7.0776E-24     Rb-U[VI]-I-I                  
+                  + 1.7999E-23     La-U[VI]-I-I                  
+                  + 1.1540E-23     Cs-U[VI]-I-I                  
+                  + 1.9046E-24     Ca-U[VI]-I-I                  
+                  + 6.4030E-24     Ce-U[VI]-I-I                  
+                  + 3.8958E-24     Nd-U[VI]-I-I                  
+                  + 6.3294E-24     Be2-U[VI]-I-I                 
+                  + 3.2506E-31     Ni-U[VI]-I-I                  
+                  + 2.1255E-14     Li-U[VII]-I-I                 
+                  + 3.0654E-17     Be[IV]-U[VII]-I-I             
+                  + 9.9380E-16     U2-U[VII]-I-I                 
+                  + 1.0005E-19     Th-U[VII]-I-I                 
+                  + 3.6236E-14     U3+-U[VII]-I-I                
+                  + 1.6038E-18     Pu-U[VII]-I-I                 
+                  + 1.4744E-18     Rb-U[VII]-I-I                 
+                  + 3.7494E-18     La-U[VII]-I-I                 
+                  + 2.4041E-18     Cs-U[VII]-I-I                 
+                  + 3.9677E-19     Ca-U[VII]-I-I                 
+                  + 1.3339E-18     Ce-U[VII]-I-I                 
+                  + 8.1157E-19     Nd-U[VII]-I-I                 
+                  + 1.3185E-18     Be2-U[VII]-I-I                
+                  + 6.7716E-26     Ni-U[VII]-I-I                 
+                  + 1.5187E-20     U[VI]-U[VII]-I-I              
+                  + 2.0645E-07     Li-Li-F-I                     
+                  + 2.0210E-11     Be[IV]-Be[IV]-F-I             
+                  + 1.5319E-10     U2-U2-F-I                     
+                  + 1.6805E-17     Th-Th-F-I                     
+                  + 8.5310E-09     U3+-U3+-F-I                   
+                  + 1.9724E-16     Pu-Pu-F-I                     
+                  + 2.3100E-17     Rb-Rb-F-I                     
+                  + 5.0290E-16     La-La-F-I                     
+                  + 5.9645E-17     Cs-Cs-F-I                     
+                  + 1.9658E-17     Ca-Ca-F-I                     
+                  + 1.5241E-16     Ce-Ce-F-I                     
+                  + 6.3195E-17     Nd-Nd-F-I                     
+                  + 4.9222E-12     Be2-Be2-F-I                   
+                  + 1.2357E-32     Ni-Ni-F-I                     
+                  + 2.9109E-21     U[VI]-U[VI]-F-I               
+                  + 5.4086E-10     U[VII]-U[VII]-F-I             
+                  + 1.1901E-08     Li-Be[IV]-F-I                 
+                  + 1.9552E-08     Li-U2-F-I                     
+                  + 1.0324E-11     Be[IV]-U2-F-I                 
+                  + 4.6049E-12     Li-Th-F-I                     
+                  + 3.3358E-14     Be[IV]-Th-F-I                 
+                  + 8.8799E-14     U2-Th-F-I                     
+                  + 7.4239E-08     Li-U3+-F-I                    
+                  + 7.0646E-10     Be[IV]-U3+-F-I                
+                  + 2.8482E-09     U2-U3+-F-I                    
+                  + 6.3094E-13     Th-U3+-F-I                    
+                  + 1.3466E-11     Li-Pu-F-I                     
+                  + 9.7769E-14     Be[IV]-Pu-F-I                 
+                  + 3.5535E-13     U2-Pu-F-I                     
+                  + 7.6041E-17     Th-Pu-F-I                     
+                  + 2.5053E-12     U3+-Pu-F-I                    
+                  + 5.1050E-12     Li-Rb-F-I                     
+                  + 3.7637E-14     Be[IV]-Rb-F-I                 
+                  + 1.1831E-13     U2-Rb-F-I                     
+                  + 3.3331E-17     Th-Rb-F-I                     
+                  + 8.4063E-13     U3+-Rb-F-I                    
+                  + 7.3236E-16     Pu-Rb-F-I                     
+                  + 2.1073E-11     Li-La-F-I                     
+                  + 1.7830E-13     Be[IV]-La-F-I                 
+                  + 5.4895E-13     U2-La-F-I                     
+                  + 1.5466E-16     Th-La-F-I                     
+                  + 3.9005E-12     U3+-La-F-I                    
+                  + 6.1411E-16     Pu-La-F-I                     
+                  + 1.0956E-15     Rb-La-F-I                     
+                  + 7.7453E-12     Li-Cs-F-I                     
+                  + 6.0046E-14     Be[IV]-Cs-F-I                 
+                  + 1.1168E-12     U2-Cs-F-I                     
+                  + 2.7715E-16     Th-Cs-F-I                     
+                  + 6.9324E-12     U3+-Cs-F-I                    
+                  + 2.1267E-16     Pu-Cs-F-I                     
+                  + 7.4238E-17     Rb-Cs-F-I                     
+                  + 3.3110E-16     La-Cs-F-I                     
+                  + 5.9519E-12     Li-Ca-F-I                     
+                  + 1.2847E-13     Be[IV]-Ca-F-I                 
+                  + 1.6462E-13     U2-Ca-F-I                     
+                  + 7.3330E-17     Th-Ca-F-I                     
+                  + 1.1697E-12     U3+-Ca-F-I                    
+                  + 1.8416E-16     Pu-Ca-F-I                     
+                  + 6.1793E-17     Rb-Ca-F-I                     
+                  + 2.9084E-16     La-Ca-F-I                     
+                  + 9.9293E-17     Cs-Ca-F-I                     
+                  + 1.2167E-11     Li-Ce-F-I                     
+                  + 1.0341E-13     Be[IV]-Ce-F-I                 
+                  + 3.1296E-13     U2-Ce-F-I                     
+                  + 7.1760E-17     Th-Ce-F-I                     
+                  + 2.2236E-12     U3+-Ce-F-I                    
+                  + 3.5010E-16     Pu-Ce-F-I                     
+                  + 1.1747E-16     Rb-Ce-F-I                     
+                  + 5.4506E-16     La-Ce-F-I                     
+                  + 1.8876E-16     Cs-Ce-F-I                     
+                  + 1.6346E-16     Ca-Ce-F-I                     
+                  + 7.8301E-12     Li-Nd-F-I                     
+                  + 6.6055E-14     Be[IV]-Nd-F-I                 
+                  + 1.9959E-13     U2-Nd-F-I                     
+                  + 5.6231E-17     Th-Nd-F-I                     
+                  + 1.4182E-12     U3+-Nd-F-I                    
+                  + 2.2328E-16     Pu-Nd-F-I                     
+                  + 7.4919E-17     Rb-Nd-F-I                     
+                  + 3.4762E-16     La-Nd-F-I                     
+                  + 1.2039E-16     Cs-Nd-F-I                     
+                  + 1.0425E-16     Ca-Nd-F-I                     
+                  + 1.9818E-16     Ce-Nd-F-I                     
+                  + 4.7076E-09     Li-Be2-F-I                    
+                  + 2.1990E-11     Be[IV]-Be2-F-I                
+                  + 5.1411E-11     U2-Be2-F-I                    
+                  + 1.3684E-14     Th-Be2-F-I                    
+                  + 3.9579E-10     U3+-Be2-F-I                   
+                  + 6.2315E-14     Pu-Be2-F-I                    
+                  + 2.0909E-14     Rb-Be2-F-I                    
+                  + 9.7016E-14     La-Be2-F-I                    
+                  + 3.3598E-14     Cs-Be2-F-I                    
+                  + 3.9183E-14     Ca-Be2-F-I                    
+                  + 5.5308E-14     Ce-Be2-F-I                    
+                  + 3.5274E-14     Nd-Be2-F-I                    
+                  + 1.0212E-19     Li-Ni-F-I                     
+                  + 8.5118E-22     Be[IV]-Ni-F-I                 
+                  + 2.7364E-21     U2-Ni-F-I                     
+                  + 7.7092E-25     Th-Ni-F-I                     
+                  + 1.9443E-20     U3+-Ni-F-I                    
+                  + 3.0612E-24     Pu-Ni-F-I                     
+                  + 1.0686E-24     Rb-Ni-F-I                     
+                  + 4.7658E-24     La-Ni-F-I                     
+                  + 1.7170E-24     Cs-Ni-F-I                     
+                  + 1.4292E-24     Ca-Ni-F-I                     
+                  + 2.7170E-24     Ce-Ni-F-I                     
+                  + 1.7328E-24     Nd-Ni-F-I                     
+                  + 4.8360E-22     Be2-Ni-F-I                    
+                  + 4.8069E-14     Li-U[VI]-F-I                  
+                  + 4.3022E-16     Be[IV]-U[VI]-F-I              
+                  + 1.3546E-15     U2-U[VI]-F-I                  
+                  + 3.8163E-19     Th-U[VI]-F-I                  
+                  + 9.6249E-15     U3+-U[VI]-F-I                 
+                  + 1.5154E-18     Pu-U[VI]-F-I                  
+                  + 5.0846E-19     Rb-U[VI]-F-I                  
+                  + 2.3593E-18     La-U[VI]-F-I                  
+                  + 1.8800E-17     Cs-U[VI]-F-I                  
+                  + 7.0750E-19     Ca-U[VI]-F-I                  
+                  + 1.3450E-18     Ce-U[VI]-F-I                  
+                  + 8.5779E-19     Nd-U[VI]-F-I                  
+                  + 2.3940E-16     Be2-U[VI]-F-I                 
+                  + 1.1760E-26     Ni-U[VI]-F-I                  
+                  + 9.0805E-08     Li-U[VII]-F-I                 
+                  + 1.8464E-10     Be[IV]-U[VII]-F-I             
+                  + 5.8391E-10     U2-U[VII]-F-I                 
+                  + 4.5573E-13     Th-U[VII]-F-I                 
+                  + 4.1488E-09     U3+-U[VII]-F-I                
+                  + 2.1032E-12     Pu-U[VII]-F-I                 
+                  + 2.1917E-13     Rb-U[VII]-F-I                 
+                  + 1.0170E-12     La-U[VII]-F-I                 
+                  + 6.2507E-12     Cs-U[VII]-F-I                 
+                  + 3.0497E-13     Ca-U[VII]-F-I                 
+                  + 5.7977E-13     Ce-U[VII]-F-I                 
+                  + 3.6975E-13     Nd-U[VII]-F-I                 
+                  + 2.7191E-10     Be2-U[VII]-F-I                
+                  + 5.0693E-21     Ni-U[VII]-F-I                 
+                  + 2.5095E-15     U[VI]-U[VII]-F-I }            
+
+    + 0.65000 mol Ni_Solid_FCC(s)
+
+ ===========================================================
+ |                    System properties                    |
+ ===========================================================
+
+  Temperature =     900.00 [K]
+  Pressure    =     1.0000 [atm]
+
+  System Component | Mass [mol] | Chemical potential [J/mol]
+ ------------------|------------|---------------------------
+      Pu           | 1.6500E-04 |  -4.264731E+05
+      U            | 4.9990E+00 |  -2.901324E+05
+      Th           | 2.5100E-04 |  -5.292537E+05
+      Nd           | 9.8900E-05 |  -4.994646E+05
+      Ce           | 1.4628E-04 |  -5.142033E+05
+      La           | 1.6200E-04 |  -4.814846E+05
+      Cs           | 1.2681E-04 |  -3.332390E+05
+      I            | 2.2000E-05 |  -2.469532E+05
+      Rb           | 2.8300E-05 |  -2.942639E+05
+      Ni           | 6.5000E-01 |  -3.832971E+04
+      Ca           | 1.9200E-04 |  -4.753562E+05
+      F            | 1.4667E+02 |  -4.562029E+05
+      Be           | 3.1789E+01 |  -2.065774E+05
+      Li           | 6.3330E+01 |  -2.190724E+05
+
+  Integral Gibbs energy = -8.88279E+07 [J]
+
+ ===========================================================
+
+
+ DEBUG: Successful exit.
+
+ WARNING: Element H   not in database and therefore omitted from calculation
+ WARNING: Element He  not in database and therefore omitted from calculation
+ WARNING: Element B   not in database and therefore omitted from calculation
+ WARNING: Element C   not in database and therefore omitted from calculation
+ WARNING: Element N   not in database and therefore omitted from calculation
+ WARNING: Element O   not in database and therefore omitted from calculation
+ WARNING: Element Ne  not in database and therefore omitted from calculation
+ WARNING: Element Cr  not in database and therefore omitted from calculation
+ WARNING: Element Fe  not in database and therefore omitted from calculation
+ WARNING: Element Cu  not in database and therefore omitted from calculation
+ WARNING: Element Zn  not in database and therefore omitted from calculation
+ WARNING: Element Ga  not in database and therefore omitted from calculation
+ WARNING: Element Ge  not in database and therefore omitted from calculation
+ WARNING: Element As  not in database and therefore omitted from calculation
+ WARNING: Element Se  not in database and therefore omitted from calculation
+ WARNING: Element Kr  not in database and therefore omitted from calculation
+ WARNING: Element Nb  not in database and therefore omitted from calculation
+ WARNING: Element Mo  not in database and therefore omitted from calculation
+ WARNING: Element Tc  not in database and therefore omitted from calculation
+ WARNING: Element Ru  not in database and therefore omitted from calculation
+ WARNING: Element Rh  not in database and therefore omitted from calculation
+ WARNING: Element Pd  not in database and therefore omitted from calculation
+ WARNING: Element Ag  not in database and therefore omitted from calculation
+ WARNING: Element Cd  not in database and therefore omitted from calculation
+ WARNING: Element In  not in database and therefore omitted from calculation
+ WARNING: Element Sn  not in database and therefore omitted from calculation
+ WARNING: Element Sb  not in database and therefore omitted from calculation
+ WARNING: Element Te  not in database and therefore omitted from calculation
+ WARNING: Element Xe  not in database and therefore omitted from calculation
+ WARNING: Element Yb  not in database and therefore omitted from calculation
+ WARNING: Element Pb  not in database and therefore omitted from calculation
+
+ ===========================================================
+ |                  THERMOCHIMICA RESULTS                  |
+ ===========================================================
+
+       164.76 mol MSFL           
+    Cation fractions:
+                  { 0.73316        Li                            
+                  + 6.1800E-02     Be[IV]                        
+                  + 5.9491E-03     U2                            
+                  + 4.3529E-06     Th                            
+                  + 2.7459E-03     U3+                           
+                  + 2.8595E-06     Pu                            
+                  + 4.9201E-07     Rb                            
+                  + 2.8131E-06     La                            
+                  + 2.3204E-06     Cs                            
+                  + 3.1952E-06     Ca                            
+                  + 2.5573E-06     Ce                            
+                  + 1.7945E-06     Nd                            
+                  + 0.15311        Be2                           
+                  + 2.7706E-15     Ni                            
+                  + 3.1301E-09     U[VI]                         
+                  + 4.3223E-02     U[VII] }                      
+    Anion fractions:
+                  { 1.00000        F                             
+                  + 1.7743E-07     I      }                      
+
+      86.38007 Moles of pairs
+    Pair fractions:
+                  { 0.73315        LiF                           
+                  + 6.1800E-02     BeF2                          
+                  + 5.9491E-03     U2F8                          
+                  + 4.3529E-06     ThF4                          
+                  + 2.7459E-03     UF3                           
+                  + 2.8595E-06     PuF3                          
+                  + 4.9201E-07     RbF                           
+                  + 2.8131E-06     LaF3                          
+                  + 2.3204E-06     CsF                           
+                  + 3.1952E-06     CaF2                          
+                  + 2.5573E-06     CeF3                          
+                  + 1.7945E-06     NdF3                          
+                  + 0.15311        Be2F4                         
+                  + 2.7706E-15     NiF2                          
+                  + 3.1301E-09     U[VI]-F4                      
+                  + 4.3223E-02     U[VII]-F4                     
+                  + 1.3418E-07     LiI                           
+                  + 8.5801E-12     CsI                           
+                  + 4.3410E-09     U2I8                          
+                  + 1.1703E-14     U[VI]-I4                      
+                  + 1.7602E-08     U[VII]-I4                     
+                  + 2.4067E-09     BeI2	                         
+                  + 1.5659E-12     ThI4                          
+                  + 1.7786E-08     UI3	                          
+                  + 4.9919E-12     PuI3	                         
+                  + 1.7903E-12     RbI	                          
+                  + 7.1865E-12     LaI3	                         
+                  + 2.0119E-12     CaI2	                         
+                  + 4.1657E-12     CeI3	                         
+                  + 2.7768E-12     NdI3	                         
+                  + 9.7511E-10     Be2I4                         
+                  + 2.3332E-20     NiI2      }                   
+
+    Quadruplet fractions:
+                  { 0.21798        Li-Li-F-F                     
+                  + 6.8758E-04     Be[IV]-Be[IV]-F-F             
+                  + 3.7577E-05     U2-U2-F-F                     
+                  + 9.8973E-11     Th-Th-F-F                     
+                  + 8.7473E-05     U3+-U3+-F-F                   
+                  + 5.3613E-11     Pu-Pu-F-F                     
+                  + 8.7551E-13     Rb-Rb-F-F                     
+                  + 6.3865E-11     La-La-F-F                     
+                  + 1.6621E-12     Cs-Cs-F-F                     
+                  + 8.0327E-12     Ca-Ca-F-F                     
+                  + 4.7089E-11     Ce-Ce-F-F                     
+                  + 2.3560E-11     Nd-Nd-F-F                     
+                  + 2.2044E-02     Be2-Be2-F-F                   
+                  + 5.2918E-29     Ni-Ni-F-F                     
+                  + 5.8165E-17     U[VI]-U[VI]-F-F               
+                  + 4.6230E-05     U[VII]-U[VII]-F-F             
+                  + 0.17715        Li-Be[IV]-F-F                 
+                  + 1.5586E-02     Li-U2-F-F                     
+                  + 1.1929E-03     Be[IV]-U2-F-F                 
+                  + 9.3318E-06     Li-Th-F-F                     
+                  + 1.6769E-06     Be[IV]-Th-F-F                 
+                  + 9.3943E-08     U2-Th-F-F                     
+                  + 5.1180E-03     Li-U3+-F-F                    
+                  + 4.5743E-04     Be[IV]-U3+-F-F                
+                  + 1.7793E-04     U2-U3+-F-F                    
+                  + 1.2994E-07     Th-U3+-F-F                    
+                  + 5.2704E-06     Li-Pu-F-F                     
+                  + 2.9606E-07     Be[IV]-Pu-F-F                 
+                  + 9.3788E-08     U2-Pu-F-F                     
+                  + 6.9328E-11     Th-Pu-F-F                     
+                  + 1.2772E-07     U3+-Pu-F-F                    
+                  + 1.1936E-06     Li-Rb-F-F                     
+                  + 4.7168E-08     Be[IV]-Rb-F-F                 
+                  + 1.1344E-08     U2-Rb-F-F                     
+                  + 1.3398E-11     Th-Rb-F-F                     
+                  + 1.5690E-08     U3+-Rb-F-F                    
+                  + 9.0011E-11     Pu-Rb-F-F                     
+                  + 5.8589E-06     Li-La-F-F                     
+                  + 3.9890E-07     Be[IV]-La-F-F                 
+                  + 9.5932E-08     U2-La-F-F                     
+                  + 1.1331E-10     Th-La-F-F                     
+                  + 1.3269E-07     U3+-La-F-F                    
+                  + 1.1138E-10     Pu-La-F-F                     
+                  + 8.8734E-11     Rb-La-F-F                     
+                  + 1.4573E-06     Li-Cs-F-F                     
+                  + 6.4990E-08     Be[IV]-Cs-F-F                 
+                  + 2.7344E-07     U2-Cs-F-F                     
+                  + 1.5456E-10     Th-Cs-F-F                     
+                  + 9.4799E-08     U3+-Cs-F-F                    
+                  + 1.8147E-11     Pu-Cs-F-F                     
+                  + 2.4126E-12     Rb-Cs-F-F                     
+                  + 1.8852E-11     La-Cs-F-F                     
+                  + 4.6702E-06     Li-Ca-F-F                     
+                  + 1.7729E-06     Be[IV]-Ca-F-F                 
+                  + 7.8128E-08     U2-Ca-F-F                     
+                  + 1.1885E-10     Th-Ca-F-F                     
+                  + 1.0806E-07     U3+-Ca-F-F                    
+                  + 9.0709E-11     Pu-Ca-F-F                     
+                  + 1.1143E-11     Rb-Ca-F-F                     
+                  + 9.7139E-11     La-Ca-F-F                     
+                  + 1.5353E-11     Cs-Ca-F-F                     
+                  + 5.2941E-06     Li-Ce-F-F                     
+                  + 3.6688E-07     Be[IV]-Ce-F-F                 
+                  + 8.8231E-08     U2-Ce-F-F                     
+                  + 7.8297E-11     Th-Ce-F-F                     
+                  + 1.2204E-07     U3+-Ce-F-F                    
+                  + 1.0244E-10     Pu-Ce-F-F                     
+                  + 1.2584E-11     Rb-Ce-F-F                     
+                  + 1.0642E-10     La-Ce-F-F                     
+                  + 1.7339E-11     Cs-Ce-F-F                     
+                  + 8.6671E-11     Ca-Ce-F-F                     
+                  + 3.7366E-06     Li-Nd-F-F                     
+                  + 2.5455E-07     Be[IV]-Nd-F-F                 
+                  + 6.1218E-08     U2-Nd-F-F                     
+                  + 7.2308E-11     Th-Nd-F-F                     
+                  + 8.4674E-08     U3+-Nd-F-F                    
+                  + 7.1076E-11     Pu-Nd-F-F                     
+                  + 8.7312E-12     Rb-Nd-F-F                     
+                  + 7.3839E-11     La-Nd-F-F                     
+                  + 1.2030E-11     Cs-Nd-F-F                     
+                  + 6.0136E-11     Ca-Nd-F-F                     
+                  + 6.7912E-11     Ce-Nd-F-F                     
+                  + 0.41154        Li-Be2-F-F                    
+                  + 7.7864E-03     Be[IV]-Be2-F-F                
+                  + 1.5951E-03     U2-Be2-F-F                    
+                  + 1.6818E-06     Th-Be2-F-F                    
+                  + 2.5901E-03     U3+-Be2-F-F                   
+                  + 2.1741E-06     Pu-Be2-F-F                    
+                  + 2.6707E-07     Rb-Be2-F-F                    
+                  + 2.2586E-06     La-Be2-F-F                    
+                  + 3.6799E-07     Cs-Be2-F-F                    
+                  + 3.3366E-06     Ca-Be2-F-F                    
+                  + 2.0773E-06     Ce-Be2-F-F                    
+                  + 1.4413E-06     Nd-Be2-F-F                    
+                  + 5.9664E-15     Li-Ni-F-F                     
+                  + 3.6670E-16     Be[IV]-Ni-F-F                 
+                  + 8.8190E-17     U2-Ni-F-F                     
+                  + 1.0417E-19     Th-Ni-F-F                     
+                  + 1.2198E-16     U3+-Ni-F-F                    
+                  + 1.0239E-19     Pu-Ni-F-F                     
+                  + 1.3613E-20     Rb-Ni-F-F                     
+                  + 1.0637E-19     La-Ni-F-F                     
+                  + 1.8757E-20     Cs-Ni-F-F                     
+                  + 8.6631E-20     Ca-Ni-F-F                     
+                  + 9.7833E-20     Ce-Ni-F-F                     
+                  + 6.7880E-20     Nd-Ni-F-F                     
+                  + 2.0764E-15     Be2-Ni-F-F                    
+                  + 6.8453E-09     Li-U[VI]-F-F                  
+                  + 3.9996E-10     Be[IV]-U[VI]-F-F              
+                  + 9.6189E-11     U2-U[VI]-F-F                  
+                  + 1.1361E-13     Th-U[VI]-F-F                  
+                  + 1.3304E-10     U3+-U[VI]-F-F                 
+                  + 1.1168E-13     Pu-U[VI]-F-F                  
+                  + 1.3719E-14     Rb-U[VI]-F-F                  
+                  + 1.1602E-13     La-U[VI]-F-F                  
+                  + 2.7053E-12     Cs-U[VI]-F-F                  
+                  + 9.4488E-14     Ca-U[VI]-F-F                  
+                  + 1.0671E-13     Ce-U[VI]-F-F                  
+                  + 7.4037E-14     Nd-U[VI]-F-F                  
+                  + 2.2647E-09     Be2-U[VI]-F-F                 
+                  + 1.0666E-22     Ni-U[VI]-F-F                  
+                  + 0.12129        Li-U[VII]-F-F                 
+                  + 3.5658E-04     Be[IV]-U[VII]-F-F             
+                  + 8.5754E-05     U2-U[VII]-F-F                 
+                  + 7.7737E-07     Th-U[VII]-F-F                 
+                  + 1.1861E-04     U3+-U[VII]-F-F                
+                  + 1.0322E-06     Pu-U[VII]-F-F                 
+                  + 1.2231E-08     Rb-U[VII]-F-F                 
+                  + 1.0343E-07     La-U[VII]-F-F                 
+                  + 2.5927E-06     Cs-U[VII]-F-F                 
+                  + 8.4238E-08     Ca-U[VII]-F-F                 
+                  + 9.5130E-08     Ce-U[VII]-F-F                 
+                  + 6.6005E-08     Nd-U[VII]-F-F                 
+                  + 1.4018E-02     Be2-U[VII]-F-F                
+                  + 9.5086E-17     Ni-U[VII]-F-F                 
+                  + 1.0371E-10     U[VI]-U[VII]-F-F              
+                  + 9.9744E-14     Li-Li-I-I                     
+                  + 2.0751E-19     Be[IV]-Be[IV]-I-I             
+                  + 2.1824E-16     U2-U2-I-I                     
+                  + 4.9621E-24     Th-Th-I-I                     
+                  + 2.8931E-13     U3+-U3+-I-I                   
+                  + 1.2730E-21     Pu-Pu-I-I                     
+                  + 1.0823E-21     Rb-Rb-I-I                     
+                  + 6.9856E-21     La-La-I-I                     
+                  + 3.1868E-21     Cs-Cs-I-I                     
+                  + 7.1827E-23     Ca-Ca-I-I                     
+                  + 8.9596E-22     Ce-Ce-I-I                     
+                  + 3.5730E-22     Nd-Nd-I-I                     
+                  + 3.8404E-22     Be2-Be2-I-I                   
+                  + 1.0171E-36     Ni-Ni-I-I                     
+                  + 5.0992E-26     U[VI]-U[VI]-I-I               
+                  + 2.2110E-15     U[VII]-U[VII]-I-I             
+                  + 2.8773E-16     Li-Be[IV]-I-I                 
+                  + 9.3313E-15     Li-U2-I-I                     
+                  + 1.3459E-17     Be[IV]-U2-I-I                 
+                  + 1.4070E-18     Li-Th-I-I                     
+                  + 2.0295E-21     Be[IV]-Th-I-I                 
+                  + 6.5816E-20     U2-Th-I-I                     
+                  + 3.3974E-13     Li-U3+-I-I                    
+                  + 4.9004E-16     Be[IV]-U3+-I-I                
+                  + 1.5892E-14     U2-U3+-I-I                    
+                  + 2.3963E-18     Th-U3+-I-I                    
+                  + 2.2537E-17     Li-Pu-I-I                     
+                  + 3.2506E-20     Be[IV]-Pu-I-I                 
+                  + 1.0542E-18     U2-Pu-I-I                     
+                  + 1.5896E-22     Th-Pu-I-I                     
+                  + 3.8382E-17     U3+-Pu-I-I                    
+                  + 2.0780E-17     Li-Rb-I-I                     
+                  + 2.9973E-20     Be[IV]-Rb-I-I                 
+                  + 9.7202E-19     U2-Rb-I-I                     
+                  + 1.4657E-22     Th-Rb-I-I                     
+                  + 3.5391E-17     U3+-Rb-I-I                    
+                  + 2.3476E-21     Pu-Rb-I-I                     
+                  + 5.2793E-17     Li-La-I-I                     
+                  + 7.6147E-20     Be[IV]-La-I-I                 
+                  + 2.4694E-18     U2-La-I-I                     
+                  + 3.7236E-22     Th-La-I-I                     
+                  + 8.9910E-17     U3+-La-I-I                    
+                  + 5.9641E-21     Pu-La-I-I                     
+                  + 5.4993E-21     Rb-La-I-I                     
+                  + 3.5657E-17     Li-Cs-I-I                     
+                  + 5.1431E-20     Be[IV]-Cs-I-I                 
+                  + 1.6679E-18     U2-Cs-I-I                     
+                  + 2.5150E-22     Th-Cs-I-I                     
+                  + 6.0728E-17     U3+-Cs-I-I                    
+                  + 4.0283E-21     Pu-Cs-I-I                     
+                  + 3.7144E-21     Rb-Cs-I-I                     
+                  + 9.4364E-21     La-Cs-I-I                     
+                  + 5.3533E-18     Li-Ca-I-I                     
+                  + 7.7214E-21     Be[IV]-Ca-I-I                 
+                  + 2.5041E-19     U2-Ca-I-I                     
+                  + 3.7758E-23     Th-Ca-I-I                     
+                  + 9.1170E-18     U3+-Ca-I-I                    
+                  + 6.0477E-22     Pu-Ca-I-I                     
+                  + 5.5764E-22     Rb-Ca-I-I                     
+                  + 1.4167E-21     La-Ca-I-I                     
+                  + 9.5687E-22     Cs-Ca-I-I                     
+                  + 1.8907E-17     Li-Ce-I-I                     
+                  + 2.7270E-20     Be[IV]-Ce-I-I                 
+                  + 8.8439E-19     U2-Ce-I-I                     
+                  + 1.3335E-22     Th-Ce-I-I                     
+                  + 3.2200E-17     U3+-Ce-I-I                    
+                  + 2.1359E-21     Pu-Ce-I-I                     
+                  + 1.9695E-21     Rb-Ce-I-I                     
+                  + 5.0035E-21     La-Ce-I-I                     
+                  + 3.3795E-21     Cs-Ce-I-I                     
+                  + 5.0736E-22     Ca-Ce-I-I                     
+                  + 1.1940E-17     Li-Nd-I-I                     
+                  + 1.7221E-20     Be[IV]-Nd-I-I                 
+                  + 5.5849E-19     U2-Nd-I-I                     
+                  + 8.4213E-23     Th-Nd-I-I                     
+                  + 2.0334E-17     U3+-Nd-I-I                    
+                  + 1.3489E-21     Pu-Nd-I-I                     
+                  + 1.2437E-21     Rb-Nd-I-I                     
+                  + 3.1597E-21     La-Nd-I-I                     
+                  + 2.1342E-21     Cs-Nd-I-I                     
+                  + 3.2040E-22     Ca-Nd-I-I                     
+                  + 1.1316E-21     Ce-Nd-I-I                     
+                  + 1.2378E-17     Li-Be2-I-I                    
+                  + 1.7854E-20     Be[IV]-Be2-I-I                
+                  + 5.7901E-19     U2-Be2-I-I                    
+                  + 8.7307E-23     Th-Be2-I-I                    
+                  + 2.1081E-17     U3+-Be2-I-I                   
+                  + 1.3984E-21     Pu-Be2-I-I                    
+                  + 1.2894E-21     Rb-Be2-I-I                    
+                  + 3.2758E-21     La-Be2-I-I                    
+                  + 2.2125E-21     Cs-Be2-I-I                    
+                  + 3.3217E-22     Ca-Be2-I-I                    
+                  + 1.1732E-21     Ce-Be2-I-I                    
+                  + 7.4086E-22     Nd-Be2-I-I                    
+                  + 6.3703E-25     Li-Ni-I-I                     
+                  + 9.1884E-28     Be[IV]-Ni-I-I                 
+                  + 2.9798E-26     U2-Ni-I-I                     
+                  + 4.4932E-30     Th-Ni-I-I                     
+                  + 1.0849E-24     U3+-Ni-I-I                    
+                  + 7.1968E-29     Pu-Ni-I-I                     
+                  + 6.6359E-29     Rb-Ni-I-I                     
+                  + 1.6859E-28     La-Ni-I-I                     
+                  + 1.1387E-28     Cs-Ni-I-I                     
+                  + 1.7095E-29     Ca-Ni-I-I                     
+                  + 6.0376E-29     Ce-Ni-I-I                     
+                  + 3.8128E-29     Nd-Ni-I-I                     
+                  + 3.9528E-29     Be2-Ni-I-I                    
+                  + 1.4263E-19     Li-U[VI]-I-I                  
+                  + 2.0573E-22     Be[IV]-U[VI]-I-I              
+                  + 6.6719E-21     U2-U[VI]-I-I                  
+                  + 1.0060E-24     Th-U[VI]-I-I                  
+                  + 2.4292E-19     U3+-U[VI]-I-I                 
+                  + 1.6114E-23     Pu-U[VI]-I-I                  
+                  + 1.4858E-23     Rb-U[VI]-I-I                  
+                  + 3.7747E-23     La-U[VI]-I-I                  
+                  + 2.5495E-23     Cs-U[VI]-I-I                  
+                  + 3.8276E-24     Ca-U[VI]-I-I                  
+                  + 1.3518E-23     Ce-U[VI]-I-I                  
+                  + 8.5369E-24     Nd-U[VI]-I-I                  
+                  + 8.8505E-24     Be2-U[VI]-I-I                 
+                  + 4.5548E-31     Ni-U[VI]-I-I                  
+                  + 2.9701E-14     Li-U[VII]-I-I                 
+                  + 4.2840E-17     Be[IV]-U[VII]-I-I             
+                  + 1.3893E-15     U2-U[VII]-I-I                 
+                  + 2.0949E-19     Th-U[VII]-I-I                 
+                  + 5.0583E-14     U3+-U[VII]-I-I                
+                  + 3.3554E-18     Pu-U[VII]-I-I                 
+                  + 3.0939E-18     Rb-U[VII]-I-I                 
+                  + 7.8601E-18     La-U[VII]-I-I                 
+                  + 5.3089E-18     Cs-U[VII]-I-I                 
+                  + 7.9702E-19     Ca-U[VII]-I-I                 
+                  + 2.8149E-18     Ce-U[VII]-I-I                 
+                  + 1.7776E-18     Nd-U[VII]-I-I                 
+                  + 1.8429E-18     Be2-U[VII]-I-I                
+                  + 9.4845E-26     Ni-U[VII]-I-I                 
+                  + 2.1236E-20     U[VI]-U[VII]-I-I              
+                  + 2.4401E-07     Li-Li-F-I                     
+                  + 2.3890E-11     Be[IV]-Be[IV]-F-I             
+                  + 1.8112E-10     U2-U2-F-I                     
+                  + 4.4322E-17     Th-Th-F-I                     
+                  + 1.0061E-08     U3+-U3+-F-I                   
+                  + 5.2249E-16     Pu-Pu-F-I                     
+                  + 6.1566E-17     Rb-Rb-F-I                     
+                  + 1.3359E-15     La-La-F-I                     
+                  + 1.7609E-16     Cs-Cs-F-I                     
+                  + 4.8040E-17     Ca-Ca-F-I                     
+                  + 4.1080E-16     Ce-Ce-F-I                     
+                  + 1.8350E-16     Nd-Nd-F-I                     
+                  + 5.8192E-12     Be2-Be2-F-I                   
+                  + 1.4673E-32     Ni-Ni-F-I                     
+                  + 3.4444E-21     U[VI]-U[VI]-F-I               
+                  + 6.3942E-10     U[VII]-U[VII]-F-I             
+                  + 1.4068E-08     Li-Be[IV]-F-I                 
+                  + 2.3112E-08     Li-U2-F-I                     
+                  + 1.2493E-11     Be[IV]-U2-F-I                 
+                  + 8.1544E-12     Li-Th-F-I                     
+                  + 5.9074E-14     Be[IV]-Th-F-I                 
+                  + 1.5726E-13     U2-Th-F-I                     
+                  + 8.7651E-08     Li-U3+-F-I                    
+                  + 8.3413E-10     Be[IV]-U3+-F-I                
+                  + 3.3631E-09     U2-U3+-F-I                    
+                  + 1.1160E-12     Th-U3+-F-I                    
+                  + 2.3828E-11     Li-Pu-F-I                     
+                  + 1.7301E-13     Be[IV]-Pu-F-I                 
+                  + 6.2887E-13     U2-Pu-F-I                     
+                  + 2.0159E-16     Th-Pu-F-I                     
+                  + 4.4282E-12     U3+-Pu-F-I                    
+                  + 9.0605E-12     Li-Rb-F-I                     
+                  + 6.6805E-14     Be[IV]-Rb-F-I                 
+                  + 2.1001E-13     U2-Rb-F-I                     
+                  + 8.8629E-17     Th-Rb-F-I                     
+                  + 1.4903E-12     U3+-Rb-F-I                    
+                  + 1.9459E-15     Pu-Rb-F-I                     
+                  + 3.7363E-11     Li-La-F-I                     
+                  + 3.1614E-13     Be[IV]-La-F-I                 
+                  + 9.7344E-13     U2-La-F-I                     
+                  + 4.1081E-16     Th-La-F-I                     
+                  + 6.9080E-12     U3+-La-F-I                    
+                  + 1.6301E-15     Pu-La-F-I                     
+                  + 2.9168E-15     Rb-La-F-I                     
+                  + 1.4468E-11     Li-Cs-F-I                     
+                  + 1.1217E-13     Be[IV]-Cs-F-I                 
+                  + 2.0865E-12     U2-Cs-F-I                     
+                  + 7.7564E-16     Th-Cs-F-I                     
+                  + 1.2936E-11     U3+-Cs-F-I                    
+                  + 5.9476E-16     Pu-Cs-F-I                     
+                  + 2.0824E-16     Rb-Cs-F-I                     
+                  + 9.2782E-16     La-Cs-F-I                     
+                  + 1.0113E-11     Li-Ca-F-I                     
+                  + 2.1828E-13     Be[IV]-Ca-F-I                 
+                  + 2.7974E-13     U2-Ca-F-I                     
+                  + 1.8704E-16     Th-Ca-F-I                     
+                  + 1.9852E-12     U3+-Ca-F-I                    
+                  + 4.6844E-16     Pu-Ca-F-I                     
+                  + 1.5765E-16     Rb-Ca-F-I                     
+                  + 7.4193E-16     La-Ca-F-I                     
+                  + 2.6663E-16     Cs-Ca-F-I                     
+                  + 2.1718E-11     Li-Ce-F-I                     
+                  + 1.8459E-13     Be[IV]-Ce-F-I                 
+                  + 5.5868E-13     U2-Ce-F-I                     
+                  + 1.9189E-16     Th-Ce-F-I                     
+                  + 3.9646E-12     U3+-Ce-F-I                    
+                  + 9.3553E-16     Pu-Ce-F-I                     
+                  + 3.1486E-16     Rb-Ce-F-I                     
+                  + 1.4594E-15     La-Ce-F-I                     
+                  + 5.3249E-16     Cs-Ce-F-I                     
+                  + 4.1940E-16     Ca-Ce-F-I                     
+                  + 1.4506E-11     Li-Nd-F-I                     
+                  + 1.2238E-13     Be[IV]-Nd-F-I                 
+                  + 3.6981E-13     U2-Nd-F-I                     
+                  + 1.5607E-16     Th-Nd-F-I                     
+                  + 2.6243E-12     U3+-Nd-F-I                    
+                  + 6.1926E-16     Pu-Nd-F-I                     
+                  + 2.0842E-16     Rb-Nd-F-I                     
+                  + 9.6605E-16     La-Nd-F-I                     
+                  + 3.5248E-16     Cs-Nd-F-I                     
+                  + 2.7762E-16     Ca-Nd-F-I                     
+                  + 5.5443E-16     Ce-Nd-F-I                     
+                  + 5.5649E-09     Li-Be2-F-I                    
+                  + 2.5996E-11     Be[IV]-Be2-F-I                
+                  + 6.0781E-11     U2-Be2-F-I                    
+                  + 2.4235E-14     Th-Be2-F-I                    
+                  + 4.6734E-10     U3+-Be2-F-I                   
+                  + 1.1028E-13     Pu-Be2-F-I                    
+                  + 3.7114E-14     Rb-Be2-F-I                    
+                  + 1.7203E-13     La-Be2-F-I                    
+                  + 6.2769E-14     Cs-Be2-F-I                    
+                  + 6.6583E-14     Ca-Be2-F-I                    
+                  + 9.8733E-14     Ce-Be2-F-I                    
+                  + 6.5355E-14     Nd-Be2-F-I                    
+                  + 1.2098E-19     Li-Ni-F-I                     
+                  + 1.0084E-21     Be[IV]-Ni-F-I                 
+                  + 3.2422E-21     U2-Ni-F-I                     
+                  + 1.3683E-24     Th-Ni-F-I                     
+                  + 2.3008E-20     U3+-Ni-F-I                    
+                  + 5.4291E-24     Pu-Ni-F-I                     
+                  + 1.9009E-24     Rb-Ni-F-I                     
+                  + 8.4694E-24     La-Ni-F-I                     
+                  + 3.2149E-24     Cs-Ni-F-I                     
+                  + 2.4339E-24     Ca-Ni-F-I                     
+                  + 4.8608E-24     Ce-Ni-F-I                     
+                  + 3.2175E-24     Nd-Ni-F-I                     
+                  + 5.7297E-22     Be2-Ni-F-I                    
+                  + 5.6847E-14     Li-U[VI]-F-I                  
+                  + 5.0882E-16     Be[IV]-U[VI]-F-I              
+                  + 1.6022E-15     U2-U[VI]-F-I                  
+                  + 6.7616E-19     Th-U[VI]-F-I                  
+                  + 1.1370E-14     U3+-U[VI]-F-I                 
+                  + 2.6830E-18     Pu-U[VI]-F-I                  
+                  + 9.0296E-19     Rb-U[VI]-F-I                  
+                  + 4.1854E-18     La-U[VI]-F-I                  
+                  + 3.5139E-17     Cs-U[VI]-F-I                  
+                  + 1.2028E-18     Ca-U[VI]-F-I                  
+                  + 2.4021E-18     Ce-U[VI]-F-I                  
+                  + 1.5900E-18     Nd-U[VI]-F-I                  
+                  + 2.8315E-16     Be2-U[VI]-F-I                 
+                  + 1.3940E-26     Ni-U[VI]-F-I                  
+                  + 1.0734E-07     Li-U[VII]-F-I                 
+                  + 2.1827E-10     Be[IV]-U[VII]-F-I             
+                  + 6.9033E-10     U2-U[VII]-F-I                 
+                  + 8.0709E-13     Th-U[VII]-F-I                 
+                  + 4.8989E-09     U3+-U[VII]-F-I                
+                  + 3.7220E-12     Pu-U[VII]-F-I                 
+                  + 3.8905E-13     Rb-U[VII]-F-I                 
+                  + 1.8033E-12     La-U[VII]-F-I                 
+                  + 1.1678E-11     Cs-U[VII]-F-I                 
+                  + 5.1823E-13     Ca-U[VII]-F-I                 
+                  + 1.0350E-12     Ce-U[VII]-F-I                 
+                  + 6.8508E-13     Nd-U[VII]-F-I                 
+                  + 3.2146E-10     Be2-U[VII]-F-I                
+                  + 6.0062E-21     Ni-U[VII]-F-I                 
+                  + 2.9681E-15     U[VI]-U[VII]-F-I }            
+
+    + 0.65000 mol Ni_Solid_FCC(s)
+
+ ===========================================================
+ |                    System properties                    |
+ ===========================================================
+
+  Temperature =     900.00 [K]
+  Pressure    =     1.0000 [atm]
+
+  System Component | Mass [mol] | Chemical potential [J/mol]
+ ------------------|------------|---------------------------
+      Pu           | 2.4700E-04 |  -4.234796E+05
+      U            | 4.9986E+00 |  -2.901668E+05
+      Th           | 3.7600E-04 |  -5.262637E+05
+      Nd           | 1.5501E-04 |  -4.961277E+05
+      Ce           | 2.2090E-04 |  -5.111447E+05
+      La           | 2.4300E-04 |  -4.784763E+05
+      Cs           | 2.0044E-04 |  -3.298210E+05
+      I            | 2.6000E-05 |  -2.456923E+05
+      Rb           | 4.2500E-05 |  -2.912309E+05
+      Ni           | 6.5000E-01 |  -3.832971E+04
+      Ca           | 2.7600E-04 |  -4.726576E+05
+      F            | 1.4667E+02 |  -4.561945E+05
+      Be           | 3.1789E+01 |  -2.065944E+05
+      Li           | 6.3330E+01 |  -2.190808E+05
+
+  Integral Gibbs energy = -8.88280E+07 [J]
+
+ ===========================================================
+
+
+ DEBUG: Successful exit.
+
+ WARNING: Element H   not in database and therefore omitted from calculation
+ WARNING: Element He  not in database and therefore omitted from calculation
+ WARNING: Element B   not in database and therefore omitted from calculation
+ WARNING: Element C   not in database and therefore omitted from calculation
+ WARNING: Element N   not in database and therefore omitted from calculation
+ WARNING: Element O   not in database and therefore omitted from calculation
+ WARNING: Element Ne  not in database and therefore omitted from calculation
+ WARNING: Element Cr  not in database and therefore omitted from calculation
+ WARNING: Element Fe  not in database and therefore omitted from calculation
+ WARNING: Element Cu  not in database and therefore omitted from calculation
+ WARNING: Element Zn  not in database and therefore omitted from calculation
+ WARNING: Element Ga  not in database and therefore omitted from calculation
+ WARNING: Element Ge  not in database and therefore omitted from calculation
+ WARNING: Element As  not in database and therefore omitted from calculation
+ WARNING: Element Se  not in database and therefore omitted from calculation
+ WARNING: Element Kr  not in database and therefore omitted from calculation
+ WARNING: Element Nb  not in database and therefore omitted from calculation
+ WARNING: Element Mo  not in database and therefore omitted from calculation
+ WARNING: Element Tc  not in database and therefore omitted from calculation
+ WARNING: Element Ru  not in database and therefore omitted from calculation
+ WARNING: Element Rh  not in database and therefore omitted from calculation
+ WARNING: Element Pd  not in database and therefore omitted from calculation
+ WARNING: Element Ag  not in database and therefore omitted from calculation
+ WARNING: Element Cd  not in database and therefore omitted from calculation
+ WARNING: Element In  not in database and therefore omitted from calculation
+ WARNING: Element Sn  not in database and therefore omitted from calculation
+ WARNING: Element Sb  not in database and therefore omitted from calculation
+ WARNING: Element Te  not in database and therefore omitted from calculation
+ WARNING: Element Xe  not in database and therefore omitted from calculation
+ WARNING: Element Yb  not in database and therefore omitted from calculation
+ WARNING: Element Pb  not in database and therefore omitted from calculation
+
+ ===========================================================
+ |                  THERMOCHIMICA RESULTS                  |
+ ===========================================================
+
+       164.76 mol MSFL           
+    Cation fractions:
+                  { 0.73315        Li                            
+                  + 6.1800E-02     Be[IV]                        
+                  + 5.9483E-03     U2                            
+                  + 5.7999E-06     Th                            
+                  + 2.7425E-03     U3+                           
+                  + 3.8087E-06     Pu                            
+                  + 6.5756E-07     Rb                            
+                  + 3.7624E-06     La                            
+                  + 3.1828E-06     Cs                            
+                  + 4.1097E-06     Ca                            
+                  + 3.4205E-06     Ce                            
+                  + 2.4737E-06     Nd                            
+                  + 0.15311        Be2                           
+                  + 2.7774E-15     Ni                            
+                  + 3.1318E-09     U[VI]                         
+                  + 4.3222E-02     U[VII] }                      
+    Anion fractions:
+                  { 1.00000        F                             
+                  + 2.0472E-07     I      }                      
+
+      86.38027 Moles of pairs
+    Pair fractions:
+                  { 0.73315        LiF                           
+                  + 6.1800E-02     BeF2                          
+                  + 5.9483E-03     U2F8                          
+                  + 5.7999E-06     ThF4                          
+                  + 2.7425E-03     UF3                           
+                  + 3.8087E-06     PuF3                          
+                  + 6.5755E-07     RbF                           
+                  + 3.7624E-06     LaF3                          
+                  + 3.1828E-06     CsF                           
+                  + 4.1097E-06     CaF2                          
+                  + 3.4205E-06     CeF3                          
+                  + 2.4737E-06     NdF3                          
+                  + 0.15311        Be2F4                         
+                  + 2.7774E-15     NiF2                          
+                  + 3.1318E-09     U[VI]-F4                      
+                  + 4.3222E-02     U[VII]-F4                     
+                  + 1.5483E-07     LiI                           
+                  + 1.3575E-11     CsI                           
+                  + 5.0100E-09     U2I8                          
+                  + 1.3514E-14     U[VI]-I4                      
+                  + 2.0316E-08     U[VII]-I4                     
+                  + 2.7774E-09     BeI2	                         
+                  + 2.4080E-12     ThI4                          
+                  + 2.0498E-08     UI3	                          
+                  + 7.6732E-12     PuI3	                         
+                  + 2.7613E-12     RbI	                          
+                  + 1.1092E-11     LaI3	                         
+                  + 2.9860E-12     CaI2	                         
+                  + 6.4298E-12     CeI3	                         
+                  + 4.4173E-12     NdI3	                         
+                  + 1.1254E-09     Be2I4                         
+                  + 2.6989E-20     NiI2      }                   
+
+    Quadruplet fractions:
+                  { 0.21798        Li-Li-F-F                     
+                  + 6.8758E-04     Be[IV]-Be[IV]-F-F             
+                  + 3.7569E-05     U2-U2-F-F                     
+                  + 1.7398E-10     Th-Th-F-F                     
+                  + 8.7258E-05     U3+-U3+-F-F                   
+                  + 9.5122E-11     Pu-Pu-F-F                     
+                  + 1.5634E-12     Rb-Rb-F-F                     
+                  + 1.1397E-10     La-La-F-F                     
+                  + 3.1274E-12     Cs-Cs-F-F                     
+                  + 1.3307E-11     Ca-Ca-F-F                     
+                  + 8.4238E-11     Ce-Ce-F-F                     
+                  + 4.4771E-11     Nd-Nd-F-F                     
+                  + 2.2044E-02     Be2-Be2-F-F                   
+                  + 5.3177E-29     Ni-Ni-F-F                     
+                  + 5.8217E-17     U[VI]-U[VI]-F-F               
+                  + 4.6228E-05     U[VII]-U[VII]-F-F             
+                  + 0.17715        Li-Be[IV]-F-F                 
+                  + 1.5584E-02     Li-U2-F-F                     
+                  + 1.1928E-03     Be[IV]-U2-F-F                 
+                  + 1.2434E-05     Li-Th-F-F                     
+                  + 2.2343E-06     Be[IV]-Th-F-F                 
+                  + 1.2516E-07     U2-Th-F-F                     
+                  + 5.1115E-03     Li-U3+-F-F                    
+                  + 4.5685E-04     Be[IV]-U3+-F-F                
+                  + 1.7767E-04     U2-U3+-F-F                    
+                  + 1.7291E-07     Th-U3+-F-F                    
+                  + 7.0201E-06     Li-Pu-F-F                     
+                  + 3.9435E-07     Be[IV]-Pu-F-F                 
+                  + 1.2491E-07     U2-Pu-F-F                     
+                  + 1.2304E-10     Th-Pu-F-F                     
+                  + 1.6991E-07     U3+-Pu-F-F                    
+                  + 1.5950E-06     Li-Rb-F-F                     
+                  + 6.3032E-08     Be[IV]-Rb-F-F                 
+                  + 1.5157E-08     U2-Rb-F-F                     
+                  + 2.3857E-11     Th-Rb-F-F                     
+                  + 2.0940E-08     U3+-Rb-F-F                    
+                  + 1.6021E-10     Pu-Rb-F-F                     
+                  + 7.8359E-06     Li-La-F-F                     
+                  + 5.3350E-07     Be[IV]-La-F-F                 
+                  + 1.2829E-07     U2-La-F-F                     
+                  + 2.0192E-10     Th-La-F-F                     
+                  + 1.7724E-07     U3+-La-F-F                    
+                  + 1.9842E-10     Pu-La-F-F                     
+                  + 1.5858E-10     Rb-La-F-F                     
+                  + 1.9990E-06     Li-Cs-F-F                     
+                  + 8.9147E-08     Be[IV]-Cs-F-F                 
+                  + 3.7503E-07     U2-Cs-F-F                     
+                  + 2.8250E-10     Th-Cs-F-F                     
+                  + 1.2988E-07     U3+-Cs-F-F                    
+                  + 3.3155E-11     Pu-Cs-F-F                     
+                  + 4.4224E-12     Rb-Cs-F-F                     
+                  + 3.4585E-11     La-Cs-F-F                     
+                  + 6.0069E-06     Li-Ca-F-F                     
+                  + 2.2804E-06     Be[IV]-Ca-F-F                 
+                  + 1.0048E-07     U2-Ca-F-F                     
+                  + 2.0537E-10     Th-Ca-F-F                     
+                  + 1.3882E-07     U3+-Ca-F-F                    
+                  + 1.5540E-10     Pu-Ca-F-F                     
+                  + 1.9152E-11     Rb-Ca-F-F                     
+                  + 1.6739E-10     La-Ca-F-F                     
+                  + 2.7088E-11     Cs-Ca-F-F                     
+                  + 7.0813E-06     Li-Ce-F-F                     
+                  + 4.9073E-07     Be[IV]-Ce-F-F                 
+                  + 1.1800E-07     U2-Ce-F-F                     
+                  + 1.3952E-10     Th-Ce-F-F                     
+                  + 1.6303E-07     U3+-Ce-F-F                    
+                  + 1.8251E-10     Pu-Ce-F-F                     
+                  + 2.2493E-11     Rb-Ce-F-F                     
+                  + 1.9038E-10     La-Ce-F-F                     
+                  + 3.1812E-11     Cs-Ce-F-F                     
+                  + 1.4911E-10     Ca-Ce-F-F                     
+                  + 5.1510E-06     Li-Nd-F-F                     
+                  + 3.5091E-07     Be[IV]-Nd-F-F                 
+                  + 8.4379E-08     U2-Nd-F-F                     
+                  + 1.3281E-10     Th-Nd-F-F                     
+                  + 1.1658E-07     U3+-Nd-F-F                    
+                  + 1.3051E-10     Pu-Nd-F-F                     
+                  + 1.6084E-11     Rb-Nd-F-F                     
+                  + 1.3614E-10     La-Nd-F-F                     
+                  + 2.2748E-11     Cs-Nd-F-F                     
+                  + 1.0662E-10     Ca-Nd-F-F                     
+                  + 1.2522E-10     Ce-Nd-F-F                     
+                  + 0.41153        Li-Be2-F-F                    
+                  + 7.7864E-03     Be[IV]-Be2-F-F                
+                  + 1.5949E-03     U2-Be2-F-F                    
+                  + 2.2408E-06     Th-Be2-F-F                    
+                  + 2.5868E-03     U3+-Be2-F-F                   
+                  + 2.8959E-06     Pu-Be2-F-F                    
+                  + 3.5689E-07     Rb-Be2-F-F                    
+                  + 3.0208E-06     La-Be2-F-F                    
+                  + 5.0477E-07     Cs-Be2-F-F                    
+                  + 4.2915E-06     Ca-Be2-F-F                    
+                  + 2.7786E-06     Ce-Be2-F-F                    
+                  + 1.9869E-06     Nd-Be2-F-F                    
+                  + 5.9810E-15     Li-Ni-F-F                     
+                  + 3.6760E-16     Be[IV]-Ni-F-F                 
+                  + 8.8394E-17     U2-Ni-F-F                     
+                  + 1.3913E-19     Th-Ni-F-F                     
+                  + 1.2212E-16     U3+-Ni-F-F                    
+                  + 1.3672E-19     Pu-Ni-F-F                     
+                  + 1.8236E-20     Rb-Ni-F-F                     
+                  + 1.4261E-19     La-Ni-F-F                     
+                  + 2.5792E-20     Cs-Ni-F-F                     
+                  + 1.1170E-19     Ca-Ni-F-F                     
+                  + 1.3118E-19     Ce-Ni-F-F                     
+                  + 9.3803E-20     Nd-Ni-F-F                     
+                  + 2.0814E-15     Be2-Ni-F-F                    
+                  + 6.8483E-09     Li-U[VI]-F-F                  
+                  + 4.0014E-10     Be[IV]-U[VI]-F-F              
+                  + 9.6219E-11     U2-U[VI]-F-F                  
+                  + 1.5145E-13     Th-U[VI]-F-F                  
+                  + 1.3293E-10     U3+-U[VI]-F-F                 
+                  + 1.4882E-13     Pu-U[VI]-F-F                  
+                  + 1.8341E-14     Rb-U[VI]-F-F                  
+                  + 1.5524E-13     La-U[VI]-F-F                  
+                  + 3.7126E-12     Cs-U[VI]-F-F                  
+                  + 1.2159E-13     Ca-U[VI]-F-F                  
+                  + 1.4279E-13     Ce-U[VI]-F-F                  
+                  + 1.0211E-13     Nd-U[VI]-F-F                  
+                  + 2.2657E-09     Be2-U[VI]-F-F                 
+                  + 1.0697E-22     Ni-U[VI]-F-F                  
+                  + 0.12129        Li-U[VII]-F-F                 
+                  + 3.5657E-04     Be[IV]-U[VII]-F-F             
+                  + 8.5741E-05     U2-U[VII]-F-F                 
+                  + 1.0358E-06     Th-U[VII]-F-F                 
+                  + 1.1846E-04     U3+-U[VII]-F-F                
+                  + 1.3748E-06     Pu-U[VII]-F-F                 
+                  + 1.6344E-08     Rb-U[VII]-F-F                 
+                  + 1.3833E-07     La-U[VII]-F-F                 
+                  + 3.5564E-06     Cs-U[VII]-F-F                 
+                  + 1.0835E-07     Ca-U[VII]-F-F                 
+                  + 1.2724E-07     Ce-U[VII]-F-F                 
+                  + 9.0988E-08     Nd-U[VII]-F-F                 
+                  + 1.4017E-02     Be2-U[VII]-F-F                
+                  + 9.5317E-17     Ni-U[VII]-F-F                 
+                  + 1.0375E-10     U[VI]-U[VII]-F-F              
+                  + 1.3283E-13     Li-Li-I-I                     
+                  + 2.7640E-19     Be[IV]-Be[IV]-I-I             
+                  + 2.9091E-16     U2-U2-I-I                     
+                  + 1.1738E-23     Th-Th-I-I                     
+                  + 3.8441E-13     U3+-U3+-I-I                   
+                  + 3.0087E-21     Pu-Pu-I-I                     
+                  + 2.5740E-21     Rb-Rb-I-I                     
+                  + 1.6645E-20     La-La-I-I                     
+                  + 7.9816E-21     Cs-Cs-I-I                     
+                  + 1.5825E-22     Ca-Ca-I-I                     
+                  + 2.1352E-21     Ce-Ce-I-I                     
+                  + 9.0445E-22     Nd-Nd-I-I                     
+                  + 5.1170E-22     Be2-Be2-I-I                   
+                  + 1.3613E-36     Ni-Ni-I-I                     
+                  + 6.8004E-26     U[VI]-U[VI]-I-I               
+                  + 2.9462E-15     U[VII]-U[VII]-I-I             
+                  + 3.8322E-16     Li-Be[IV]-I-I                 
+                  + 1.2432E-14     Li-U2-I-I                     
+                  + 1.7934E-17     Be[IV]-U2-I-I                 
+                  + 2.4973E-18     Li-Th-I-I                     
+                  + 3.6025E-21     Be[IV]-Th-I-I                 
+                  + 1.1687E-19     U2-Th-I-I                     
+                  + 4.5192E-13     Li-U3+-I-I                    
+                  + 6.5192E-16     Be[IV]-U3+-I-I                
+                  + 2.1150E-14     U2-U3+-I-I                    
+                  + 4.2484E-18     Th-U3+-I-I                    
+                  + 3.9982E-17     Li-Pu-I-I                     
+                  + 5.7675E-20     Be[IV]-Pu-I-I                 
+                  + 1.8711E-18     U2-Pu-I-I                     
+                  + 3.7585E-22     Th-Pu-I-I                     
+                  + 6.8017E-17     U3+-Pu-I-I                    
+                  + 3.6981E-17     Li-Rb-I-I                     
+                  + 5.3347E-20     Be[IV]-Rb-I-I                 
+                  + 1.7307E-18     U2-Rb-I-I                     
+                  + 3.4764E-22     Th-Rb-I-I                     
+                  + 6.2912E-17     U3+-Rb-I-I                    
+                  + 5.5658E-21     Pu-Rb-I-I                     
+                  + 9.4040E-17     Li-La-I-I                     
+                  + 1.3566E-19     Be[IV]-La-I-I                 
+                  + 4.4010E-18     U2-La-I-I                     
+                  + 8.8403E-22     Th-La-I-I                     
+                  + 1.5998E-16     U3+-La-I-I                    
+                  + 1.4153E-20     Pu-La-I-I                     
+                  + 1.3091E-20     Rb-La-I-I                     
+                  + 6.5120E-17     Li-Cs-I-I                     
+                  + 9.3939E-20     Be[IV]-Cs-I-I                 
+                  + 3.0476E-18     U2-Cs-I-I                     
+                  + 6.1217E-22     Th-Cs-I-I                     
+                  + 1.1078E-16     U3+-Cs-I-I                    
+                  + 9.8008E-21     Pu-Cs-I-I                     
+                  + 9.0653E-21     Rb-Cs-I-I                     
+                  + 2.3052E-20     La-Cs-I-I                     
+                  + 9.1695E-18     Li-Ca-I-I                     
+                  + 1.3227E-20     Be[IV]-Ca-I-I                 
+                  + 4.2913E-19     U2-Ca-I-I                     
+                  + 8.6199E-23     Th-Ca-I-I                     
+                  + 1.5599E-17     U3+-Ca-I-I                    
+                  + 1.3800E-21     Pu-Ca-I-I                     
+                  + 1.2765E-21     Rb-Ca-I-I                     
+                  + 3.2460E-21     La-Ca-I-I                     
+                  + 2.2478E-21     Cs-Ca-I-I                     
+                  + 3.3682E-17     Li-Ce-I-I                     
+                  + 4.8587E-20     Be[IV]-Ce-I-I                 
+                  + 1.5763E-18     U2-Ce-I-I                     
+                  + 3.1663E-22     Th-Ce-I-I                     
+                  + 5.7299E-17     U3+-Ce-I-I                    
+                  + 5.0692E-21     Pu-Ce-I-I                     
+                  + 4.6888E-21     Rb-Ce-I-I                     
+                  + 1.1923E-20     La-Ce-I-I                     
+                  + 8.2565E-21     Cs-Ce-I-I                     
+                  + 1.1626E-21     Ca-Ce-I-I                     
+                  + 2.1921E-17     Li-Nd-I-I                     
+                  + 3.1622E-20     Be[IV]-Nd-I-I                 
+                  + 1.0259E-18     U2-Nd-I-I                     
+                  + 2.0607E-22     Th-Nd-I-I                     
+                  + 3.7292E-17     U3+-Nd-I-I                    
+                  + 3.2992E-21     Pu-Nd-I-I                     
+                  + 3.0516E-21     Rb-Nd-I-I                     
+                  + 7.7600E-21     La-Nd-I-I                     
+                  + 5.3736E-21     Cs-Nd-I-I                     
+                  + 7.5666E-22     Ca-Nd-I-I                     
+                  + 2.7794E-21     Ce-Nd-I-I                     
+                  + 1.6488E-17     Li-Be2-I-I                    
+                  + 2.3785E-20     Be[IV]-Be2-I-I                
+                  + 7.7164E-19     U2-Be2-I-I                    
+                  + 1.5500E-22     Th-Be2-I-I                    
+                  + 2.8050E-17     U3+-Be2-I-I                   
+                  + 2.4816E-21     Pu-Be2-I-I                    
+                  + 2.2953E-21     Rb-Be2-I-I                    
+                  + 5.8368E-21     La-Be2-I-I                    
+                  + 4.0419E-21     Cs-Be2-I-I                    
+                  + 5.6913E-22     Ca-Be2-I-I                    
+                  + 2.0905E-21     Ce-Be2-I-I                    
+                  + 1.3606E-21     Nd-Be2-I-I                    
+                  + 8.5044E-25     Li-Ni-I-I                     
+                  + 1.2268E-27     Be[IV]-Ni-I-I                 
+                  + 3.9800E-26     U2-Ni-I-I                     
+                  + 7.9947E-30     Th-Ni-I-I                     
+                  + 1.4468E-24     U3+-Ni-I-I                    
+                  + 1.2799E-28     Pu-Ni-I-I                     
+                  + 1.1839E-28     Rb-Ni-I-I                     
+                  + 3.0105E-28     La-Ni-I-I                     
+                  + 2.0847E-28     Cs-Ni-I-I                     
+                  + 2.9355E-29     Ca-Ni-I-I                     
+                  + 1.0783E-28     Ce-Ni-I-I                     
+                  + 7.0177E-29     Nd-Ni-I-I                     
+                  + 5.2785E-29     Be2-Ni-I-I                    
+                  + 1.9008E-19     Li-U[VI]-I-I                  
+                  + 2.7420E-22     Be[IV]-U[VI]-I-I              
+                  + 8.8957E-21     U2-U[VI]-I-I                  
+                  + 1.7869E-24     Th-U[VI]-I-I                  
+                  + 3.2337E-19     U3+-U[VI]-I-I                 
+                  + 2.8608E-23     Pu-U[VI]-I-I                  
+                  + 2.6461E-23     Rb-U[VI]-I-I                  
+                  + 6.7288E-23     La-U[VI]-I-I                  
+                  + 4.6595E-23     Cs-U[VI]-I-I                  
+                  + 6.5610E-24     Ca-U[VI]-I-I                  
+                  + 2.4100E-23     Ce-U[VI]-I-I                  
+                  + 1.5685E-23     Nd-U[VI]-I-I                  
+                  + 1.1798E-23     Be2-U[VI]-I-I                 
+                  + 6.0851E-31     Ni-U[VI]-I-I                  
+                  + 3.9564E-14     Li-U[VII]-I-I                 
+                  + 5.7073E-17     Be[IV]-U[VII]-I-I             
+                  + 1.8516E-15     U2-U[VII]-I-I                 
+                  + 3.7193E-19     Th-U[VII]-I-I                 
+                  + 6.7306E-14     U3+-U[VII]-I-I                
+                  + 5.9546E-18     Pu-U[VII]-I-I                 
+                  + 5.5077E-18     Rb-U[VII]-I-I                 
+                  + 1.4006E-17     La-U[VII]-I-I                 
+                  + 9.6985E-18     Cs-U[VII]-I-I                 
+                  + 1.3656E-18     Ca-U[VII]-I-I                 
+                  + 5.0163E-18     Ce-U[VII]-I-I                 
+                  + 3.2648E-18     Nd-U[VII]-I-I                 
+                  + 2.4557E-18     Be2-U[VII]-I-I                
+                  + 1.2666E-25     Ni-U[VII]-I-I                 
+                  + 2.8309E-20     U[VI]-U[VII]-I-I              
+                  + 2.8158E-07     Li-Li-F-I                     
+                  + 2.7572E-11     Be[IV]-Be[IV]-F-I             
+                  + 2.0909E-10     U2-U2-F-I                     
+                  + 9.0381E-17     Th-Th-F-I                     
+                  + 1.1583E-08     U3+-U3+-F-I                   
+                  + 1.0699E-15     Pu-Pu-F-I                     
+                  + 1.2688E-16     Rb-Rb-F-I                     
+                  + 2.7547E-15     La-La-F-I                     
+                  + 3.8227E-16     Cs-Cs-F-I                     
+                  + 9.1780E-17     Ca-Ca-F-I                     
+                  + 8.4821E-16     Ce-Ce-F-I                     
+                  + 4.0246E-16     Nd-Nd-F-I                     
+                  + 6.7171E-12     Be2-Be2-F-I                   
+                  + 1.7016E-32     Ni-Ni-F-I                     
+                  + 3.9794E-21     U[VI]-U[VI]-F-I               
+                  + 7.3809E-10     U[VII]-U[VII]-F-I             
+                  + 1.6235E-08     Li-Be[IV]-F-I                 
+                  + 2.6676E-08     Li-U2-F-I                     
+                  + 1.4711E-11     Be[IV]-U2-F-I                 
+                  + 1.2540E-11     Li-Th-F-I                     
+                  + 9.0854E-14     Be[IV]-Th-F-I                 
+                  + 2.4188E-13     U2-Th-F-I                     
+                  + 1.0103E-07     Li-U3+-F-I                    
+                  + 9.6148E-10     Be[IV]-U3+-F-I                
+                  + 3.8769E-09     U2-U3+-F-I                    
+                  + 1.7142E-12     Th-U3+-F-I                    
+                  + 3.6629E-11     Li-Pu-F-I                     
+                  + 2.6597E-13     Be[IV]-Pu-F-I                 
+                  + 9.6688E-13     U2-Pu-F-I                     
+                  + 4.1297E-16     Th-Pu-F-I                     
+                  + 6.7990E-12     U3+-Pu-F-I                    
+                  + 1.3972E-11     Li-Rb-F-I                     
+                  + 1.0303E-13     Be[IV]-Rb-F-I                 
+                  + 3.2392E-13     U2-Rb-F-I                     
+                  + 1.8214E-16     Th-Rb-F-I                     
+                  + 2.2956E-12     U3+-Rb-F-I                    
+                  + 3.9974E-15     Pu-Rb-F-I                     
+                  + 5.7670E-11     Li-La-F-I                     
+                  + 4.8799E-13     Be[IV]-La-F-I                 
+                  + 1.5028E-12     U2-La-F-I                     
+                  + 8.4500E-16     Th-La-F-I                     
+                  + 1.0650E-11     U3+-La-F-I                    
+                  + 3.3516E-15     Pu-La-F-I                     
+                  + 6.0164E-15     Rb-La-F-I                     
+                  + 2.2900E-11     Li-Cs-F-I                     
+                  + 1.7755E-13     Be[IV]-Cs-F-I                 
+                  + 3.3030E-12     U2-Cs-F-I                     
+                  + 1.6360E-15     Th-Cs-F-I                     
+                  + 2.0450E-11     U3+-Cs-F-I                    
+                  + 1.2540E-15     Pu-Cs-F-I                     
+                  + 4.4046E-16     Rb-Cs-F-I                     
+                  + 1.9642E-15     La-Cs-F-I                     
+                  + 1.5010E-11     Li-Ca-F-I                     
+                  + 3.2402E-13     Be[IV]-Ca-F-I                 
+                  + 4.1529E-13     U2-Ca-F-I                     
+                  + 3.7062E-16     Th-Ca-F-I                     
+                  + 2.9431E-12     U3+-Ca-F-I                    
+                  + 9.2621E-16     Pu-Ca-F-I                     
+                  + 3.1272E-16     Rb-Ca-F-I                     
+                  + 1.4742E-15     La-Ca-F-I                     
+                  + 5.4280E-16     Cs-Ca-F-I                     
+                  + 3.3526E-11     Li-Ce-F-I                     
+                  + 2.8496E-13     Be[IV]-Ce-F-I                 
+                  + 8.6255E-13     U2-Ce-F-I                     
+                  + 3.9474E-16     Th-Ce-F-I                     
+                  + 6.1127E-12     U3+-Ce-F-I                    
+                  + 1.9237E-15     Pu-Ce-F-I                     
+                  + 6.4950E-16     Rb-Ce-F-I                     
+                  + 3.0132E-15     La-Ce-F-I                     
+                  + 1.1274E-15     Cs-Ce-F-I                     
+                  + 8.3271E-16     Ca-Ce-F-I                     
+                  + 2.3078E-11     Li-Nd-F-I                     
+                  + 1.9470E-13     Be[IV]-Nd-F-I                 
+                  + 5.8844E-13     U2-Nd-F-I                     
+                  + 3.3087E-16     Th-Nd-F-I                     
+                  + 4.1701E-12     U3+-Nd-F-I                    
+                  + 1.3124E-15     Pu-Nd-F-I                     
+                  + 4.4309E-16     Rb-Nd-F-I                     
+                  + 2.0556E-15     La-Nd-F-I                     
+                  + 7.6911E-16     Cs-Nd-F-I                     
+                  + 5.6808E-16     Ca-Nd-F-I                     
+                  + 1.1799E-15     Ce-Nd-F-I                     
+                  + 6.4228E-09     Li-Be2-F-I                    
+                  + 3.0004E-11     Be[IV]-Be2-F-I                
+                  + 7.0163E-11     U2-Be2-F-I                    
+                  + 3.7274E-14     Th-Be2-F-I                    
+                  + 5.3874E-10     U3+-Be2-F-I                   
+                  + 1.6954E-13     Pu-Be2-F-I                    
+                  + 5.7243E-14     Rb-Be2-F-I                    
+                  + 2.6557E-13     La-Be2-F-I                    
+                  + 9.9361E-14     Cs-Be2-F-I                    
+                  + 9.8842E-14     Ca-Be2-F-I                    
+                  + 1.5243E-13     Ce-Be2-F-I                    
+                  + 1.0399E-13     Nd-Be2-F-I                    
+                  + 1.3996E-19     Li-Ni-F-I                     
+                  + 1.1667E-21     Be[IV]-Ni-F-I                 
+                  + 3.7513E-21     U2-Ni-F-I                     
+                  + 2.1093E-24     Th-Ni-F-I                     
+                  + 2.6585E-20     U3+-Ni-F-I                    
+                  + 8.3664E-24     Pu-Ni-F-I                     
+                  + 2.9387E-24     Rb-Ni-F-I                     
+                  + 1.3105E-23     La-Ni-F-I                     
+                  + 5.1009E-24     Cs-Ni-F-I                     
+                  + 3.6215E-24     Ca-Ni-F-I                     
+                  + 7.5218E-24     Ce-Ni-F-I                     
+                  + 5.1314E-24     Nd-Ni-F-I                     
+                  + 6.6293E-22     Be2-Ni-F-I                    
+                  + 6.5638E-14     Li-U[VI]-F-I                  
+                  + 5.8755E-16     Be[IV]-U[VI]-F-I              
+                  + 1.8503E-15     U2-U[VI]-F-I                  
+                  + 1.0404E-18     Th-U[VI]-F-I                  
+                  + 1.3113E-14     U3+-U[VI]-F-I                 
+                  + 4.1267E-18     Pu-U[VI]-F-I                  
+                  + 1.3933E-18     Rb-U[VI]-F-I                  
+                  + 6.4639E-18     La-U[VI]-F-I                  
+                  + 5.5651E-17     Cs-U[VI]-F-I                  
+                  + 1.7863E-18     Ca-U[VI]-F-I                  
+                  + 3.7101E-18     Ce-U[VI]-F-I                  
+                  + 2.5311E-18     Nd-U[VI]-F-I                  
+                  + 3.2699E-16     Be2-U[VI]-F-I                 
+                  + 1.6136E-26     Ni-U[VI]-F-I                  
+                  + 1.2389E-07     Li-U[VII]-F-I                 
+                  + 2.5193E-10     Be[IV]-U[VII]-F-I             
+                  + 7.9688E-10     U2-U[VII]-F-I                 
+                  + 1.2413E-12     Th-U[VII]-F-I                 
+                  + 5.6473E-09     U3+-U[VII]-F-I                
+                  + 5.7223E-12     Pu-U[VII]-F-I                 
+                  + 6.0005E-13     Rb-U[VII]-F-I                 
+                  + 2.7838E-12     La-U[VII]-F-I                 
+                  + 1.8486E-11     Cs-U[VII]-F-I                 
+                  + 7.6931E-13     Ca-U[VII]-F-I                 
+                  + 1.5978E-12     Ce-U[VII]-F-I                 
+                  + 1.0901E-12     Nd-U[VII]-F-I                 
+                  + 3.7106E-10     Be2-U[VII]-F-I                
+                  + 6.9491E-21     Ni-U[VII]-F-I                 
+                  + 3.4277E-15     U[VI]-U[VII]-F-I }            
+
+    + 0.65000 mol Ni_Solid_FCC(s)
+
+ ===========================================================
+ |                    System properties                    |
+ ===========================================================
+
+  Temperature =     900.00 [K]
+  Pressure    =     1.0000 [atm]
+
+  System Component | Mass [mol] | Chemical potential [J/mol]
+ ------------------|------------|---------------------------
+      Pu           | 3.2900E-04 |  -4.213619E+05
+      U            | 4.9981E+00 |  -2.902038E+05
+      Th           | 5.0100E-04 |  -5.241528E+05
+      Nd           | 2.1368E-04 |  -4.937530E+05
+      Ce           | 2.9547E-04 |  -5.089958E+05
+      La           | 3.2500E-04 |  -4.763282E+05
+      Cs           | 2.7493E-04 |  -3.274646E+05
+      I            | 3.0000E-05 |  -2.446096E+05
+      Rb           | 5.6800E-05 |  -2.890711E+05
+      Ni           | 6.5000E-01 |  -3.832971E+04
+      Ca           | 3.5500E-04 |  -4.707923E+05
+      F            | 1.4667E+02 |  -4.561854E+05
+      Be           | 3.1789E+01 |  -2.066127E+05
+      Li           | 6.3330E+01 |  -2.190899E+05
+
+  Integral Gibbs energy = -8.88281E+07 [J]
+
+ ===========================================================
+
+
+ DEBUG: Successful exit.
+
