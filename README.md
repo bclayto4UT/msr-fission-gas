@@ -1,15 +1,13 @@
 # Read Me
-This is the entirety of the code I used to update the molten salt's chemical composition. SCALE and Thermochimica is required.
+This is the entirety of the code I used to update the molten salt's chemical composition. SCALE and Thermochimica is required. See [this page](https://github.com/ORNL-CEES/thermochimica) for installing Thermochimica.
 
 ## Using the code
-All code files are under the dataProcessor folder. Most of them are numerical methods file that Dr. Pencheva and I wrote while in M 348 and M 368K (I wasn't able to install a library).
+All code files are under the dataProcessor folder. Most of them are numerical methods file that Dr. Pencheva and I wrote while in M 348 and M 368K (I wasn't able to install a library). 
 
-The project can be compiled in any way you'd like. There should be an executable file if compilation is sucessful. I liked to copy that executable file (named ``dataProcessor.exe``) to the ``thermochimica`` directory so I could run both my code and Thermochimica on Ubuntu. If the executable file cannot be opened because of a denied permission, enter
+The project can be compiled in any way you'd like. There should be an executable file if compilation is sucessful. I liked to copy that executable file (named ``dataProcessor.exe``) to the ``thermochimica`` directory so I could run both my code and Thermochimica on Ubuntu. If the executable file cannot be opened on Ubuntu, because of a denied permission, enter
 ```
 chmod u+x ./dataProcessor.exe # or however it is named
 ```
-
-See [this page](https://github.com/ORNL-CEES/thermochimica) for installing Thermochimica.
 
 ## Sample problem
 
