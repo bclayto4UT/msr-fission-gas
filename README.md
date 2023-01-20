@@ -11,6 +11,12 @@ chmod u+x ./dataProcessor.exe # or however it is named
 The program should look like this:
 ![image](https://user-images.githubusercontent.com/62024926/213612517-f9284786-c0ef-4fd8-aa60-9f4ef6022e29.png)
 
+It has 4 options:
+
+* Option 1: Convert a SCALE output file (.F71 table) into multiple TC input files, with each file representing the system at one time instance. A sample SCALE output file is shown in ``sample_problem/F71_output.txt``, where the elements are on the columns and the time intervals are on the rows. The answer to the prompt "Do the columns contain element symbols?" is "Y". If the reserve is true, then "N" is the answer. The system temperature (in K) and pressure (in atm) are also needed. The TC input files have the .F90 ending and should be put in the ``thermochimica/test`` directory.
+* Option 2: Extract numerical data from one or multiple Thermochimica results and arrange them in table format. The accepted quantities are the total moles of ions (ni), total moles of salt (nx), total moles of gas (ny), temperature (T), mole fraction of species ABC in the salt (x_ABC), and mole fraction of species ABC in the gas (y_ABC). For example, entering "nx x_UF3 x_UF4 y_UF5" will create a table with the total moles of salt, the mole fractions of UF3 and UF4 in the salt, and the mole fraction of UF5 in the gas as a function of time.
+* Option 3: Merge two TC output files into one. This function has not been updated, but is left in the code as it may be useful in future projects.
+* Option 4: Decouple surrogate elements into the chemically similar elements not accounted for by MSTDB (for example, Ca into Ca, Ba, and Sr). This function requires a SCALE .F71 output (just as Option 1) and a TC result file. Optionally, it can also perform thermochemical calculations of corrosion products (Cr, Fe, and Ni) as well as HF concentration. This requires a slight modification in the .F71 file, so that the entries under Cr, Fe, and Ni represent the mole fraction of the respective metal in the alloy (as opposed to amounts in moles). The result file will be in a similar format as a TC output, so that data can be extracted through Option 2.
 
 ## Sample problem
 
