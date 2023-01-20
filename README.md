@@ -4,10 +4,13 @@ This is the entirety of the code I used to update the molten salt's chemical com
 ## Using the code
 All code files are under the dataProcessor folder. Most of them are numerical methods file that Dr. Pencheva and I wrote while in M 348 and M 368K (I wasn't able to install a library). 
 
-The project can be compiled in any way you'd like. There should be an executable file if compilation is sucessful. I liked to copy that executable file (named ``dataProcessor.exe``) to the ``thermochimica`` directory so I could run both my code and Thermochimica on Ubuntu. If the executable file cannot be opened on Ubuntu, because of a denied permission, enter
+The project can be compiled in any way you'd like. There should be a new executable file if compilation is sucessful. I liked to copy that executable file (named ``dataProcessor.exe``) to the ``thermochimica`` directory so I could run both my code and Thermochimica on Ubuntu. If the executable file cannot be opened on Ubuntu, because of a denied permission, enter
 ```
 chmod u+x ./dataProcessor.exe # or however it is named
 ```
+The program should look like this:
+![image](https://user-images.githubusercontent.com/62024926/213612517-f9284786-c0ef-4fd8-aa60-9f4ef6022e29.png)
+
 
 ## Sample problem
 
