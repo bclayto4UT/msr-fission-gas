@@ -19,8 +19,7 @@ It has 4 options:
 * Option 4: Decouple surrogate elements into the chemically similar elements not accounted for by MSTDB (for example, Ca into Ca, Ba, and Sr). This function requires a SCALE .F71 output (just as Option 1) and a TC result file. Optionally, it can also perform thermochemical calculations of corrosion products (Cr, Fe, and Ni) as well as HF concentration. This requires a slight modification in the .F71 file, so that the entries under Cr, Fe, and Ni represent the mole fraction of the respective metal in the alloy (as opposed to amounts in moles). The result file will be in a similar format as a TC output, so that data can be extracted through Option 2.
 
 ## Sample problem
-
-1. Create an ORIGEN file with the appropriate starting fuel composition, flux, and irradiation time. For my project, the fuel is 5% UF4 in 2LiF-BeF2. The uranium is enriched to 20 weight-% U-235 and the lithium to 99.99 mol-% Li-7, so the specification should be:
+The following sample aims to demonstrate the steps needed to solve for the chemical composition of the MSR system. All necesarry files are under the ``sample_problem`` folder. The reactor core in the sample system is 5% UF4 in 2LiF-BeF2. The uranium is enriched to 20 weight-% U-235 and the lithium to 99.99 mol-% Li-7. The material specification portion of the SCALE input file should be:
 
 ```
     mat{
@@ -33,6 +32,11 @@ It has 4 options:
                u238 = 4.01011]
         }
  ```
+The complete input code is shown in the ``msr_isotopics.inp`` and will need to run on MSRR_ContinuousDepletion library.
+
+Once the .inp file has been run, a new result file with the .f71 extension will be created and opened by SCALE. The following modifications must be carried out under the Table tab in order to obtain useful chemical data.
+![image](https://user-images.githubusercontent.com/62024926/213956966-a63f068b-37eb-48bf-a091-cdce357c7373.png)
+
         
 2. Run the ORIGEN file, open the result .F71 file, go to Table, filter the data to display elements (preferably all elements, but an nrank of about 50-60 should be fine) in moles.
 3. Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If needed, the values of the elements Cu, Fe, and Zn can be modified into their respective mole fraction in the structural metal alloy (should be the same throughout the irradiation time). Copy the table into a text file.
