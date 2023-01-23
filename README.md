@@ -34,14 +34,14 @@ The following sample aims to demonstrate the steps needed to solve for the chemi
  ```
 The complete input code is shown in the ``msr_isotopics.inp`` and will need to run on MSRR_ContinuousDepletion library.
 
-Once the .inp file has been run, a new result file with the .f71 extension will be created and opened by SCALE. The following modifications must be carried out under the Table tab in order to obtain useful chemical data.
+Once the .inp file has been run, a new result file with the .f71 extension is created and opened by SCALE. The following modifications must be carried out under the Table tab in order to obtain useful chemical data.
 ![image](https://user-images.githubusercontent.com/62024926/213956966-a63f068b-37eb-48bf-a091-cdce357c7373.png)
 
-        
-2. Run the ORIGEN file, open the result .F71 file, go to Table, filter the data to display elements (preferably all elements, but an nrank of about 50-60 should be fine) in moles.
-3. Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If needed, the values of the elements Cu, Fe, and Zn can be modified into their respective mole fraction in the structural metal alloy (should be the same throughout the irradiation time). Copy the table into a text file.
-4. Run main.cpp (Option 1) on the text file to convert it into TC input files. There should be multiple TC inputs corresponding to however many time intervals there are.
-5. Run TC on all the input files and have the results printed out in one single result file (Use a loop).
+Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If needed, the values of the elements Cu, Fe, and Zn can be modified into their respective mole fraction in the structural metal alloy (should be the same throughout the irradiation time). See ``F71_output.txt`` for the file format. Note that the last three columns of the file represent the elements Cu, Fe, and Ni. If any of these elements are present in previous columns (possibly because [nrank] has been set too high), then that column will have to be deleted.
+
+Run dataProcessor.exe and select Option 1 to convert ``F71_output.txt`` into TC input files. It has 184 intervals so there should be 184 TC input files created, the first five of which (named ``TC_input1.F90`` through ``TC_input5.F90``) are under the ``sample_problem`` folder. On the local machine, those .F90 files must be under the ``thermochimica/test`` directory.
+
+The following code can be used to run TC on all the input files and have the results printed out in one single result file:
 ```
 make
 for i in $(seq 1 1 184) # the last number should be how many TC input files there are
