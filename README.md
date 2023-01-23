@@ -41,7 +41,7 @@ Copy the table to Excel and crop out the "Subtotals" and "Totals" columns. If ne
 
 Run dataProcessor.exe and select Option 1 to convert ``F71_output.txt`` into TC input files. It has 184 intervals so there should be 184 TC input files created, the first five of which (named ``TC_input1.F90`` through ``TC_input5.F90``) are under the ``sample_problem`` folder. On the local machine, those .F90 files must be under the ``thermochimica/test`` directory.
 
-The following code can be used to run TC on all the input files and have the results printed out in one single result file:
+The following code can be used to run TC on all the input files and have the results printed out in one single result file named ``TC_first_results.txt``:
 ```
 make
 for i in $(seq 1 1 184) # the last number should be how many TC input files there are
@@ -49,5 +49,6 @@ do
 ./bin/TC_input$i >> TC_first_results.txt
 done
 ```
-6. Run main.cpp (Option 4) on the TC result file to decouple the surrogate elements into the actual elements they represent. Optionally, it can also calculate fission products and HF composition. This should give you a new, updated result file in roughly the same format as TC.
-7. Run main.cpp (Option 2) on the result file to extract any value of interest.
+Run data.Processor.exe and select Option 4 on ``TC_first_results.txt`` to decouple the surrogate elements into the actual elements they represent. Optionally, it can also calculate fission products and HF composition. These results are stored under ``TC_final_results.txt``.
+
+Then select Option 2 on ``TC_final_results.txt`` to extract any value of interest. For example, if I want to know the concentration of UF3 and UF4 over time, the string parameter is "x_UF3 x_UF4". The extract data are under ``TC_extract.cvs``. Noted that the time variable is missing so that has to be manually included.
