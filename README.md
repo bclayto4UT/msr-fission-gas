@@ -52,3 +52,5 @@ done
 Run data.Processor.exe and select Option 4 on ``TC_first_results.txt`` to decouple the surrogate elements into the actual elements they represent. Optionally, it can also calculate fission products and HF composition. These results are stored under ``TC_final_results.txt``.
 
 Then select Option 2 on ``TC_final_results.txt`` to extract any value of interest. For example, if I want to know the concentration of UF3 and UF4 over time, the string parameter is "x_UF3 x_UF4". The extract data are under ``TC_extract.cvs``. Noted that the time variable is missing so that has to be manually included.
+
+Note that there are other columns besides these two in the string, namely "x_U2F8", "x_U[VI]-F4, and x_U[VII]-F4. The latest version of MSTDB-TC counts UF4 as these three diferent molecules, so the concentration of UF4 is virtually the sum of U[VI]-F4, U[VII]-F4, and two times U2F8. Result files created from Option 4 only includes UF4 under a single category.
