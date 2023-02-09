@@ -17,8 +17,9 @@ case{
         }
 
 
-    time = [181i 10 1830]
-    flux = [183r1e13]
+    time = [3i 10 50]
+    flux = [5r1e13]
     save{file = "isotopics.f71"}
+    print{ ele{total=yes units=moles} cutoffs{ALL=1e-19} }
 }
 end
