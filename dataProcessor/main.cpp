@@ -3,6 +3,7 @@
 
 #include "dataProcessor.h"
 #include "thermoElectroChem.h"
+#include "miscellaneous.h"
 
 using namespace std;
 
@@ -21,21 +22,26 @@ int main()
             cin >> option;
 
             if (option == 1){
-                char timeOnRows;
-                cout << "Enter input file: ";
+                cout << "Enter input file (.out): ";
                 cin >> inFile;
-                cout << "Enter output file: ";
+                cout << "Enter output file (.F90): ";
                 cin >> outFile;
-                cout << "Do the columns contain element symbols? Y/N: ";
-                cin >> timeOnRows;
 
                 try{
-                    auto v2 = scaleToVector(inFile, timeOnRows=='Y');
-                    vectToTherm(v2, outFile);
+                    auto v2 = scaleToVector(inFile);
+                    string strT, strP;
+                    cout << "Enter temperature (K): ";
+                    getline(cin >> ws, strT);
+                    cout << "Enter pressure (atm): ";
+                    getline(cin >> ws, strP);
+
+                    vectToTherm(v2, outFile, strT, strP);
                     cout << "Successful!" << endl << endl;
                 } catch (const invalid_argument& ex){
                     cerr << ex.what() << endl;
                 } catch (const out_of_range& ex){
+                    cerr << ex.what() << endl;
+                } catch (const bad_alloc& ex){
                     cerr << ex.what() << endl;
                 } catch (...){
                     cerr << "Error encountered!" << endl;
@@ -87,10 +93,11 @@ int main()
 
             } else if (option == 4){
                 string inFile, thermoIn, thermoOut, ansYN;
+                char timeOnRows;
                 try{
                     cout << "Enter SCALE output file: ";
                     cin >> inFile;
-                    auto v = scaleToVector(inFile, false);
+                    auto v = scaleToVector(inFile);
 
                     cout << "Enter original Thermochimica output file of the above SCALE output: ";
                     cin >> thermoIn;
@@ -138,6 +145,7 @@ int main()
     } while (option != 0);
 
     return 0;
+
 }
 
 

@@ -3,9 +3,9 @@
 
 #include "miscellaneous.h"
 
-std::vector<strVect> scaleToVector(const std::string&, bool=true);
+std::vector<strVect> scaleToVector(const std::string&);
 void vectToTherm(const std::vector<strVect>&, const std::string&,
-                 bool=true);
+                 std::string&, std::string&, bool=true);
 
 void textToExcel(const std::string&, const std::string&, std::string&);
 

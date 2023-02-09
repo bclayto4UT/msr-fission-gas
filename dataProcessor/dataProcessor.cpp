@@ -7,19 +7,10 @@
 #include "rootFinding.h"
 #include "thermoElectroChem.h"
 
-std::vector<strVect> scaleToVector(const std::string& inFile,
-                                   bool timeOnRows)
+std::vector<strVect> scaleToVector(const std::string& inFile)
 /****************************************************************
 Input(s):
-    inFile:     the name of the file with the SCALE output to be read
-                The format of the file must be identical to the .F71
-                table from SCALE. The columns must display elements
-                as opposed to isotopes, the "Subtotals" and "Totals"
-                must be excluded, and all numerical values must have
-                the unit of moles (unless otherwise specified).
-    timeOnRows: if the orientation of the file is such that the
-                elements are on the columns and the time intervals
-                are on the rows (DEFAULT: true).
+    inFile:     the name of the file with .out file to be read
 Output:
     a 2D vector of strings that tabulates the data such that the
     elements are on the columns and the time intervals are on the
@@ -35,49 +26,45 @@ Output:
     if (input.is_open()) getline(input,line);
     else throw std::invalid_argument("Cannot open input file.");
 
-    if (timeOnRows){
-        v = strToVect(line);
-        for (int i = 0; i < v.size(); i++) v[i][0] = toupper(v[i][0]);
-        vect.push_back(v);
+    std::string beginStr = "relative cutoff;";
+    std::string endStr = "------";
+    bool beginStrIsFound = false;
 
-         while(getline(input, line)){
-            v = strToVect(line);
-            v.erase(v.cbegin());
-            // Consider changing into a deque for the more efficient pop_front function
-            vect.push_back(v);
-         }
+    while (line.find(beginStr) == std::string::npos) getline(input,line);
+    beginStrIsFound = line.find(beginStr) >= 0;
+    if (!beginStrIsFound) throw std::invalid_argument("Input file does not contain an element table.");
 
-    } else{
-        // Counts the days
-        std::size_t n;
-        n = strToVect(line).size();
-        for (int i = 0; i <= n; i++) vect.push_back(v);
+    // Counts the days
+    std::size_t n;
+    getline(input,line);
+    getline(input,line); // The desired line is the second one after beginStr
+    n = strToVect(line).size();
+    for (size_t i = 0; i <= n; i++) vect.push_back(v);
 
-        // Inputs data into vector
-        while(getline(input, line)){
-            // Converts element symbol to atomic number and stores it
-            auto pos = std::min(line.find("\t"), line.find(" "));
-            while (pos == 0){
-                line.erase(0, 1);
-                pos = std::min(line.find("\t"), line.find(" "));
-            }
-            std::string ele = line.substr(0, pos);
-            ele[0] = toupper(ele[0]);
-            line.erase(0, pos);
-
-            try{
-                atomNumMap.at(ele); // To check if ele is a chemical element
-                vect[0].push_back(ele);
-            } catch (std::out_of_range& ex){
-                break;
-            }
-
-            // Stores the rest of the data
-            v = strToVect(line);
-            for (int i = 0; i < v.size(); i++){
-                vect[i+1].push_back(v[i]);
-            }
+    // Inputs data into vector
+    while(getline(input,line) && line.find(endStr) == std::string::npos){
+        // Converts element symbol to atomic number and stores it
+        auto pos = std::min(line.find("\t"), line.find(" "));
+        while (pos == 0){
+            line.erase(0, 1);
+            pos = std::min(line.find("\t"), line.find(" "));
         }
+        std::string ele = line.substr(0, pos);
+        ele[0] = toupper(ele[0]);
+        line.erase(0, pos);
+        vect[0].push_back(ele);
+
+//        The elements in the SCALE file should all be valid
+//        try{
+//            atomNumMap.at(ele); // To check if ele is a chemical element
+//            vect[0].push_back(ele);
+//        } catch (std::out_of_range& ex){
+//            break;
+//        }
+
+        // Stores the rest of the data
+        v = strToVect(line);
+        for (size_t i = 0; i < v.size(); i++) vect[i+1].push_back(v[i]);
     }
 
     input.close();
@@ -86,11 +73,15 @@ Output:
 
 void vectToTherm(const std::vector<strVect>& dataVect,
                  const std::string& outFile,
+                 std::string& strT,
+                 std::string& strP,
                  bool includesSurr)
 /****************************************************************
 Input(s):
     dataVect:     the tabulated data in the form of a 2D vector
     outFile:      the output file name
+    strT:         system temperature (in K)
+    strP:         system pressure (in atm)
     includesSurr: whether surrogate elements are to be included
                   (DEFAULT: true)
 Output: none
@@ -99,36 +90,86 @@ Output: none
 *****************************************************************/
 {
     std::ofstream output;
-    auto pos = outFile.find(".");
-    std::string fileEnding;
+    auto pos = outFile.find("."); // Finds the file extension
     std::string fileStem;
-    std::string fileName;
-
-    if (pos < outFile.size()){
-        fileEnding = outFile.substr(pos, outFile.size());
-        fileStem = outFile.substr(0, pos);
-    } else{
-        fileStem = outFile;
-    }
+    if (pos < outFile.size()) fileStem = outFile.substr(0, pos);
+    else fileStem = outFile;
 
     std::vector<strVect> dataVect2(dataVect.size());
     std::copy(dataVect.cbegin(), dataVect.cend(), dataVect2.begin());
+    std::size_t m = dataVect2.size(); // m = number of time intervals + 1
+    std::size_t n = dataVect2[0].size(); // n = number of elements
+
+    std::vector<double> T, P;
+    try{
+        T = strToVectDouble(strT);
+    } catch(const std::domain_error&){
+        auto vs = strToVect(strT,':');
+        double start = std::stod(vs[0]);
+        double stop = std::stod(vs[1]);
+
+        if (start == stop) T.push_back(start);
+        else{
+            double step = (stop-start)/(m-1);
+            T.reserve(m-1);
+            for (size_t i = 0; i < m-1; i++) T.push_back(start+step*i);
+        }
+
+    } catch(const std::invalid_argument& ex){
+        throw ex;
+    } catch(const std::bad_alloc& ex){
+        throw ex;
+    }
+
+    if (T.size() != 1 && T.size() < m-1)
+        throw std::out_of_range("Temperature array out of range.");
+    for (auto d: T){
+        if (d <= 0) throw std::invalid_argument("Temperature must be positive.");
+    }
+
+    try{
+        P = strToVectDouble(strP);
+    } catch(const std::domain_error&){
+        auto vs = strToVect(strP,':');
+        double start = std::stod(vs[0]);
+        double stop = std::stod(vs[1]);
+
+        if (start == stop) P.push_back(start);
+        else{
+            double step = (stop-start)/(m-1);
+            P.reserve(m-1);
+            for (size_t i = 0; i < m-1; i++) P.push_back(start+step*i);
+        }
+    } catch(const std::invalid_argument& ex){
+        throw ex;
+    } catch(const std::bad_alloc& ex){
+        throw ex;
+    }
+    if (P.size() != 1 && P.size() < m-1)
+    throw std::out_of_range("Pressure array out of range.");
+    for (auto d: P){
+        if (d <= 0) throw std::invalid_argument("Pressure must be positive.");
+    }
 
     // Recalculates species amounts for surrogated elements
     if (includesSurr){
-        for (int i = 1; i < dataVect2.size(); i++){
-            for (int j = 0; j < dataVect[i].size(); j++){
+        for (size_t i = 1; i < m; i++){
+            for (size_t j = 0; j < n; j++){
                 std::string ele = dataVect[0][j];
-                int pos;
+                size_t pos;
 
                 try{
                     std::string surr = surrogateMapInv.at(ele);
                     auto it = std::find(dataVect2[0].begin(), dataVect2[0].end(), surr);
                     pos = it - dataVect2[0].begin();
+                    // pos is the position of the surrogate
 
-                    if (pos >= dataVect2[0].size()) dataVect2[0].push_back(surr);
+                    if (pos >= n){
+                        n++;
+                        dataVect2[0].push_back(surr);
+                    }
                     if (pos >= dataVect2[i].size()) dataVect2[i].push_back("0");
-                } catch (std::out_of_range& ex){
+                } catch (std::out_of_range& ex){ // Element does not need a surrogate
                     pos = j;
                 }
                 if (pos != j){
@@ -141,10 +182,27 @@ Output: none
         }
     }
 
-    for (int i = 1; i < dataVect2.size(); i++){
-        fileName = fileStem + std::to_string(i) + fileEnding;
+
+    for (size_t i = 1; i < m; i++){
+        std::string fileName = fileStem + std::to_string(i) + ".F90";
         output.open(fileName);
-        for (int j = 0; j < dataVect2[i].size(); j++){
+
+        output << "program " + fileStem + "\n";
+        output << "USE ModuleThermoIO\n";
+        output << "implicit none\n";
+        output << "cInputUnitTemperature = 'K'\n";
+        output << "cInputUnitPressure = 'atm'\n";
+        output << "cInputUnitMass = 'moles'\n";
+        output << "cThermoFileName = DATA_DIRECTORY // 'MSTDB-TC_V2.0_Fluorides_8-0.dat'\n";
+
+        // It's i-1 because dataVect2 has an extra row with the element names,
+        // so the numerical data starts at i=1
+        if (P.size() == 1) output << "dPressure = " << P[0] << "\n";
+        else output << "dPressure = " << P[i-1] << "\n";
+        if (T.size() == 1) output << "dTemperature = " << T[0] << "\n";
+        else output << "dTemperature = " << T[i-1] << "\n";
+
+        for (size_t j = 0; j < n; j++){
             if (stod(dataVect2[i][j]) > 0){
                 output << "dElementMass(";
                 output << atomNumMap.at(dataVect2[0][j]);
@@ -153,6 +211,15 @@ Output: none
                 output << "\n";
             }
         }
+
+        output << "iPrintResultsMode = 1\n";
+        output << "call ParseCSDataFile(cThermoFileName)\n";
+        output << "if (INFOThermo == 0) call Thermochimica\n";
+        output << "if (iPrintResultsMode > 0) call PrintResults\n";
+        output << "if (INFOThermo == 0) call ResetThermoAll\n";
+        output << "call ThermoDebug\n";
+        output << "end program " + fileStem + "\n";
+
         output.close();
     }
 }
@@ -217,7 +284,7 @@ Output(s): none
                 vx["Be2I4"] = 0;
             } if (!has_x_all) vx[s.erase(0,2)] = 0;
         }
-        else if (s.substr(0,1) == "y" & !has_y_all) vy[s.erase(0,2)] = 0;
+        else if (s.substr(0,1) == "y" && !has_y_all) vy[s.erase(0,2)] = 0;
         else if (s == "T") T = 0;
     }
 
@@ -552,7 +619,7 @@ Warning:
         if (str.size() < 2) throw std::domain_error("String is too short.");
         std::string cat;
         cat.push_back(str[0]);
-        for (int i = 1; i < str.size(); i++){
+        for (size_t i = 1; i < str.size(); i++){
             if (islower(str[i])) cat += str[i];
             else break;
         }
@@ -572,7 +639,7 @@ Warning:
     auto compVector = [](std::pair<std::string, double> p,
                          std::pair<std::string, double> q)
                         { return p.second > q.second; };
-    for (int i = 1; i < scaleData.size(); i++){
+    for (size_t i = 1; i < scaleData.size(); i++){
         std::map<std::string, double> specMap; // To access and modify values
         std::vector<std::pair<std::string, double>> specPair, specGas;
         // specPair and specGas are vectors so that they can be sorted
@@ -581,11 +648,11 @@ Warning:
 
         // Populate surrElemMap with the mole fraction of each surrogated
         // element in each group.
-        for (int group = 0; group < surrElem.size(); group++){
+        for (size_t group = 0; group < surrElem.size(); group++){
             std::map<std::string, double> m;
-            double sumSurr = 0;
+            double sumSurr = 0.0;
 
-            for (int j = 0; j < surrElem[group].size(); j++){
+            for (size_t j = 0; j < surrElem[group].size(); j++){
                 std::string ele = surrElem[group][j];
                 auto it = std::find(scaleData[0].cbegin(), scaleData[0].cend(), ele);
                 if (it != scaleData[0].cend()){ // If the element is found
@@ -595,7 +662,7 @@ Warning:
                 } else m[ele] = 0;
             }
 
-            if (sumSurr > 0 && group < surrElem.size()-1){
+            if (sumSurr > 0.0 && group < surrElem.size()-1){
                 for (auto& it: m) it.second /= sumSurr;
                 surrElemMaps[group] = m;
             } else if (group == surrElem.size()-1){
@@ -684,7 +751,7 @@ Warning:
                 continue;
             }
 
-            if (includesSSol & ions.first == "Ni"){
+            if (includesSSol && ions.first == "Ni"){
             }
 
             if (ions.second == "I"){
@@ -764,7 +831,7 @@ Warning:
                 std::sort(specGas.begin(), specGas.end(), compVector);
 
                 output << "Solid solution\n";
-                for (int i = 0; i < specSol.size(); i++){
+                for (size_t i = 0; i < specSol.size(); i++){
                     std::string start = i == 0 ? "\t{" : "\t+";
                     output << start << " " << specSol[i].second;
                     output << "\t\t" << specSol[i].first;
@@ -913,7 +980,7 @@ Warning:
         if (sumSalt > 0){
             output << sumSalt << " Moles of pairs\n";
             output << "Pair fractions:\n";
-            for (int i = 0; i < specPair.size(); i++){
+            for (size_t i = 0; i < specPair.size(); i++){
                 std::string start = i == 0 ? "\t{" : "\t+";
                 output << start << " " << specPair[i].second/sumSalt;
                 output << "\t\t" << specPair[i].first;
@@ -924,7 +991,7 @@ Warning:
 
         if (sumGas > 0){
             output << sumGas << " mol gas_ideal\n";
-            for (int i = 0; i < specGas.size(); i++){
+            for (size_t i = 0; i < specGas.size(); i++){
                 std::string start = i == 0 ? "\t{" : "\t+";
                 output << start << " " << specGas[i].second/sumGas;
                 output << "\t\t" << specGas[i].first;
