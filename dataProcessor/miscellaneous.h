@@ -1,8 +1,6 @@
 #ifndef MISCELLANEOUS_H_INCLUDED
 #define MISCELLANEOUS_H_INCLUDED
 
-#include <array>
-#include <map>
 #include <string>
 #include <vector>
 #include <cmath>

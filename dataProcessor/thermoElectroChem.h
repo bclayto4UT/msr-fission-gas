@@ -2,8 +2,9 @@
 #define THERMOELECTROCHEM_H_INCLUDED
 
 #include "miscellaneous.h"
+#include <unordered_map>
 
-const std::map<std::string, int> atomNumMap = {
+const std::unordered_map<std::string, int> atomNumMap = {
     {"H", 1}, {"He", 2}, {"Li", 3}, {"Be", 4}, {"B", 5},
     {"C", 6}, {"N", 7}, {"O", 8}, {"F", 9}, {"Ne", 10},
     {"Na", 11}, {"Mg", 12}, {"Al", 13}, {"Si", 14}, {"P", 15},
@@ -30,7 +31,7 @@ const std::map<std::string, int> atomNumMap = {
     {"Lv", 116}, {"Ts", 117}, {"Og", 118}
 };
 
-const std::map<std::string, double> atomWeightMap = {
+const std::unordered_map<std::string, double> atomWeightMap = {
     {"H", 1.0080}, {"He", 4.0026}, {"Li", 6.9400}, {"Be", 9.0122},
     {"B", 10.810}, {"C", 12.011}, {"N", 14.007}, {"O", 15.999},
     {"F", 18.998}, {"Ne", 20.180}, {"Na", 22.990}, {"Mg", 24.305},
@@ -54,7 +55,7 @@ const std::map<std::string, double> atomWeightMap = {
     {"Bi", 208.98}, {"Th", 232.04}, {"Pa", 231.04}, {"U", 238.03}
 };
 
-const std::map<std::string, int> oxiStateMap = {
+const std::unordered_map<std::string, int> oxiStateMap = {
     {"Li", 1}, {"Be", 2}, {"F", -1}, {"Na", 1}, {"Mg", 2},
     {"Al", 3}, {"Cl", -1}, {"K", 1}, {"Ca", 2}, {"Br", -1},
     {"Rb", 1}, {"Sr", 2}, {"Y", 3}, {"Zr", 4}, {"I", -1},
@@ -65,7 +66,7 @@ const std::map<std::string, int> oxiStateMap = {
     {"Am", 3}, {"Cm", 3}
 };
 
-const std::map<std::string, strVect> surrogateMap{
+const std::unordered_map<std::string, strVect> surrogateMap{
     {"I", strVect{"Br", "I"}},
     {"Ca", strVect{"Ca", "Ba", "Sr"}},
     {"La", strVect{"Y", "La", "Pr", "Pm", "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm"}},
@@ -73,14 +74,14 @@ const std::map<std::string, strVect> surrogateMap{
     {"Th", strVect{"Zr", "Th", "Pa"}}
 }; // List of surrogated elements
 
-const std::map<std::string, std::string> surrogateMapInv{
+const std::unordered_map<std::string, std::string> surrogateMapInv{
     {"Br", "I"}, {"Ba", "Ca"}, {"Sr", "Ca"}, {"Y", "La"}, {"Pr", "La"},
     {"Pm", "La"}, {"Sm", "La"}, {"Eu", "La"}, {"Gd", "La"}, {"Tb", "La"},
     {"Dy", "La"}, {"Ho", "La"}, {"Er", "La"}, {"Tm", "La"}, {"Np", "Pu"},
     {"Am", "Pu"}, {"Cm", "Pu"}, {"Zr", "Th"}, {"Pa", "Th"}
 };
 
-const std::map<std::string, std::array<double,8>> heatData = {
+const std::unordered_map<std::string, std::array<double,8>> heatData = {
     /* The std::array stores numbers in this order:
     ΔHf: Enthalpy of formation at 298.15 K (kJ/mol)
     ΔS: Entropy at 298.15 K (J/mol K)

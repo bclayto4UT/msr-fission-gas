@@ -1,9 +1,12 @@
 #include "miscellaneous.h"
+#include <stdexcept>
 
 std::string elementSymb(const std::string& str){
     std::string ele;
-    ele += toupper(str[0]);
-    for (size_t i = 1; i < str.size(); i++) ele[i] += tolower(str[i]);
+    ele.reserve(str.size());
+    ele += toupper(str.front());
+//    for (size_t i = 1; i < str.size(); i++) ele[i] += tolower(str[i]);
+    for (auto it = str.begin()+1; it != str.end(); ++it) ele += tolower(*it);
     return ele;
 }
 
@@ -96,9 +99,15 @@ std::vector<double> strToVectDouble (const std::string& str){
             vd = std::vector<double>{};
             std::string s = str;
             strVect vs = strToVect(s, ','); // Delimeter is ','
-            for (std::vector<double>::size_type i = 0; i < vs.size(); i++){
+//            for (std::vector<double>::size_type i = 0; i < vs.size(); i++){
+//                vd.reserve(vs.size());
+//                if (isNumeric(vs[i])) vd.push_back(std::stod(vs[i]));
+//                else throw std::invalid_argument("There may be invalid characters.");
+//            }
+
+            for (auto it = vs.cbegin(); it != vs.cend(); ++it){
                 vd.reserve(vs.size());
-                if (isNumeric(vs[i])) vd.push_back(std::stod(vs[i]));
+                if (isNumeric(*it)) vd.push_back(std::stod(*it));
                 else throw std::invalid_argument("There may be invalid characters.");
             }
             return vd;
@@ -115,9 +124,9 @@ bool isNumeric (const std::string& str) noexcept
     bool hasNeg = str[0] == '-';
     bool hasPos = str[0] == '+';
 
-    size_t i = (hasNeg || hasPos) ? 1 : 0;
-    for (; i < str.size(); i++){
-        char c = str[i];
+    size_t start = (hasNeg || hasPos) ? 1 : 0;
+    for (auto it = str.begin()+start; it != str.end(); ++it){
+        char c = *it;
         if (!isdigit(c)){
             if (c == '.'){
                 if (hasDec) return false;
@@ -129,11 +138,11 @@ bool isNumeric (const std::string& str) noexcept
                 if (hasPos) return false;
                 else hasPos = true;
             } else if (c == 'E' || c == 'e'){
-                if (hasExp || i == str.size()-1) return false;
+                if (hasExp || it-str.begin() == str.size()-1) return false;
                 else{
                     hasExp = true;
-                    if (str[i+1] == '-') hasNeg = false;
-                    else if (str[i+1] == '+') hasPos = false;
+                    if (*(it+1) == '-') hasNeg = false;
+                    else if (*(it+1) == '+') hasPos = false;
                 }
             } else return false;
         }
