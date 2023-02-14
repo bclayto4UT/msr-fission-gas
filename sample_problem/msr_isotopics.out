@@ -18,8 +18,8 @@
       
                   Job Information
                   ---------------
-      Job started on LAPTOP-R183V9QL on Wed 08/02/2023 19:14:06
-      Working directory: C:\Users\dbloc\AppData\Local\Temp\scale.dbloc.8300
+      Job started on LAPTOP-R183V9QL on Mon 13/02/2023 23:32:05
+      Working directory: C:\Users\dbloc\AppData\Local\Temp\scale.dbloc.7804
       Input file name  : C:\Users\dbloc\Documents\SCALE\files\msr_isotopics.inp
       Output file name : C:\Users\dbloc\Documents\SCALE\files\msr_isotopics.out
       SCALE executable : C:\SCALE-6.2.4/bin/scale
@@ -27,7 +27,7 @@
  *******************************************************************************
 
 
-    module shell will be called on Wed Feb 08 19:14:06 2023.
+    module shell will be called on Mon Feb 13 23:32:06 2023.
     sequence specification record:=shell
 Input Data:
 
@@ -39,7 +39,7 @@ C:\Users\dbloc\Documents\SCALE\files\MSRR_ContinuousDepletion.f33
 module shell is finished. completion code 0
 
 
-    module origen will be called on Wed Feb 08 19:14:07 2023.
+    module origen will be called on Mon Feb 13 23:32:06 2023.
     sequence specification record:=origen
 Input Data:
 
@@ -53,7 +53,10 @@ Input Data:
                      be9 = 31.78905
                      f19 = 146.67
                      u235 = 0.98989
-                     u238 = 4.01011]
+                     u238 = 4.01011
+                     cr = 0.17
+                     fe = 0.65
+                     ni = 0.12] % Cr, Fe, and Ni values are mole fractions
               }
       
       
@@ -98,9 +101,9 @@ end
         *****                                                                                                              *****
         *****         machine name:  LAPTOP-R183V9QL                                                                       *****
         *****                                                                                                              *****
-        *****    date of execution:  08_feb_2023                                                                           *****
+        *****    date of execution:  13_feb_2023                                                                           *****
         *****                                                                                                              *****
-        *****    time of execution:  19:14:07.69                                                                           *****
+        *****    time of execution:  23:32:06.50                                                                           *****
         *****                                                                                                              *****
         *****                                                                                                              *****
         ************************************************************************************************************************
@@ -121,7 +124,7 @@ end
 -------------------------------------------------------------------------------------------------------------------------
 ###   Library settings                                                                                                ###
 .
-                                Library file name:     C:/Users/dbloc/AppData/Local/Temp/scale.dbloc.8300/MSRR_ContinuousDepletion.f33
+                                Library file name:     C:/Users/dbloc/AppData/Local/Temp/scale.dbloc.7804/MSRR_ContinuousDepletion.f33
                              Library set position:              1
                  Fission product reaction removal:             no
 -------------------------------------------------------------------------------------------------------------------------
@@ -169,11 +172,11 @@ becquerels                                                                    1.
 -------------------------------------------------------------------------------------------------------------------------
    step          t0          t1          dt           t        flux     fluence       power      energy
     (-)         (d)         (d)         (s)         (s)   (n/cm2-s)     (n/cm2)        (MW)       (MWd)
-      1      0.0000     10.0000  8.6400E+05  8.6400E+05  1.0000E+13  8.6400E+18  8.7198E-03  8.7198E-02
-      2     10.0000     20.0000  8.6400E+05  1.7280E+06  1.0000E+13  1.7280E+19  8.7188E-03  1.7439E-01
-      3     20.0000     30.0000  8.6400E+05  2.5920E+06  1.0000E+13  2.5920E+19  8.7173E-03  2.6156E-01
-      4     30.0000     40.0000  8.6400E+05  3.4560E+06  1.0000E+13  3.4560E+19  8.7158E-03  3.4872E-01
-      5     40.0000     50.0000  8.6400E+05  4.3200E+06  1.0000E+13  4.3200E+19  8.7143E-03  4.3586E-01
+      1      0.0000     10.0000  8.6400E+05  8.6400E+05  1.0000E+13  8.6400E+18  8.7215E-03  8.7215E-02
+      2     10.0000     20.0000  8.6400E+05  1.7280E+06  1.0000E+13  1.7280E+19  8.7204E-03  1.7442E-01
+      3     20.0000     30.0000  8.6400E+05  2.5920E+06  1.0000E+13  2.5920E+19  8.7189E-03  2.6161E-01
+      4     30.0000     40.0000  8.6400E+05  3.4560E+06  1.0000E+13  3.4560E+19  8.7174E-03  3.4878E-01
+      5     40.0000     50.0000  8.6400E+05  4.3200E+06  1.0000E+13  4.3200E+19  8.7159E-03  4.3594E-01
           
               step - step index within this case
                 t0 - time at beginning-of-step in input units
@@ -202,7 +205,7 @@ becquerels                                                                    1.
 =========================================================================================================================
 =   Library summary for case '1' (#1/1)                                                                                 =
 -------------------------------------------------------------------------------------------------------------------------
-filename: C:/Users/dbloc/AppData/Local/Temp/scale.dbloc.8300/MSRR_ContinuousDepletion.f33 cross-section data taken from position number: 1
+filename: C:/Users/dbloc/AppData/Local/Temp/scale.dbloc.7804/MSRR_ContinuousDepletion.f33 cross-section data taken from position number: 1
 library title delimited by {}: 
 {}
 date library was produced: 538976288/538976288/538976288
@@ -229,8 +232,8 @@ number of nonzero off-diagonal matrix elements: 54564
   (relative cutoff; integral of concentrations over time >   1.00E-19 % of integral of all concentrations over time)
 .
                    0.000d     10.000d     20.000d     30.000d     40.000d     50.000d   
-     h        0.0000E+00  5.8487E-06  1.1687E-05  1.7514E-05  2.3331E-05  2.9137E-05
-    he        0.0000E+00  2.1300E-05  4.2607E-05  6.3920E-05  8.5240E-05  1.0657E-04
+     h        0.0000E+00  5.8622E-06  1.1714E-05  1.7555E-05  2.3385E-05  2.9205E-05
+    he        0.0000E+00  2.1301E-05  4.2608E-05  6.3923E-05  8.5243E-05  1.0657E-04
     li        6.3330E+01  6.3330E+01  6.3330E+01  6.3330E+01  6.3330E+01  6.3330E+01
     be        3.1789E+01  3.1789E+01  3.1789E+01  3.1789E+01  3.1789E+01  3.1789E+01
      b        0.0000E+00  1.5431E-15  6.1671E-15  1.3864E-14  2.4625E-14  3.8443E-14
@@ -239,11 +242,16 @@ number of nonzero off-diagonal matrix elements: 54564
      o        0.0000E+00  2.0754E-06  4.1509E-06  6.2263E-06  8.3017E-06  1.0377E-05
      f        1.4667E+02  1.4667E+02  1.4667E+02  1.4667E+02  1.4667E+02  1.4667E+02
     ne        0.0000E+00  1.4665E-06  2.9330E-06  4.3996E-06  5.8661E-06  7.3326E-06
-    fe        0.0000E+00  5.5443E-19  5.5430E-19  5.5416E-19  5.5403E-19  5.5389E-19
-    co        0.0000E+00  2.7733E-18  2.7729E-18  2.7725E-18  2.7721E-18  2.7718E-18
-    ni        0.0000E+00  1.3797E-13  1.4452E-13  1.4486E-13  1.4491E-13  1.4494E-13
-    cu        0.0000E+00  6.7970E-13  7.2592E-13  7.2981E-13  7.3083E-13  7.3166E-13
-    zn        0.0000E+00  5.2183E-11  7.5266E-11  9.7594E-11  1.1992E-10  1.4226E-10
+    sc        0.0000E+00  5.8769E-20  2.2625E-19  4.7478E-19  7.8529E-19  1.1439E-18
+    ti        0.0000E+00  3.6409E-11  7.2822E-11  1.0924E-10  1.4567E-10  1.8209E-10
+     v        0.0000E+00  1.0428E-08  3.7867E-08  7.8549E-08  1.2954E-07  1.8856E-07
+    cr        1.7000E-01  1.7000E-01  1.7000E-01  1.7000E-01  1.7000E-01  1.7000E-01
+    mn        0.0000E+00  4.3784E-09  9.1399E-09  1.4291E-08  1.9831E-08  2.5758E-08
+    fe        6.5000E-01  6.5000E-01  6.5000E-01  6.5000E-01  6.5000E-01  6.5000E-01
+    co        0.0000E+00  8.9804E-09  1.7434E-08  2.5397E-08  3.2903E-08  3.9984E-08
+    ni        1.2000E-01  1.2000E-01  1.2000E-01  1.2000E-01  1.2000E-01  1.2000E-01
+    cu        0.0000E+00  1.2756E-09  2.5788E-09  3.8906E-09  5.2110E-09  6.5400E-09
+    zn        0.0000E+00  5.2184E-11  7.5271E-11  9.7606E-11  1.1994E-10  1.4229E-10
     ga        0.0000E+00  6.9484E-11  1.1364E-10  1.5748E-10  2.0133E-10  2.4521E-10
     ge        0.0000E+00  1.7329E-08  3.1747E-08  4.6163E-08  6.0576E-08  7.4987E-08
     as        0.0000E+00  1.2169E-08  1.6592E-08  2.0880E-08  2.5165E-08  2.9450E-08
@@ -293,7 +301,7 @@ number of nonzero off-diagonal matrix elements: 54564
     am        0.0000E+00  4.6437E-15  9.4847E-14  5.3762E-13  1.8117E-12  4.6073E-12
     cm        0.0000E+00  9.3403E-19  3.8780E-17  3.3777E-16  1.5411E-15  4.9435E-15
 ------------
-  totals       2.4679E+02  2.4679E+02  2.4679E+02  2.4679E+02  2.4679E+02  2.4679E+02
+  totals       2.4773E+02  2.4773E+02  2.4773E+02  2.4773E+02  2.4773E+02  2.4773E+02
 =========================================================================================================================
 .
 .
@@ -308,12 +316,12 @@ number of nonzero off-diagonal matrix elements: 54564
 .
    pos         time        power         flux      fluence       energy libpos   case   step DCGNAB
    (-)          (s)         (MW)    (n/cm2-s)      (n/cm2)        (MWd)    (-)    (-)    (-)    (-)
-     1  0.00000e+00  8.71983e-03  1.00000e+13  0.00000e+00  0.00000e+00      1      1      0 DC----
-     2  8.64000e+05  8.71983e-03  1.00000e+13  8.64000e+18  8.71983e-02      1      1      1 DC----
-     3  1.72800e+06  8.71881e-03  1.00000e+13  1.72800e+19  1.74386e-01      1      1      2 DC----
-     4  2.59200e+06  8.71730e-03  1.00000e+13  2.59200e+19  2.61559e-01      1      1      3 DC----
-     5  3.45600e+06  8.71581e-03  1.00000e+13  3.45600e+19  3.48718e-01      1      1      4 DC----
-     6  4.32000e+06  8.71431e-03  1.00000e+13  4.32000e+19  4.35861e-01      1      1      5 DC----
+     1  0.00000e+00  8.72147e-03  1.00000e+13  0.00000e+00  0.00000e+00      1      1      0 DC----
+     2  8.64000e+05  8.72147e-03  1.00000e+13  8.64000e+18  8.72147e-02      1      1      1 DC----
+     3  1.72800e+06  8.72044e-03  1.00000e+13  1.72800e+19  1.74419e-01      1      1      2 DC----
+     4  2.59200e+06  8.71894e-03  1.00000e+13  2.59200e+19  2.61608e-01      1      1      3 DC----
+     5  3.45600e+06  8.71744e-03  1.00000e+13  3.45600e+19  3.48783e-01      1      1      4 DC----
+     6  4.32000e+06  8.71594e-03  1.00000e+13  4.32000e+19  4.35942e-01      1      1      5 DC----
     D - state definition present
     C - concentrations present
     G - gamma emission spectra present
@@ -326,15 +334,15 @@ number of nonzero off-diagonal matrix elements: 54564
 =========================================================================================================================
 ORIGEN finished successfully.
 =========================================================================================================================
-    module origen used 0.772914 seconds cpu time for the current pass.
+    module origen used 0.402485 seconds cpu time for the current pass.
 
-    module origen is finished. completion code    0. total cpu time used 5.6e-006 seconds.
+    module origen is finished. completion code    0. total cpu time used 4.4e-006 seconds.
 
 
-    SCALE is finished on Wed Feb 08 19:14:08 2023.
+    SCALE is finished on Mon Feb 13 23:32:06 2023.
 -------------------------- Summary --------------------------
-shell finished. used 0.264559 seconds.
-origen finished. used 0.773665 seconds.
+shell finished. used 0.0341219 seconds.
+origen finished. used 0.403091 seconds.
 SCALE driver required a maximum of 10.29 MiB of RAM.
 ------------------------ End Summary ------------------------
 
