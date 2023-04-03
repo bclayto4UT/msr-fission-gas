@@ -79,6 +79,7 @@ Matrix luFactorize(Matrix& a, Permutation& p, bool inplace) {
     // Loop on rows
         for(i=j+1; i<n; i++) rowReplacement(a,j,i);
     }
+    return Matrix(0,0);
 }
 
 Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace) {
@@ -94,7 +95,7 @@ Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace) {
     }
 
     int n = a.n(0);
-    int i,j,k;
+    int i,j;
 
     if(a.n(1) != n || p.n() != n || x.n() != n)
         throw std::invalid_argument("ERROR: Incompatible sizes.");
@@ -119,6 +120,7 @@ Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace) {
         }
         x(i) /= a(i,i);
     }
+    return Vector(0);
 }
 
 Vector solve(Matrix& a, Permutation& p, Vector& x, bool inplace) {
@@ -138,6 +140,7 @@ Vector solve(Matrix& a, Permutation& p, Vector& x, bool inplace) {
     try{
         luFactorize(a, p, 1);
         luSolve(a, p, x, 1);
+        return Vector(0);
     } catch (const std::logic_error& ex){
         throw ex;
     } catch (const std::runtime_error& ex){
