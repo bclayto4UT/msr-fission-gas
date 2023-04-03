@@ -5,29 +5,33 @@ double gamma_Inf_NiF2(double xLiF){
     return exp(-17.36486818 + 68.16877934*xLiF - 81.06301593*pow(xLiF,2) + 26.70117623*pow(xLiF,3));
 }
 
-static double calc_H(const std::array<double,8>& data, const double T){
+static double calc_H(const thermoArray& data, const double T){
     // Enthalpy in J/mol
     double H = data[0]*1000;
-    H += data[2]*(T-data[7]);
-    H += data[3]*(pow(T,2)-pow(data[7],2))/2;
-    H += data[4]*(pow(T,3)-pow(data[7],3))/3;
-    H += data[5]*(pow(T,4)-pow(data[7],4))/4;
-    H -= data[6]*(1/T-1/data[7]);
+    double T_ref = data.back();
+    H += data[2]*(T-T_ref);
+    H += data[3]*(pow(T,2)-pow(T_ref,2))/2;
+    H += data[4]*(pow(T,3)-pow(T_ref,3))/3;
+    H += data[5]*(pow(T,4)-pow(T_ref,4))/4;
+    H += data[6]*log(T/T_ref);
+    H -= data[7]*(1/T-1/T_ref);
     return H;
 }
 
-static double calc_S(const std::array<double,8>& data, const double T){
+static double calc_S(const thermoArray& data, const double T){
     // Entropy in J/mol K
     double S = data[1];
-    S += data[2]*log(T/data[7]);
-    S += data[3]*(T-data[7]);
-    S += data[4]*(pow(T,2)-pow(data[7],2))/2;
-    S += data[5]*(pow(T,3)-pow(data[7],3))/3;
-    S -= data[6]*(pow(T,-2)-pow(data[7],-2))/2;
+    double T_ref = data.back();
+    S += data[2]*log(T/T_ref);
+    S += data[3]*(T-T_ref);
+    S += data[4]*(pow(T,2)-pow(T_ref,2))/2;
+    S += data[5]*(pow(T,3)-pow(T_ref,3))/3;
+    S -= data[6]*(1/T-1/T_ref);
+    S -= data[7]*(pow(T,-2)-pow(T_ref,-2))/2;
     return S;
 }
 
-static double calc_G(const std::array<double,8>& data, const double T){
+static double calc_G(const thermoArray& data, const double T){
     // Gibbs free energy in J/mol
     double H = calc_H(data, T);
     double S = calc_S(data, T);
@@ -108,6 +112,27 @@ double G_FeF3(const double T){
     return g_FeF3 - 0.5*g_F2 - g_FeF2;
 }
 
+double G_CoF2(const double T){
+    // Free energy of formation of CoF2 in J/mol
+    double g_Co;
+    if (T <= 700) g_Co = calc_G(heatData.at("Co0"), T);
+    else{
+        double h_Co = calc_H(heatData.at("Co0"), 700) + calc_H(heatData.at("Co1"), T);
+        double s_Co = calc_S(heatData.at("Co0"), 700) + calc_S(heatData.at("Co1"), T);
+        g_Co = h_Co-T*s_Co;
+    }
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_CoF2 = calc_G(heatData.at("CoF2"), T);
+    return g_CoF2 - g_F2 - g_Co;
+}
+
+double G_CoF3(const double T){
+    // Free energy of reaction CoF2 + 1/2 F2 <-> CoF3 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_CoF2 = calc_G(heatData.at("CoF2"), T);
+    double g_CoF3 = calc_G(heatData.at("CoF3"), T);
+    return g_CoF3 - 0.5*g_F2 - g_CoF2;
+}
 
 double G_NiF2(const double T){
     // Free energy of formation of NiF2 in J/mol
@@ -127,6 +152,30 @@ double G_NiF2(const double T){
     double g_F2 = calc_G(heatData.at("F2"), T);
     double g_NiF2 = calc_G(heatData.at("NiF2"), T);
     return g_NiF2 - g_F2 - g_Ni;
+}
+
+double G_MoF4(const double T){
+    // Free energy of formation of MoF4 in J/mol
+    double g_Mo = calc_G(heatData.at("Mo"), T);
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_MoF4 = calc_G(heatData.at("MoF4"), T);
+    return g_MoF4 - 2*g_F2 - g_Mo;
+}
+
+double G_MoF5(const double T){
+    // Free energy of reaction MoF4 + 1/2 F2 <-> MoF5 in J/mol
+    double g_MoF4 = calc_G(heatData.at("MoF4"), T);
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_MoF5 = calc_G(heatData.at("MoF5"), T);
+    return g_MoF5 - 0.5*g_F2 - g_MoF4;
+}
+
+double G_MoF6(const double T){
+    // Free energy of reaction MoF5 + 1/2 F2 <-> MoF6 in J/mol
+    double g_MoF5 = calc_G(heatData.at("MoF5"), T);
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_MoF6 = calc_G(heatData.at("MoF6"), T);
+    return g_MoF6 - 0.5*g_F2 - g_MoF5;
 }
 
 double G_F(const double xUF3, const double xUF4, const double T){
