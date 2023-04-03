@@ -7,6 +7,8 @@
 #include "rootFinding.h"
 #include "thermoElectroChem.h"
 
+static const double FRACTION_CUTOFF = 1.0E-99;
+
 concMap scaleToVector(const std::string& inFile)
 /****************************************************************
 Input(s):
@@ -595,6 +597,7 @@ Warning:
     if (m == 0) return;
 
     const std::array<std::string, 6> gases{"H", "He", "Ne", "Ar", "Kr", "Xe"};
+    const std::array<std::string, 5> metals{"Cr", "Fe", "Co", "Ni", "Mo"};
 
     // lambda to extract the cation and anion from a species formula
     auto getIonPair = [](std::string str) -> std::pair<std::string, std::string>
@@ -626,12 +629,11 @@ Warning:
     using mapStrDbl = std::unordered_map<std::string, double>;
     using pairStrDbl = std::pair<std::string, double>;
 
-    for (size_t i = 1; i < m; i++){
+    for (size_t i = 0; i < m; i++){
         mapStrDbl specMap; // To access and modify values
-        std::vector<pairStrDbl> specPair, specGas;
-        // specPair and specGas are vectors so that they can be sorted
-        double T, P, XCr, XFe, XNi;
-        bool validSolids = false;
+        std::vector<pairStrDbl> specSol, specPair, specGas; // vectors to be sorted
+        double T, P;
+        bool validSolids = true;
 
         std::vector<mapStrDbl> surrElemMaps;
         surrElemMaps.reserve(6);
@@ -643,6 +645,7 @@ Warning:
         for (auto it: surrogateMap){
             mapStrDbl concmp;
             double sumSurr = 0.0;
+            static size_t index = 0;
 
             for (const std::string& ele: it.second){
                 if (scaleData.find(ele) != scaleData.end()){
@@ -656,7 +659,9 @@ Warning:
                 for (auto& elePair: concmp) elePair.second /= sumSurr;
                 surrElemMaps.push_back(concmp);
                 std::string surrogate = it.first;
-                mapIndex[surrogate] = mapIndex.size();
+                mapIndex[surrogate] = index;
+                index++;
+                if (index == surrogateMap.size()) index = 0;
             }
         }
 
@@ -665,14 +670,21 @@ Warning:
         double sumGas = 0.0;
         for (const std::string& ele: gases){
             if (scaleData.find(ele) != scaleData.end()){
-                concmp[ele] = scaleData.at(ele)[i];
-                if (ele == "H") concmp[ele] /= 2;
-                sumGas += concmp.at(ele);
+                if (ele == "H"){
+                    concmp["H2"] = scaleData.at(ele)[i]/2;
+                    sumGas += concmp.at("H2");
+                } else{
+                    concmp[ele] = scaleData.at(ele)[i];
+                    sumGas += concmp.at(ele);
+                }
             } else concmp[ele] = 0;
         }
         if (sumGas > 0.0){
-            for (auto& elePair: concmp) elePair.second /= sumGas;
-            surrElemMaps.push_back(concmp);
+            specGas.reserve(gases.size());
+            for (auto& elePair: concmp){
+                if (elePair.second > FRACTION_CUTOFF)
+                    specGas.push_back(pairStrDbl(elePair.first, elePair.second));
+            }
         }
 
         while (line.find("Moles of pairs") >= line.size()) getline(input,line);
@@ -713,29 +725,24 @@ Warning:
         P = std::stod(v[v.size()-2]);
         P *= 1.01325; // System pressure in bar
 
+        double sumSol = 0.0;
         if (includesSSol){
-            try{ XCr = scaleData.at("Cr")[i]; }
-            catch (const std::out_of_range& ex){}
-            try{ XFe = scaleData.at("Fe")[i]; }
-            catch (const std::out_of_range& ex){}
-            try{ XNi = scaleData.at("Ni")[i]; }
-            catch (const std::out_of_range& ex){}
-            // If a metal is not in scaleData, its value is default to be 0.0
-
-            if (XCr >= 0 && XFe >= 0 && XNi >= 0 && XCr + XFe + XNi > 0){
-                validSolids = true;
-                if (XCr > 1 || XFe > 1 || XNi > 1 || XCr + XFe + XNi > 1){
-                    double sum = XCr + XFe + XNi;
-                    XCr /= sum;
-                    XFe /= sum;
-                    XNi /= sum;
-                }
+            specSol.reserve(metals.size());
+            for (std::string m: metals){
+                try{
+                    double amount = scaleData.at(m)[i];
+                    if (amount < 0.0){ validSolids = false; break;}
+                    if (amount >= FRACTION_CUTOFF){
+                        sumSol += amount;
+                        specSol.push_back(pairStrDbl(m, amount));
+                    }
+                } catch (const std::out_of_range& ex){}
             }
         }
 
         // Decouples data in the map and put the results in the vector
         for (auto& it: specMap){
-            if (it.second == 0) continue;
+            if (it.second <= FRACTION_CUTOFF) continue;
             it.second *= n;
 
             std::pair<std::string, std::string> ions;
@@ -747,7 +754,7 @@ Warning:
 
             if (includesSSol && ions.first == "Ni"){}
 
-            if (ions.second == "I"){
+            else if (ions.second == "I"){
                 if (ions.first == "Ca" || ions.first == "La" ||
                     ions.first == "Pu" || ions.first == "Th"){
 
@@ -772,7 +779,6 @@ Warning:
 
                 } else{
                     char oxiState = it.first.back() == 'I' ? ' ' : it.first.back();
-                    if (includesSSol && ions.first == "Ni") it.second *= XNi;
                     size_t anIndex = mapIndex["I"];
                     for (auto an: surrElemMaps[anIndex]){
                         std::string specName = ions.first + an.first + oxiState;
@@ -804,103 +810,162 @@ Warning:
         }
 
         double sumSalt = 0.0;
-        sumGas = 0.0; // there's a sumGas variable declared above but is no longer used
         std::string message;
         for (auto it: specPair) sumSalt += it.second;
-        for (auto it: specGas) sumGas += it.second;
 
         if (includesSSol){
             if (validSolids){
-                // Outputs solid phase
-                std::vector<pairStrDbl> specSol
-                { pairStrDbl{"Cr", XCr},
-                  pairStrDbl{"Fe", XFe},
-                  pairStrDbl{"Ni", XNi} };
-                std::sort(specSol.begin(), specSol.end(), compVector);
-
-                output << "Solid solution\n";
-                for (auto it = specSol.cbegin(); it != specSol.cend(); ++it){
-                    std::string start = it == specSol.cbegin() ? "\t{" : "\t+";
-                    output << start << " " << it->second;
-                    output << "\t\t" << it->first;
-                    if (*it == specSol.back()) output << "\t}";
-                    output << "\n";
-                }
-
                 // Calculates the fraction of corrosion products
                 std::function<Vector(const Vector&)> thermoFunc =
                 [&](const Vector& zeta) -> Vector
                 {
-                    double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5);
+                    Vector y(zeta);
+                    double pMoF4;//, pMoF5, pMoF6;
+                    // pMoF5 is expected to be tiny and that leads to loss of precision?
+
+                    double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5)+zeta(7);
                     double aCrF2 = gamma_Inf_CrF2*(zeta(1)-zeta(2))/nSalt;
                     double aCrF3 = 1.0*zeta(2)/nSalt;
                     double aFeF2 = gamma_Inf_FeF2*(zeta(3)-zeta(4))/nSalt;
                     double aFeF3 = 1.0*zeta(4)/nSalt;
-                    double aNiF2 = gamma_Inf_NiF2(specMap["LiF"]/sumSalt)*zeta(5)/nSalt;
-                    double xUF3 = (specMap["UF3"]+zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5))/nSalt;
-                    double xUF4 = (specMap["UF4"]-zeta(0)-2*zeta(1)-zeta(2)-2*zeta(3)-zeta(4)-2*zeta(5))/nSalt;
+                    double aCoF2 = 1.0*(zeta(5)-zeta(6))/nSalt;
+                    double aCoF3 = 1.0*zeta(6)/nSalt;
+                    double aNiF2 = gamma_Inf_NiF2(specMap["LiF"]/sumSalt)*zeta(7)/nSalt;
+
+                    double nSolid = sumSol-zeta(1)-zeta(3)-zeta(5)-zeta(7)-zeta(8);
+                    double XCr, XFe, XCo, XNi, XMo;
+                    for (auto it = specSol.cbegin(); it != specSol.cend(); ++it){
+                        if (it->first == "Cr") (XCr = it->second-zeta(1))/nSolid;
+                        else if (it->first == "Fe") (XFe = it->second-zeta(3))/nSolid;
+                        else if (it->first == "Co") (XCo = it->second-zeta(5))/nSolid;
+                        else if (it->first == "Ni") (XNi = it->second-zeta(7))/nSolid;
+                        else if (it->first == "Mo") (XMo = it->second-zeta(8))/nSolid;
+                    }
+
+                    double del = zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)
+                                 +2*zeta(5)+zeta(6)+2*zeta(7)+4*zeta(8);
+                    double xUF3 = (specMap["UF3"]+del)/nSalt;
+                    double xUF4 = (specMap["UF4"]-del)/nSalt;
                     double GF2 = G_F(xUF3, xUF4, T);
 
-                    Vector y(6);
-                    if (!includesHF || sumGas == 0) y(0) = zeta(0);
-                    else{
-                        double nH2;
-                        for (auto& it: specGas){
-                            if (it.first == "H2"){
-                                nH2 = it.second;
-                                break;
+                    if (sumGas > 0.0){
+                        double nGas = sumGas+zeta(8);
+                        if (includesHF){
+                            double nH2 = scaleData.at("H")[i]/2;
+                            if (nH2 > 0.0){
+                                nGas += zeta(0)/2;
+                                double pH2 = (nH2-zeta(0)/2)/nGas*P;
+                                double pHF = zeta(0)/nGas*P;
+                                y(0) = pHF*pHF/pH2 - exp((GF2 - 2*G_HF(T))/(R*T));
                             }
                         }
 
-                        if (nH2 > 0.0){
-                            double nGas = sumGas+zeta(0)/2;
-                            double pH2 = (nH2-zeta(0)/2)/nGas*P;
-                            double pHF = zeta(0)/nGas*P;
-                            y(0) = pHF*pHF/pH2 - exp((GF2 - 2*G_HF(T))/(R*T));
-                        } else y(0) = zeta(0);
+                        pMoF4 = zeta(8)/nGas*P;
+//                        pMoF5 = zeta(9)/nGas*P;
+//                        pMoF6 = zeta(8)/nGas*P;
                     }
 
-                    y(1) = aCrF2/XCr - exp((GF2 - G_CrF2(T))/(R*T));
-                    y(2) = aCrF3/aCrF2 - exp((0.5*GF2 - G_CrF3(T))/(R*T));
-                    y(3) = aFeF2/XFe - exp((GF2 - G_FeF2(T))/(R*T));
-                    y(4) = aFeF3/aFeF2 - exp((0.5*GF2 - G_FeF3(T))/(R*T));
-                    y(5) = aNiF2/XNi - exp((GF2 - G_NiF2(T))/(R*T));
+
+                    if (XCr > FRACTION_CUTOFF){
+                        y(1) = aCrF2/XCr - exp((GF2 - G_CrF2(T))/(R*T));
+                        y(2) = aCrF3/aCrF2 - exp((0.5*GF2 - G_CrF3(T))/(R*T));
+                    } if (XFe > FRACTION_CUTOFF){
+                        y(3) = aFeF2/XFe - exp((GF2 - G_FeF2(T))/(R*T));
+                        y(4) = aFeF3/aFeF2 - exp((0.5*GF2 - G_FeF3(T))/(R*T));
+                    } if (XCo > FRACTION_CUTOFF){
+                        y(5) = aCoF2/XCo - exp((GF2 - G_CoF2(T))/(R*T));
+                        y(6) = aCoF3/aCoF2 - exp((0.5*GF2 - G_CoF3(T))/(R*T));
+                    } if (XNi > FRACTION_CUTOFF){
+                        y(7) = aNiF2/XNi - exp((GF2 - G_NiF2(T))/(R*T));
+                    } if (XMo > FRACTION_CUTOFF && sumGas > 0.0){
+                        y(8) = pMoF4/XMo - exp((2*GF2 - G_MoF4(T))/(R*T));
+                        //y(9) = pMoF5/pMoF4 - exp((0.5*GF2 - G_MoF5(T))/(R*T));
+                        //y(8) = pMoF6/pMoF5 - exp((0.5*GF2 - G_MoF6(T))/(R*T));
+                    }
+
                     return y;
                 };
 
-                Vector zeta{1e-6*std::max(sumGas,1e-10),
-                            1e-4*sumSalt,
-                            1e-9*sumSalt,
-                            1e-9*sumSalt,
-                            1e-12*sumSalt,
-                            1e-12*sumSalt};
+                Vector zeta{1e-6*std::max(sumGas,1e-10), // HF
+                            1e-4*sumSalt, // CrF2
+                            1e-9*sumSalt, // CrF3
+                            1e-9*sumSalt, // FeF2
+                            1e-10*sumSalt, // FeF3
+                            1e-12*sumSalt, // CoF2
+                            1e-30*sumSalt, // CoF3
+                            1e-12*sumSalt, // NiF2
+                            1e-30*std::max(sumGas,1e-10)}; // MoF4
+//                            1e-60*std::max(sumGas,1e-10)};
+//                            1e-30*std::max(sumGas,1e-10)};
                 /* sumGas being 0 breaks the code, so if I don't want to solve for
                    the gas phase it will be taken cared of by the bool includesHF.
                 */
 
                 try{
                     zeta = newton(thermoFunc, zeta, 100, 1e-6);
-                    sumSalt += zeta(1) + zeta(3);
-                    specPair.reserve(specPair.size()+5);
-                    specPair.push_back(pairStrDbl{"CrF2", zeta(1)-zeta(2)});
-                    specPair.push_back(pairStrDbl{"CrF3", zeta(2)});
-                    specPair.push_back(pairStrDbl{"FeF2", zeta(3)-zeta(4)});
-                    specPair.push_back(pairStrDbl{"FeF3", zeta(4)});
-                    specPair.push_back(pairStrDbl{"NiF2", zeta(5)});
-
-                    double del = zeta(0)+2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5);
-                    for (auto& it: specPair){
-                        if (it.first == "UF3") it.second += del;
-                        if (it.first == "UF4") it.second -= del;
+                    for (size_t j = 0; j < zeta.n(); j++){ // Write an iterator function for Vector?
+                        if (zeta(j) <= FRACTION_CUTOFF) zeta(j) = 0.0;
                     }
 
-                    if (includesHF && sumGas > 0){
+                    sumSol -= (zeta(1) + zeta(3) + zeta(5) + zeta(7) + zeta(8));
+                    sumSalt += zeta(1) + zeta(3) + zeta(5) + zeta(7);
+                    sumGas += zeta(8);
+                    specPair.reserve(specPair.size()+7);
+                    specGas.reserve(specGas.size()+2);
+
+                    if (includesHF && sumGas > 0.0 && zeta(0) > 0.0){
                         sumGas += zeta(0)/2;
                         specGas.push_back(pairStrDbl{"HF", zeta(0)});
                         for (auto& it: specGas){
                             if (it.first == "H2"){it.second -= zeta(0)/2; break; }
                         }
                     }
+
+                    for (auto it = specSol.begin(); it != specSol.end(); ++it){
+                        if (it->first == "Cr" && it->second >= FRACTION_CUTOFF){
+                            specPair.push_back(pairStrDbl{"CrF2", zeta(1)-zeta(2)});
+                            specPair.push_back(pairStrDbl{"CrF3", zeta(2)});
+                            it->second -= zeta(1);
+                        } else if (it->first == "Fe" && it->second >= FRACTION_CUTOFF){
+                            specPair.push_back(pairStrDbl{"FeF2", zeta(3)-zeta(4)});
+                            specPair.push_back(pairStrDbl{"FeF3", zeta(4)});
+                            it->second -= zeta(3);
+                        } else if (it->first == "Co" && it->second >= FRACTION_CUTOFF){
+                            specPair.push_back(pairStrDbl{"CoF2", zeta(5)-zeta(6)});
+                            specPair.push_back(pairStrDbl{"CoF3", zeta(6)});
+                            it->second -= zeta(5);
+                        } else if (it->first == "Ni" && it->second >= FRACTION_CUTOFF){
+                            specPair.push_back(pairStrDbl{"NiF2", zeta(7)});
+                            it->second -= zeta(7);
+                        } else if (it->first == "Mo" && it->second >= FRACTION_CUTOFF){
+                            specGas.push_back(pairStrDbl{"MoF4", zeta(8)});
+                            it->second -= zeta(8);
+//                            specGas.push_back(pairStrDbl{"MoF5", zeta(9)});
+//                            specGas.push_back(pairStrDbl{"MoF6", zeta(8)});
+                        }
+                    }
+
+                    double del = 2*zeta(1)+zeta(2)+2*zeta(3)+zeta(4)+2*zeta(5)+zeta(6)+2*zeta(7)+4*zeta(8);
+                    if (includesHF) del += zeta(0);
+                    for (auto& it: specPair){
+                        if (it.first == "UF3") it.second += del;
+                        if (it.first == "UF4") it.second -= del;
+                    }
+
+                    // Outputs solid phase
+                    std::sort(specSol.begin(), specSol.end(), compVector);
+                    output << sumSol << " Moles of solid solution\n";
+                    for (auto it = specSol.cbegin(); it != specSol.cend(); ++it){
+                        std::string start = it == specSol.cbegin() ? "\t{" : "\t+";
+                        if (it->second >= 1.0E-4){
+                            output << start << " " << std::defaultfloat << it->second/sumSol;
+                            if (it->second >= 1.0E-2) output << "\t";
+                        } else output << start << " " << std::scientific << it->second/sumSol;
+                        output << "\t\t" << it->first;
+                        if (*it == specSol.back()) output << "\t}";
+                        output << "\n";
+                    }
+
                 } catch(const std::exception& ex){
                     message += std::string(ex.what()) + "\n";
                     message += "WARNING: Unable to solve for zeta.\n";
@@ -963,30 +1028,39 @@ Warning:
         std::sort(specPair.begin(), specPair.end(), compVector);
         std::sort(specGas.begin(), specGas.end(), compVector);
 
-        if (sumSalt > 0){
-            output << sumSalt << " Moles of pairs\n";
+        if (sumSalt > 0.0){
+            output << std::defaultfloat << sumSalt << " Moles of pairs\n";
             output << "Pair fractions:\n";
-            for (size_t i = 0; i < specPair.size(); i++){
-                std::string start = i == 0 ? "\t{" : "\t+";
-                output << start << " " << specPair[i].second/sumSalt;
-                output << "\t\t" << specPair[i].first;
-                if (i == specPair.size()-1) output << "\t}";
+
+            for (auto it = specPair.cbegin(); it != specPair.cend(); ++it){
+                std::string start = it == specPair.cbegin() ? "\t{" : "\t+";
+                double frac = it->second/sumSalt;
+                if (frac >= 1.0E-4){
+                    output << start << " " << std::defaultfloat << frac;
+                    if (frac >= 1.0E-2) output << "\t";
+                } else output << start << " " << std::scientific << frac;
+                output << "\t\t" << it->first;
+                if (*it == specPair.back()) output << "\t}";
                 output << "\n";
             }
         }
 
-        if (sumGas > 0){
-            output << sumGas << " mol gas_ideal\n";
-            for (size_t i = 0; i < specGas.size(); i++){
-                std::string start = i == 0 ? "\t{" : "\t+";
-                output << start << " " << specGas[i].second/sumGas;
-                output << "\t\t" << specGas[i].first;
-                if (i == specGas.size()-1) output << "\t}";
+        if (sumGas > 0.0){
+            output << std::defaultfloat << sumGas << " mol gas_ideal\n";
+            for (auto it = specGas.cbegin(); it != specGas.cend(); ++it){
+                std::string start = it == specGas.cbegin() ? "\t{" : "\t+";
+                double frac = it->second/sumGas;
+                if (frac >= 1.0E-4){
+                    output << start << " " << std::defaultfloat << frac;
+                    if (frac >= 1.0E-2) output << "\t";
+                } else output << start << " " << std::scientific << frac;
+                output << "\t\t" << it->first;
+                if (*it == specGas.back()) output << "\t}";
                 output << "\n";
             }
         }
 
-        output << "Temperature: T = " << T << " K.\n";
+        output << "Temperature: T = " << std::defaultfloat << T << " K.\n";
         output << "Pressure: P = " << P/1.01325 << " atm.\n";
 
         if (message.empty()) message = "DEBUG: Successful exit.\n\n";
