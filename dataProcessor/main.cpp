@@ -1,6 +1,9 @@
 #include <fstream>
 #include <iostream>
+#include <iomanip>
+#include <functional>
 
+#include "calculus.h"
 #include "dataProcessor.h"
 #include "thermoElectroChem.h"
 #include "miscellaneous.h"
@@ -93,7 +96,6 @@ int main()
 
             } else if (option == 4){
                 string inFile, thermoIn, thermoOut, ansYN;
-                char timeOnRows;
                 try{
                     cout << "Enter SCALE output file: ";
                     cin >> inFile;
@@ -104,20 +106,19 @@ int main()
                     cout << "Enter new output file: ";
                     cin >> thermoOut;
 
-                    cout << "The default setting excludes any solid solution and HF.\n";
+                    cout << "The default setting excludes thermochemical calculations\n";
+                    cout << "for any solid solution or fission products present in the system.\n";
                     do{
                         cout << "Is that how you wish to proceed? Enter Y/N: ";
                         cin >> ansYN;
                         try{
                             if (ansYN == "N" || ansYN == "n"){
                                 bool includesSS, includesHF;
-                                cout << "Include solid solution? If yes, make sure the fraction ";
-                                cout << "of each metal is in the SCALE output, not the actual amount.\n";
-                                cout << "Type Y/N: ";
+                                cout << "Include solid solution calculation? Type Y/N: ";
                                 cin >> ansYN;
                                 includesSS = (ansYN == "Y" || ansYN == "y");
 
-                                cout << "Include HF/H2 calculation? Type Y/N: ";
+                                cout << "Include fission product calculation? Type Y/N: ";
                                 cin >> ansYN;
                                 includesHF = (ansYN == "Y" || ansYN == "y");
                                 decoupleSurr(v, thermoIn, thermoOut, includesSS, includesHF);
@@ -147,5 +148,3 @@ int main()
     return 0;
 
 }
-
-
