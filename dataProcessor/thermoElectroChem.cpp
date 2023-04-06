@@ -154,6 +154,68 @@ double G_NiF2(const double T){
     return g_NiF2 - g_F2 - g_Ni;
 }
 
+/* Note: For niobium, the most fluorinated species (NbF5) is calculated
+         directly from the metal and the lower oxidation states will
+         descend from this +5 oxidation state. This is because NbF5 is
+         the most chemically stable fluoride, so formulating formulae
+         formula from NbF5 down will avoid loss of precision that would
+         otherwise arise from subtracting near equal numbers. */
+
+double G_NbF5(const double T){
+    // Free energy of reaction Nb + 5/2 F2 <-> NbF5 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_Nb = calc_G(heatData.at("Nb"), T);
+    double g_NbF5 = calc_G(heatData.at("NbF5"), T);
+    return g_NbF5 - 2.5*g_F2 - g_Nb;
+}
+
+double G_Nb2F10(const double T){
+    // Free energy of reaction 2NbF5 <-> Nb2F10 in J/mol
+    double g_NbF5 = calc_G(heatData.at("NbF5"), T);
+    double g_Nb2F10 = calc_G(heatData.at("Nb2F10"), T);
+    return g_Nb2F10 - 2*g_NbF5;
+}
+
+double G_Nb3F15(const double T){
+    // Free energy of reaction 2NbF5 <-> Nb2F10 in J/mol
+    double g_NbF5 = calc_G(heatData.at("NbF5"), T);
+    double g_Nb2F10 = calc_G(heatData.at("Nb2F10"), T);
+    double g_Nb3F15 = calc_G(heatData.at("Nb3F15"), T);
+    return g_Nb3F15 - g_Nb2F10 - g_NbF5;
+}
+
+double G_NbF4(const double T){
+    // Free energy of reaction NbF4 + 1/2 F2 <-> NbF5 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_NbF4 = calc_G(heatData.at("NbF4"), T);
+    double g_NbF5 = calc_G(heatData.at("NbF5"), T);
+    return g_NbF5 - 0.5*g_F2 - g_NbF4;
+}
+
+double G_NbF3(const double T){
+    // Free energy of reaction NbF3 + 1/2 F2 <-> NbF4 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_NbF3 = calc_G(heatData.at("NbF3"), T);
+    double g_NbF4 = calc_G(heatData.at("NbF4"), T);
+    return g_NbF4 - 0.5*g_F2 - g_NbF3;
+}
+
+double G_NbF2(const double T){
+    // Free energy of reaction NbF2 + 1/2 F2 <-> NbF3 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_NbF2 = calc_G(heatData.at("NbF2"), T);
+    double g_NbF3 = calc_G(heatData.at("NbF3"), T);
+    return g_NbF3 - 0.5*g_F2 - g_NbF2;
+}
+
+double G_NbF(const double T){
+    // Free energy of reaction NbF + 1/2 F2 <-> NbF2 in J/mol
+    double g_F2 = calc_G(heatData.at("F2"), T);
+    double g_NbF = calc_G(heatData.at("NbF"), T);
+    double g_NbF2 = calc_G(heatData.at("NbF2"), T);
+    return g_NbF2 - 0.5*g_F2 - g_NbF;
+}
+
 double G_MoF4(const double T){
     // Free energy of formation of MoF4 in J/mol
     double g_Mo = calc_G(heatData.at("Mo"), T);
