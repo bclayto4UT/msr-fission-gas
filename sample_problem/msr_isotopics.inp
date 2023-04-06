@@ -14,9 +14,11 @@ case{
                f19 = 146.67
                u235 = 0.98989
                u238 = 4.01011
-               cr = 0.17
-               fe = 0.65
-               ni = 0.12] % Cr, Fe, and Ni values are mole fractions
+               cr = 170
+               fe = 650
+               co = 20
+               ni = 120
+               mo = 20]
         }
 
 
