@@ -20,23 +20,24 @@ Output:
 {
     // Opens input file
     std::ifstream input(inFile);
+    if (!input.is_open()) throw std::invalid_argument("Cannot open input file.");
+
     std::string line;
-
-    if (input.is_open()) getline(input,line);
-    else throw std::invalid_argument("Cannot open input file.");
-
     std::string beginStr = "relative cutoff;";
     std::string endStr = "------";
     bool beginStrIsFound = false;
 
-    while (line.find(beginStr) == std::string::npos) getline(input,line);
-    beginStrIsFound = line.find(beginStr) >= 0;
+    while (getline(input, line)){
+        if (line.find(beginStr) != std::string::npos){
+            beginStrIsFound = true;
+            break;
+        }
+    }
     if (!beginStrIsFound) throw std::invalid_argument("Input file does not contain an element table.");
 
     getline(input,line);
     getline(input,line); // The line with the the intervals is the second one after beginStr
     concMap concen;
-
     // Inputs data into vector
     while(getline(input,line) && line.find(endStr) == std::string::npos){
         // Converts element symbol to atomic number and stores it
@@ -46,10 +47,12 @@ Output:
             pos = std::min(line.find("\t"), line.find(" "));
         }
         std::string ele = line.substr(0, pos);
+        if (ele.empty()) continue;
         ele[0] = toupper(ele[0]);
         line.erase(0, pos);
 
         std::vector<std::string> vs = strToVect(line);
+        if (vs.empty()) continue;
         std::vector<double> vd(vs.size());
         for (auto it = vs.cbegin(); it != vs.cend(); ++it){
             auto it2 = vd.begin() + (it-vs.cbegin());
@@ -230,11 +233,13 @@ Input(s):
      * ni:    the total amount (moles) of ions
      * nx:    the total amount (moles) of salt
      * ny:    the total amount (moles) of gas
+     * NUF34: the total amount (moles) of solid UF3-UF4 precipitate
      * x_ABC: the mole fraction of species ABC in the salt phase
      * y_ABC: the mole fraction of species ABC in the gas phase
               "ABC" can be "all", which will output all salts
               (not ions) and all gases
-     * T:     the system temperature
+     * T:     the system temperature (K)
+     * P:     the system pressure (atm)
        For example, dataType = "x_UF3 x_UF4 y ny_UF5 y_UF6"
 Output(s): none
     a textfile in tabulated form, with each data type on the
@@ -248,7 +253,9 @@ Output(s): none
     // Initializes two std::map's that map a species to its amount
     std::unordered_map<std::string, double> vx;
     std::unordered_map<std::string, double> vy;
-    double T = -1;
+    double T = -1.0;
+    double P = -1.0;
+    double NUF34 = -1.0;
     for (auto s: v){
         if (s == "ni" || s == "nx") vx[s] = 0;
         else if (s == "ny") vy[s] = 0;
@@ -277,7 +284,9 @@ Output(s): none
             } if (!has_x_all) vx[s.erase(0,2)] = 0;
         }
         else if (s.substr(0,1) == "y" && !has_y_all) vy[s.erase(0,2)] = 0;
-        else if (s == "T") T = 0;
+        else if (s == "NUF34") NUF34 = 0.0;
+        else if (s == "T") T = 0.0;
+        else if (s == "P") P = 0.0;
     }
 
     // Checks if a key in the map is one of the data to be extracted
@@ -313,7 +322,9 @@ Output(s): none
                 output << prefix << it.first << " ";
             }
         }
+        if (NUF34 >= 0) output << "NUF34" << " ";
         if (T >= 0) output << "T" << " ";
+        if (P >= 0) output << "P" << " ";
         output << std::endl;
     } else throw std::invalid_argument("Cannot open output file.");
 
@@ -358,10 +369,22 @@ Output(s): none
                     }
                 }
 
+                else if (NUF34 >= 0 && line.find("UF34soln") < line.size()){
+                    line.erase(line.size()-12, line.size());
+                    convertibleNum(line);
+                    NUF34 = std::stod(line);
+                }
+
                 else if (T >= 0 && line.find("Temperature") < line.size()){
                     line.erase(line.size()-3, line.size());
                     convertibleNum(line);
                     T = std::stod(line);
+                }
+
+                else if (P >= 0 && line.find("Pressure") < line.size()){
+                    line.erase(line.size()-3, line.size());
+                    convertibleNum(line);
+                    P = std::stod(line);
                 }
 
                 else{
@@ -456,15 +479,15 @@ Output(s): none
                     vy[it.first] = 0;
                 }
 
+                if (NUF34 >= 0) output << NUF34 << " ";
                 if (T >= 0) output << T << " ";
+                if (P >= 0) output << P << " ";
                 output << std::endl;
                 vxIsFilled = false;
                 vyIsFilled = false;
             }
         }
     } else throw std::invalid_argument("Cannot open input file.");
-
-
 
     input.close();
     output.close();
@@ -594,7 +617,7 @@ Warning:
     if (m == 0) return;
 
     const std::array<std::string, 6> gases{"H", "He", "Ne", "Ar", "Kr", "Xe"};
-    const std::array<std::string, 6> metals{"Cr", "Fe", "Co", "Ni", "Nb", "Mo"};
+    const std::array<std::string, 7> metals{"Cr", "Fe", "Co", "Ni", "Nb", "Mo", "Mn"};
 
     // lambda to extract the cation and anion from a species formula
     auto getIonPair = [](std::string str) -> std::pair<std::string, std::string>
@@ -686,7 +709,7 @@ Warning:
         while (line.find("Moles of pairs") >= line.size()) getline(input,line);
 
         auto v = strToVect(line);
-        double n = std::stod(v[0]); // Total amount (moles) of salts
+        double sumSalt = std::stod(v[0]); // Total amount (moles) of salts
         double xUF4 = 0;
         double xUI4 = 0;
 
@@ -736,7 +759,7 @@ Warning:
         // Decouples data in the map and put the results in the vector
         for (auto& it: specMap){
             if (it.second <= FRACTION_CUTOFF) continue;
-            it.second *= n;
+            it.second *= sumSalt;
 
             std::pair<std::string, std::string> ions;
             try{
@@ -802,15 +825,15 @@ Warning:
             }
         }
 
-        double sumSalt = 0.0;
+        sumSalt = 0.0; // Recalculates sumSalt with the decoupled surrogates
         std::string message;
         for (auto it: specPair) sumSalt += it.second;
 
         if (includesSS || includesFP){
             auto del = [](const Vector& zeta) -> double
             {
-                if (zeta.n() != 18) throw std::domain_error("Zeta's size is incorrect");
-                const Vector coefficient{1,2,1,2,1,2,1,2,5,0,0,-1,-1,-1,-1,4,1,1};
+                if (zeta.n() != 19) throw std::domain_error("Zeta's size is incorrect");
+                const Vector coefficient{1,2,1,2,1,2,1,2,5,0,0,-1,-1,-1,-1,4,1,1,2};
                 return coefficient*zeta;
             };
 
@@ -819,8 +842,8 @@ Warning:
             [&](const Vector& zeta) -> Vector
             {
                 Vector y(zeta);
-                double nSol = sumSol-zeta(1)-zeta(3)-zeta(5)-zeta(7)-zeta(8)-zeta(15);
-                double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5)+zeta(7);
+                double nSol = sumSol-zeta(1)-zeta(3)-zeta(5)-zeta(7)-zeta(8)-zeta(15)-zeta(18);
+                double nSalt = sumSalt+zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(18);
                 double nGas = sumGas;
                 if (nGas > 0.0) nGas += zeta(0)/2+zeta(8)-zeta(9)-zeta(10)+zeta(15);
 
@@ -837,14 +860,16 @@ Warning:
                 double aCoF2 = 1.0*(zeta(5)-zeta(6))/nSalt;
                 double aCoF3 = 1.0*zeta(6)/nSalt;
                 double aNiF2 = gamma_Inf_NiF2(specMap["LiF"]/sumSalt)*zeta(7)/nSalt;
+                double aMnF2 = 1.0*zeta(18)/nSalt;
 
-                double XCr, XFe, XCo, XNi, XMo;
+                double XCr, XFe, XCo, XNi, XMo, XMn;
                 for (auto it = specSol.cbegin(); it != specSol.cend(); ++it){
                     if (it->first == "Cr") XCr = (it->second-zeta(1))/nSol;
                     else if (it->first == "Fe") XFe = (it->second-zeta(3))/nSol;
                     else if (it->first == "Co") XCo = (it->second-zeta(5))/nSol;
                     else if (it->first == "Ni") XNi = (it->second-zeta(7))/nSol;
                     else if (it->first == "Mo") XMo = (it->second-zeta(15))/nSol;
+                    else if (it->first == "Mn") XMn = (it->second-zeta(18))/nSol;
                 }
 
                 if (sumGas > 0.0 && includesFP){
@@ -896,6 +921,8 @@ Warning:
                         y(15) = pMoF4 - XMo*exp((2*GF2 - G_MoF4(T))/(R*T));
                         y(16) = pMoF5 - pMoF4*exp((0.5*GF2 - G_MoF5(T))/(R*T));
                         y(17) = pMoF6 - pMoF5*exp((0.5*GF2 - G_MoF6(T))/(R*T));
+                    } if (XMn > FRACTION_CUTOFF){
+                        y(18) = aMnF2 - XMn*exp((GF2 - G_MnF2(T))/(R*T));
                     }
                 }
 
@@ -919,7 +946,8 @@ Warning:
                         1e-35*std::max(sumGas,1e-10), //NbF
                         1e-30*std::max(sumGas,1e-10), // MoF4
                         1e-35*std::max(sumGas,1e-10), // MoF5
-                        1e-40*std::max(sumGas,1e-10)}; // MoF6
+                        1e-40*std::max(sumGas,1e-10), // MoF6
+                        1e-2*sumSalt}; // MnF2
             /* sumGas being 0 breaks the code, so if I don't want to solve for
             the gas phase it will be taken cared of by the bool includesHF. */
 
@@ -929,8 +957,8 @@ Warning:
                     if (zeta(j) <= FRACTION_CUTOFF) zeta(j) = 0.0;
                 }
 
-                sumSol -= (zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(8)+zeta(15));
-                sumSalt += zeta(1)+zeta(3)+zeta(5)+zeta(7);
+                sumSol -= (zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(8)+zeta(15)+zeta(18));
+                sumSalt += zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(18);
                 sumGas += zeta(0)/2+zeta(8)-zeta(9)-zeta(10)+zeta(15);
                 specPair.reserve(specPair.size()+7);
                 specGas.reserve(specGas.size()+11);
@@ -1022,8 +1050,13 @@ Warning:
                                 if (zeta(17)/sumGas >= FRACTION_CUTOFF)
                                     specGas.push_back({"MoF6", zeta(17)});
                             } else specSol.erase(it);
-    //                           specGas.push_back(pairStrDbl{"MoF5", zeta(9)});
-    //                           specGas.push_back(pairStrDbl{"MoF6", zeta(8)});
+                        } else if (it->first == "Mn"){
+                            double frac = (it->second-zeta(18))/sumSol;
+                            if (frac >= FRACTION_CUTOFF){
+                                it->second -= zeta(18);
+                                if (zeta(18)/sumSol >= FRACTION_CUTOFF)
+                                    specPair.push_back({"MnF2", zeta(18)});
+                            } else specSol.erase(it);
                         }
                     }
                 }
