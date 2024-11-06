@@ -144,6 +144,7 @@ double G_FeF2(const double T);
 double G_FeF3(const double T);
 double G_CoF2(const double T);
 double G_CoF3(const double T);
+inline double G_MnF2(const double T){ return (-203008+30.96*T)*4.184;}
 double G_NiF2(const double T);
 double G_NbF(const double T);
 double G_NbF2(const double T);
