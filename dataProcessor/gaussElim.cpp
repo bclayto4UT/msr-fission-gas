@@ -79,7 +79,7 @@ Matrix luFactorize(Matrix& a, Permutation& p, bool inplace) {
     // Loop on rows
         for(i=j+1; i<n; i++) rowReplacement(a,j,i);
     }
-    return Matrix(0,0);
+    return a;
 }
 
 Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace) {
@@ -120,7 +120,7 @@ Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace) {
         }
         x(i) /= a(i,i);
     }
-    return Vector(0);
+    return x;
 }
 
 Vector solve(Matrix& a, Permutation& p, Vector& x, bool inplace) {
@@ -140,7 +140,7 @@ Vector solve(Matrix& a, Permutation& p, Vector& x, bool inplace) {
     try{
         luFactorize(a, p, 1);
         luSolve(a, p, x, 1);
-        return Vector(0);
+        return x;
     } catch (const std::logic_error& ex){
         throw ex;
     } catch (const std::runtime_error& ex){

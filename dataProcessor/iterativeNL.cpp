@@ -144,6 +144,7 @@ Vector newton(std::function<Vector(const Vector&)> f,
     std::cout << "Iter " << iter << ": step= " << y << std::endl;
     std::cout << "Iter " << iter << ": x= " << x << ", err = " << maxNorm(y) << std::endl;
 #endif
+
             if (checkTol(x, y, tol)) return x;
         } catch (const std::logic_error& ex){
             throw ex;

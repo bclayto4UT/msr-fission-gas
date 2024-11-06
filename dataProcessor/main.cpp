@@ -1,12 +1,8 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include <functional>
 
-#include "calculus.h"
 #include "dataProcessor.h"
-#include "thermoElectroChem.h"
-#include "miscellaneous.h"
 
 using namespace std;
 
@@ -146,5 +142,4 @@ int main()
     } while (option != 0);
 
     return 0;
-
 }

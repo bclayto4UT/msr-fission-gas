@@ -9,7 +9,10 @@
 
 double deriv(std::function<double(double)> f, const double x){
     double h = pow(3e-16, 1.0/3) * pow(10, ordMag(x));
+    std::cout << "h = " << h << std::endl;
     double fxp = f(x+h), fxm = f(x-h);
+    std::cout << "fxp = " << f(x+h) << std::endl;
+    std::cout << "fxm = " << f(x-h) << std::endl;
     if (!std::isfinite(fxp) || !std::isfinite(fxm))
         throw std::runtime_error("ERROR in deriv: Unable to evaluate function.");
     return (fxp-fxm)/(2*h);
