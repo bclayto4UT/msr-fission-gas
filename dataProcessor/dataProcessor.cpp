@@ -51,6 +51,7 @@ Output:
         ele[0] = toupper(ele[0]);
         line.erase(0, pos);
 
+        // The value to each key (chemical element) is a vector of doubles, indicating the amount at each time period
         std::vector<std::string> vs = strToVect(line);
         if (vs.empty()) continue;
         std::vector<double> vd(vs.size());
@@ -76,14 +77,14 @@ void vectToTherm(const concMap& dataMap,
                  bool includesSurr)
 /****************************************************************
 Input(s):
-    dataVect:     the concentration map given in scaleToVector
+    dataMap:      the concentration map given in scaleToVector
     outFile:      the output file name
     strT:         system temperature (in K)
     strP:         system pressure (in atm)
     includesSurr: whether surrogate elements are to be included
                   (DEFAULT: true)
 Output: none
-    a text file formatted as a Thermochimica input is created
+    a text file formatted as a Thermochimica input (*.F90) is created
     if there are multiple rows, multiple files are created
 *****************************************************************/
 {
@@ -152,12 +153,12 @@ Output: none
         if (d <= 0) throw std::invalid_argument("Pressure must be positive.");
     }
 
-//     Recalculates species amounts for surrogated elements
+    // Recalculates species amounts for surrogated elements
     const concMap* actualMap;
     concMap dataMap2;
 
     if (includesSurr){
-        dataMap2 = dataMap;
+        dataMap2 = dataMap; // Makes a copy of the original dataMap. In Python, might not need this and can just modify the original dataMap directly???
 
         for (auto it = dataMap2.begin(); it != dataMap2.end(); ++it){
             std::string ele = (*it).first;
@@ -189,7 +190,7 @@ Output: none
         output << "cInputUnitTemperature = 'K'\n";
         output << "cInputUnitPressure = 'atm'\n";
         output << "cInputUnitMass = 'moles'\n";
-        output << "cThermoFileName = DATA_DIRECTORY // 'MSTDB-TC_V2.0_Fluorides_8-0.dat'\n";
+        output << "cThermoFileName = DATA_DIRECTORY // 'MSTDB-TC_V2.0_Fluorides_8-0.dat'\n"; // Change this if using a different library
 
         if (P.size() == 1) output << "dPressure = " << P[0] << "\n";
         else output << "dPressure = " << P[i] << "\n";
@@ -590,7 +591,7 @@ void decoupleSurr(const concMap& scaleData,
 /****************************************************************
 Input(s):
     scaleData:    the original concentration map obtained using the
-                  scaleToVector function)
+                  scaleToVector function
     thermoRes:    the name of the file containing Thermochimica re-
                   results that have been ran on data with surrogates
     thermoOut:    the output file name
@@ -644,7 +645,7 @@ Warning:
 
     auto compVector = [](std::pair<std::string, double> p,
                          std::pair<std::string, double> q)
-                        { return p.second > q.second; };
+                        { return p.second > q.second; }; // Sorting function
 
     using mapStrDbl = std::unordered_map<std::string, double>;
     using pairStrDbl = std::pair<std::string, double>;
@@ -659,22 +660,20 @@ Warning:
         std::unordered_map<std::string, size_t> mapIndex;
         // To indicate the group index in surrElemMaps
 
-        // Populate surrElemMap with the mole fraction of each surrogated
-        // element in each group.
+        // Populate surrElemMap with the mole fraction of each surrogated element in each group.
         for (auto it: surrogateMap){
             mapStrDbl concmp;
             double sumSurr = 0.0;
             static size_t index = 0;
 
-            for (const std::string& ele: it.second){
-                if (scaleData.find(ele) != scaleData.end()){
-                    // If the element is found in scaleData
+            for (const std::string& ele: it.second){ // Loops over surrogated elements
+                if (scaleData.find(ele) != scaleData.end()){ // If the element is found in scaleData
                     concmp[ele] = scaleData.at(ele)[i];
                     sumSurr += concmp.at(ele);
                 } else concmp[ele] = 0;
             }
 
-            if (sumSurr > 0.0){
+            if (sumSurr > 0.0){ // If there is a non-zero amount of surrogated elements
                 for (auto& elePair: concmp) elePair.second /= sumSurr;
                 surrElemMaps.push_back(concmp);
                 std::string surrogate = it.first;
@@ -721,6 +720,7 @@ Warning:
             if (v.back() == "}") v.pop_back();
             double x = std::stod(v[v.size()-2]);
 
+            // These elements have more than one configurations, so they are added all together
             if (v.back() == "U2F8") xUF4 += x*2;
             else if (v.back() == "U2I8") xUI4 += x*2;
             else if (v.back() == "U[VI]-F4" || v.back() == "U[VII]-F4")
@@ -780,7 +780,6 @@ Warning:
                     else if (ions.first == "Pu"){ oxiState = '3'; }
                     else{ oxiState = '4'; }
 
-
                     size_t catIndex = mapIndex[ions.first];
                     size_t anIndex = mapIndex["I"];
                     for (auto cat: surrElemMaps[catIndex]){
@@ -832,9 +831,9 @@ Warning:
         if (includesSS || includesFP){
             auto del = [](const Vector& zeta) -> double
             {
-                if (zeta.n() != 19) throw std::domain_error("Zeta's size is incorrect");
+                if (zeta.n() != 19) throw std::domain_error("Zeta's size is incorrect"); // See below for order of fluorides
                 const Vector coefficient{1,2,1,2,1,2,1,2,5,0,0,-1,-1,-1,-1,4,1,1,2};
-                return coefficient*zeta;
+                return coefficient*zeta; // Dot product of two Vectors, total amount of UF4 being reduced to UF3
             };
 
         // Calculates the amount of fluorides from structural metals and/or fission products
@@ -947,16 +946,17 @@ Warning:
                         1e-30*std::max(sumGas,1e-10), // MoF4
                         1e-35*std::max(sumGas,1e-10), // MoF5
                         1e-40*std::max(sumGas,1e-10), // MoF6
-                        1e-2*sumSalt}; // MnF2
+                        1e-2*sumSalt}; // MnF2, the MnF2 amount is expected to be very large so you may want to exclude this until further studies
             /* sumGas being 0 breaks the code, so if I don't want to solve for
             the gas phase it will be taken cared of by the bool includesHF. */
 
             try{
-                zeta = newton(thermoFunc, zeta, 100, 1e-6);
+                zeta = newton(thermoFunc, zeta, 100, 1e-6); // Equivalent to scipy.optimize.fsolve in python
                 for (size_t j = 0; j < zeta.n(); j++){ // Write an iterator function for Vector?
                     if (zeta(j) <= FRACTION_CUTOFF) zeta(j) = 0.0;
                 }
 
+                // Modifies the current amount in each phase to account for additional fluoride products
                 sumSol -= (zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(8)+zeta(15)+zeta(18));
                 sumSalt += zeta(1)+zeta(3)+zeta(5)+zeta(7)+zeta(18);
                 sumGas += zeta(0)/2+zeta(8)-zeta(9)-zeta(10)+zeta(15);

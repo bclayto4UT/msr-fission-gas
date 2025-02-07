@@ -4,6 +4,11 @@
 #include "miscellaneous.h"
 #include <unordered_map>
 
+/********************************************************************
+ * These functions are directly called in main. The main function here is decoupleSurr(),
+ * which updates a Thermochimica result file to include more elements and compounds.
+********************************************************************/
+
 using concMap = std::unordered_map<std::string, std::vector<double>>;
 
 concMap scaleToVector(const std::string&);

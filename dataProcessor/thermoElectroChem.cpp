@@ -154,11 +154,10 @@ double G_NiF2(const double T){
     return g_NiF2 - g_F2 - g_Ni;
 }
 
-/* Note: For niobium, the most fluorinated species (NbF5) is calculated
-         directly from the metal and the lower oxidation states will
-         descend from this +5 oxidation state. This is because NbF5 is
-         the most chemically stable fluoride, so formulating formulae
-         formula from NbF5 down will avoid loss of precision that would
+/* Note: For niobium, the most fluorinated species (NbF5) is calculated directly
+         from the metal and the lower oxidation states will be a result of reduction
+         from NbF5. This is because NbF5 is the most chemically stable fluoride, so
+         formulating formulae from NbF5 down will avoid loss of precision that would
          otherwise arise from subtracting near equal numbers. */
 
 double G_NbF5(const double T){
@@ -177,7 +176,7 @@ double G_Nb2F10(const double T){
 }
 
 double G_Nb3F15(const double T){
-    // Free energy of reaction 2NbF5 <-> Nb2F10 in J/mol
+    // Free energy of reaction NbF5 + Nb2F10 <-> Nb3F15 in J/mol
     double g_NbF5 = calc_G(heatData.at("NbF5"), T);
     double g_Nb2F10 = calc_G(heatData.at("Nb2F10"), T);
     double g_Nb3F15 = calc_G(heatData.at("Nb3F15"), T);

@@ -5,6 +5,8 @@
 #include <vector>
 #include <cmath>
 
+/* Miscellaneous functions, some may even have a Python equivalent that does the same thing. */
+
 constexpr double e = exp(1);
 constexpr double phi = (1+sqrt(5))/2;
 constexpr double pi = atan(1)*4;

@@ -4,6 +4,13 @@
 #include "miscellaneous.h"
 #include <unordered_map>
 
+/*************************************************************
+ * Includes hard-coded thermoelectrical data and functions to calculate quantities of interest.
+ * Heat capacity data of many metals and fluorides are used to calculate H, S, and G.
+ * There are a few maps that match elements to their atomic number, atomic weight, oxidation state,
+ * and surrogate elements.
+*************************************************************/
+
 const std::unordered_map<std::string, int> atomNumMap = {
     {"H", 1}, {"He", 2}, {"Li", 3}, {"Be", 4}, {"B", 5},
     {"C", 6}, {"N", 7}, {"O", 8}, {"F", 9}, {"Ne", 10},
@@ -53,7 +60,7 @@ const std::unordered_map<std::string, double> atomWeightMap = {
     {"Re", 186.21}, {"Os", 190.23}, {"Ir", 192.22}, {"Pt", 195.08},
     {"Au", 196.97}, {"Hg", 200.59}, {"Tl", 204.38}, {"Pb", 207.2},
     {"Bi", 208.98}, {"Th", 232.04}, {"Pa", 231.04}, {"U", 238.03}
-};
+}; // I don't think this is used anywhere.
 
 const std::unordered_map<std::string, int> oxiStateMap = {
     {"Li", 1}, {"Be", 2}, {"F", -1}, {"Na", 1}, {"Mg", 2},
@@ -90,7 +97,7 @@ const std::unordered_map<std::string, thermoArray> heatData = {
     The next six items represent the five coefficients of the specific
     heat capacity (J/mol K) as a function of temperature (K):
     Cp = a + bT + cT^2 + dT^3 + eT^(-1) + fT^(-2)
-    T_ref: Reference temperature
+    T_ref: Reference temperature (K)
     */
     {"H2",     {0, 130.68, 33.066178, -0.011363417, 1.14328E-05, -2.7729E-09, 0, -158558, 298.15}},
     {"HF",     {-272.55, 173.78, 30.11693, -0.003246612, 2.86812E-06, 4.57914E-10, 0, -24861, 298.15}},

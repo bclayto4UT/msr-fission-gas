@@ -2,15 +2,16 @@
 #include <stdexcept>
 
 std::string elementSymb(const std::string& str){
+    /* Equivalent to return upper(str[0]) + lower(str[1:]) in Python */
     std::string ele;
     ele.reserve(str.size());
     ele += toupper(str.front());
-//    for (size_t i = 1; i < str.size(); i++) ele[i] += tolower(str[i]);
     for (auto it = str.begin()+1; it != str.end(); ++it) ele += tolower(*it);
     return ele;
 }
 
 strVect strToVect (std::string& data, char deli)
+    /* Equivalent to split() in Python */
 {
     strVect v;
     while (!data.empty()){
@@ -50,6 +51,8 @@ strVect strToVect (std::string& data, char deli)
 }
 
 std::vector<double> strToVectDouble (const std::string& str){
+    /* Returns a vector of doubles from a string.
+       Also return a linearly spaced vector if the format is "start:stop:start", equivalent to numpy.linspace() in Python */
     std::vector<double> vd;
 
     std::string s = str;
@@ -151,14 +154,16 @@ bool isNumeric (const std::string& str) noexcept
 }
 
 bool containsNumber (const std::string& str) noexcept
+    /* Checks if the string contains any numeric digit. */
 {
     for (char const &c : str){
-        if (std::isdigit(c) == 1) return true;
+        if (std::isdigit(c)) return true;
     }
     return false;
 }
 
 void convertibleNum(std::string& str){
+    /* Trims leading whitespaces in a string until it can be converted to a double. */
     bool throwsError = true;
     while (throwsError){
         try{
