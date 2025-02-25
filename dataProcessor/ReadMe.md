@@ -1,7 +1,7 @@
 # DataProcessor
 _________________
 # dataProcessor.h
-# Description
+## Description
 This header file defines functions for processing data related to Thermochimica, which appears to be a thermochemical equilibrium calculation software. The main functionality focuses on decoupling surrogate elements and updating Thermochimica result files to include additional elements and compounds.
 
  ## Functions Defined
