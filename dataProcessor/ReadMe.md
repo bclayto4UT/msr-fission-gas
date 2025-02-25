@@ -190,3 +190,345 @@ Various standard library functions from <algorithm>, <iostream>, and <fstream>
 ```"rootFinding.h" ```- Likely contains root-finding algorithms
 
 ```"thermoElectroChem.h"``` - Probably contains thermodynamic and electrochemical definitions
+
+# Code Analysis
+
+## thermoElectroChem.h
+### Description
+This header file defines thermodynamic and electrochemical data structures and function declarations used for calculations involving metals and fluorides. It contains maps for element properties (atomic numbers, weights, oxidation states) and thermodynamic data for heat capacity calculations.
+
+### Functions Defined
+```c++
+gamma_Inf_NiF2(double xLiF)
+```
+* **Parameters:** LiF mole fraction (xLiF)
+* **Returns:** Activity coefficient for NiF2
+* **Summary:** Calculates activity coefficient for NiF2 based on LiF mole fraction
+
+```c++
+G_HF(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of HF formation
+
+```c++
+G_CrF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of CrF2 formation
+
+```c++
+G_CrF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of CrF3 formation reaction
+
+```c++
+G_FeF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of FeF2 formation
+
+```c++
+G_FeF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of FeF3 formation reaction
+
+```c++
+G_CoF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of CoF2 formation
+
+```c++
+G_CoF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of CoF3 formation reaction
+
+```c++
+G_MnF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of MnF2 (inline function)
+
+```c++
+G_NiF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NiF2 formation
+
+```c++
+G_NbF(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NbF formation
+
+```c++
+G_NbF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NbF2 formation
+
+```c++
+G_NbF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NbF3 formation
+
+```c++
+G_NbF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NbF4 formation
+
+```c++
+G_NbF5(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of NbF5 formation
+
+```c++
+G_Nb2F10(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of Nb2F10 formation reaction
+
+```c++
+G_Nb3F15(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of Nb3F15 formation reaction
+
+```c++
+G_MoF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of MoF4 formation
+
+```c++
+G_MoF5(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of MoF5 formation reaction
+
+```c++
+G_MoF6(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of MoF6 formation reaction
+
+```c++
+G_UF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy of UF4 formation reaction
+
+```c++
+G_F(const double xUF3, const double xUF4, const double T)
+```
+* **Parameters:** UF3 mole fraction, UF4 mole fraction, Temperature in Kelvin
+* **Returns:** Fluorine potential in J/mol
+* **Summary:** Calculates fluorine potential based on UF3/UF4 ratio and temperature
+
+### External Function Calls
+* Includes "miscellaneous.h" which is not provided but likely contains utility functions and the `strVect` type
+
+## thermoElectroChem.cpp
+### Description
+This implementation file provides Gibbs free energy calculations for various metal fluoride compounds based on thermodynamic data. It uses enthalpy and entropy calculations to determine free energies of formation and reaction at specified temperatures.
+
+### Functions Defined
+```c++
+gamma_Inf_NiF2(double xLiF)
+```
+* **Parameters:** LiF mole fraction (xLiF)
+* **Returns:** Activity coefficient for NiF2
+* **Summary:** Calculates activity coefficient for NiF2 using an exponential formula based on LiF concentration
+
+```c++
+static double calc_H(const thermoArray& data, const double T)
+```
+* **Parameters:** Thermodynamic data array, temperature in Kelvin
+* **Returns:** Enthalpy in J/mol
+* **Summary:** Calculates enthalpy from heat capacity data and reference values
+
+```c++
+static double calc_S(const thermoArray& data, const double T)
+```
+* **Parameters:** Thermodynamic data array, temperature in Kelvin
+* **Returns:** Entropy in J/mol·K
+* **Summary:** Calculates entropy from heat capacity data and reference values
+
+```c++
+static double calc_G(const thermoArray& data, const double T)
+```
+* **Parameters:** Thermodynamic data array, temperature in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates Gibbs free energy from enthalpy and entropy (G = H - TS)
+
+```c++
+double G_HF(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of HF formation from H2 and F2
+
+```c++
+double G_UF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of UF4 formation reaction from UF3 and F2
+
+```c++
+double G_CrF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of CrF2 formation with temperature-dependent Cr properties
+
+```c++
+double G_CrF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of CrF3 formation reaction from CrF2 and F2
+
+```c++
+double G_FeF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of FeF2 formation with temperature-dependent Fe properties
+
+```c++
+double G_FeF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of FeF3 formation reaction with multiple phase transitions
+
+```c++
+double G_CoF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of CoF2 formation with temperature-dependent Co properties
+
+```c++
+double G_CoF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of CoF3 formation reaction from CoF2 and F2
+
+```c++
+double G_NiF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of NiF2 formation with multiple Ni phase transitions
+
+```c++
+double G_NbF5(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of NbF5 formation from Nb and F2
+
+```c++
+double G_Nb2F10(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of Nb2F10 formation reaction from two NbF5 molecules
+
+```c++
+double G_Nb3F15(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of Nb3F15 formation reaction from NbF5 and Nb2F10
+
+```c++
+double G_NbF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of reaction from NbF4 to NbF5 with F2
+
+```c++
+double G_NbF3(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of reaction from NbF3 to NbF4 with F2
+
+```c++
+double G_NbF2(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of reaction from NbF2 to NbF3 with F2
+
+```c++
+double G_NbF(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of reaction from NbF to NbF2 with F2
+
+```c++
+double G_MoF4(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of MoF4 formation from Mo and F2
+
+```c++
+double G_MoF5(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of MoF5 formation reaction from MoF4 and F2
+
+```c++
+double G_MoF6(const double T)
+```
+* **Parameters:** Temperature T in Kelvin
+* **Returns:** Gibbs free energy in J/mol
+* **Summary:** Calculates free energy of MoF6 formation reaction from MoF5 and F2
+
+```c++
+double G_F(const double xUF3, const double xUF4, const double T)
+```
+* **Parameters:** UF3 mole fraction, UF4 mole fraction, Temperature in Kelvin
+* **Returns:** Fluorine potential in J/mol
+* **Summary:** Calculates fluorine potential as defined by Olander (2001) based on UF3/UF4 ratio
+
+### External Function Calls
+* Uses `pow()` and mathematical functions from the C++ standard math library
+* Accesses data from `heatData` map and constants defined in the header file
+* Uses the gas constant `R` from the header file
