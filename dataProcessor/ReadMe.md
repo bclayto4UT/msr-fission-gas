@@ -1,10 +1,10 @@
-# Code Analysis
-
-## dataProcessor.h
-### Description
+# DataProcessor
+_________________
+# dataProcessor.h
+# Description
 This header file defines functions for processing data related to Thermochimica, which appears to be a thermochemical equilibrium calculation software. The main functionality focuses on decoupling surrogate elements and updating Thermochimica result files to include additional elements and compounds.
 
- ### Functions Defined
+ ## Functions Defined
 ```c++
 concMap scaleToVector(const std::string&)
 ```
@@ -45,17 +45,18 @@ void decoupleSurr(const concMap&, const std::string&, const std::string&, const 
 * **Returns:** void
 * **Summary::** Main function that decouples surrogate elements and updates Thermochimica files with additional elements and compounds.
 
-### External Function Calls
+## External Function Calls
 The file includes the following external dependencies:
 
 ```miscellaneous.h```: Likely provides the strVect type used in the code
 ```Standard C++ library's <unordered_map>```: Provides the unordered_map data structure used to define the concMap type
 
-## dataProcessor.cpp
-### Description
+# dataProcessor.cpp
+
+## Description
 This C++ code appears to be part of a thermochemical data processing tool. It handles concentration data from simulation outputs, converts them to Thermochimica input format, and extracts specific data from Thermochimica output for analysis and visualization.
 
- ### Functions Defined
+ ## Functions Defined
 ```c++
 scaleToVector(const std::string& inFile) -> concMap
 ```
@@ -128,7 +129,7 @@ decoupleSurr(const concMap& scaleData, const std::string& thermoRes, const std::
 
 * **Purpose:** Processes thermochemical data to decouple surrogate elements into their original counterparts
 
-#### Lambda Functions Defined
+### Lambda Functions Defined
 ```getIonPair(std::string str)```
 * **Parameters:** str (std::string)
 * **Purpose:** Extracts cation and anion from a chemical formula
@@ -145,7 +146,7 @@ decoupleSurr(const concMap& scaleData, const std::string& thermoRes, const std::
 * **Parameters:** zeta (const Vector&)
 * **Purpose:** Calculates the amount of fluorides from structural metals and/or fission products
 
-### External Functions Called
+## External Functions Called
 
 ```getline``` - From <iostream>, reads a line from a stream
 
@@ -170,9 +171,9 @@ Functions prefixed with G_ and gamma_Inf_ likely defined in "thermoElectroChem.h
 Various standard library functions from <algorithm>, <iostream>, and <fstream>
 
 
-### Header Files Included
+## Header Files Included
 
-#### Standard libraries:
+### Standard libraries:
 
 ```<algorithm>``` - For standard algorithms
 
@@ -181,7 +182,7 @@ Various standard library functions from <algorithm>, <iostream>, and <fstream>
 ```<fstream>``` - For file operations
 
 
-#### Custom headers:
+### Custom headers:
 
 ```"dataProcessor.h" ```- Likely contains data processing utilities
 
@@ -191,12 +192,14 @@ Various standard library functions from <algorithm>, <iostream>, and <fstream>
 
 ```"thermoElectroChem.h"``` - Probably contains thermodynamic and electrochemical definitions
 
-## thermoElectroChem.h
-### Description
+# ThermoElectroChem
+_________________
+# thermoElectroChem.h
+## Description
 This header file defines thermodynamic and electrochemical data structures and function declarations used for calculations involving metals and fluorides. It contains maps for element properties (atomic numbers, weights, oxidation states) and thermodynamic data for heat capacity calculations.
 
 
-### Data Structures and Maps
+## Data Structures and Maps
 
 ```c++
 const std::unordered_map<std::string, int> atomNumMap
@@ -257,7 +260,7 @@ const double gamma_Inf_FeF2 = 1.6
 * **Summary:** Activity coefficients for specific compounds
 
 
-### Functions Defined
+## Functions Defined
 ```c++
 gamma_Inf_NiF2(double xLiF)
 ```
@@ -412,14 +415,14 @@ G_F(const double xUF3, const double xUF4, const double T)
 * **Returns:** Fluorine potential in J/mol
 * **Summary:** Calculates fluorine potential based on UF3/UF4 ratio and temperature
 
-### External Function Calls
+## External Function Calls
 * Includes "miscellaneous.h" which is not provided but likely contains utility functions and the `strVect` type
 
-## thermoElectroChem.cpp
-### Description
+# thermoElectroChem.cpp
+## Description
 This implementation file provides Gibbs free energy calculations for various metal fluoride compounds based on thermodynamic data. It uses enthalpy and entropy calculations to determine free energies of formation and reaction at specified temperatures.
 
-### Functions Defined
+## Functions Defined
 ```c++
 gamma_Inf_NiF2(double xLiF)
 ```
@@ -588,16 +591,18 @@ double G_F(const double xUF3, const double xUF4, const double T)
 * **Returns:** Fluorine potential in J/mol
 * **Summary:** Calculates fluorine potential as defined by Olander (2001) based on UF3/UF4 ratio
 
-### External Function Calls
+## External Function Calls
 * Uses `pow()` and mathematical functions from the C++ standard math library
 * Accesses data from `heatData` map and constants defined in the header file
 * Uses the gas constant `R` from the header file
   
-## miscellaneous.h
-### Description
+# Miscellaneous
+_________________
+# miscellaneous.h
+## Description
 This header file defines various utility functions and constants for mathematical and string manipulation operations. It includes mathematical constants (e, phi, pi), string processing functions, and template functions for numeric operations that appear to be used across other parts of the application.
 
-### Functions Defined
+## Functions Defined
 ```c++
 std::string elementSymb(const std::string&)
 ```
@@ -661,17 +666,17 @@ inline int ordMag(double x)
 * **Returns:** An integer
 * **Summary:** Calculates the order of magnitude of a number.
 
-### External Function Calls
+## External Function Calls
 The file includes the following external dependencies:
 * C++ Standard Library's `<string>`: For string operations
 * C++ Standard Library's `<vector>`: For vector data structure
 * C++ Standard Library's `<cmath>`: For mathematical functions like exp(), sqrt(), atan(), log10(), and fabs()
 
-## miscellaneous.cpp
-### Description
+# miscellaneous.cpp
+## Description
 This implementation file provides the code for the functions declared in miscellaneous.h. It includes string manipulation utilities for parsing and converting data between different formats, with special handling for numeric string processing.
 
-### Functions Defined
+## Functions Defined
 ```c++
 std::string elementSymb(const std::string& str)
 ```
@@ -714,7 +719,7 @@ void convertibleNum(std::string& str)
 * **Returns:** void
 * **Summary:** Removes leading characters until the string can be converted to a double.
 
-### External Function Calls
+## External Function Calls
 The file includes the following external dependencies:
 * `miscellaneous.h`: For declarations of functions implemented in this file
 * C++ Standard Library's `<stdexcept>`: For exception handling classes like std::invalid_argument and std::domain_error
@@ -722,12 +727,14 @@ The file includes the following external dependencies:
 * C++ Standard Library conversion functions: std::stod() for string to double conversion
 * C++ Standard Library math functions: ceil()
 
-## gaussElim.h
+# GaussElim
+_________________
+# gaussElim.h
 
-### Description
+## Description
 This header file defines functions for performing Gaussian elimination and related matrix operations. It declares functions for performing LU factorization, solving linear equations, calculating determinants, and finding inverse matrices.
 
-### Functions Defined
+## Functions Defined
 ```cpp
 Matrix luFactorize(Matrix& a, Permutation& p, bool inplace=false)
 ```
@@ -777,15 +784,15 @@ Matrix inv(Matrix& a)
 * **Returns:** Inverse matrix
 * **Summary:** Factorizes the matrix and calculates its inverse
 
-### External Dependencies
+## External Dependencies
 * `matrix.h` - Provides Matrix and Permutation classes
 
-## gaussElim.cpp
+# gaussElim.cpp
 
-### Description
+## Description
 This file implements the functions declared in gaussElim.h, providing algorithms for Gaussian elimination with scaled partial pivoting to perform LU factorization, solve linear systems, calculate determinants, and find inverse matrices.
 
-### Functions Defined
+## Functions Defined
 
 ```cpp
 static void swapRows(Matrix& a, int i, int j)
@@ -808,16 +815,18 @@ static void rowReplacement(Matrix& a, int i, int j)
 * **Returns:** void
 * **Summary:** Performs row replacement operation in Gaussian elimination
 
-### External Dependencies
+## External Dependencies
 * `matrix.h` - Provides Matrix, Vector, and Permutation classes
 * `cmath` - For mathematical functions like `abs` and `fabs`
 
-## iterativeNL.h
+# IterativeNL
+_________________
+# iterativeNL.h
 
-### Description
+## Description
 This header file declares functions for solving nonlinear equations using various iterative methods including fixed point iteration, Newton's method, and Broyden's methods.
 
-### Functions Defined
+## Functions Defined
 
 ```cpp
 Vector fixedpt(std::function<Vector(const Vector&)> g, Vector& x, int maxIter, double tol)
@@ -854,16 +863,16 @@ Vector broyden2(std::function<Vector(const Vector&)> f, Matrix& B, Vector& x, in
 * **Returns:** Solution vector
 * **Summary:** Implements Broyden's second method for vector functions
 
-### External Dependencies
+## External Dependencies
 * `functional` - For std::function
 * `matrix.h` - For Matrix and Vector classes
 
-## iterativeNL.cpp
+# iterativeNL.cpp
 
-### Description
+## Description
 This file implements the functions declared in iterativeNL.h, providing algorithms for various iterative methods to solve systems of nonlinear equations, including fixed point iteration, Newton's method, and Broyden's methods.
 
-### Functions Defined
+## Functions Defined
 
 ```cpp
 static bool checkTol(const Vector& x, const Vector& dx, const double tol)
@@ -872,18 +881,20 @@ static bool checkTol(const Vector& x, const Vector& dx, const double tol)
 * **Returns:** Boolean indicating if convergence is achieved
 * **Summary:** Checks if relative change in solution is within tolerance
 
-### External Dependencies
+## External Dependencies
 * `calculus.h` - Provides numerical differentiation functions for the Jacobian
 * `gaussElim.h` - For solving linear systems in each iteration
 * `matrix.h` - For Matrix and Vector classes
 * `cmath` - For mathematical functions
 
-## rootFinding.h
+# RootFinding
+_________________
+# rootFinding.h
 
-### Description
+## Description
 This header file declares functions for finding roots of scalar nonlinear equations using various methods including bisection, fixed point iteration, Newton's method, and the secant method.
 
-### Functions Defined
+## Functions Defined
 
 ```cpp
 double bisection(std::function<double(double)> f, double x0, double x1, int maxIter=20, double tol=1e-6)
@@ -920,28 +931,30 @@ double secant(std::function<double(double)> f, double x0, double x1, int maxIter
 * **Returns:** Root approximation
 * **Summary:** Implements the secant method for finding roots
 
-### External Dependencies
+## External Dependencies
 * `functional` - For std::function
 
-## rootFinding.cpp
+# rootFinding.cpp
 
-### Description
+## Description
 This file implements the functions declared in rootFinding.h, providing algorithms for root-finding methods including bisection, fixed point iteration, Newton's method, and the secant method for scalar equations.
 
-### External Dependencies
+## External Dependencies
 * `calculus.h` - For numerical differentiation (deriv function)
 * `miscellaneous.h` - For utility functions (sgn function)
 * `math.h` - For mathematical functions
 
-## main.cpp
+# Main
+_________________
+# main.cpp
 
-### Description
+## Description
 This file contains the main program with a menu-driven interface for data processing operations related to the SCALE nuclear code and Thermochimica thermochemical calculation software. It allows users to convert data between formats, extract information, combine files, and decouple surrogate elements.
 
-### Functions Defined
+## Functions Defined
 The file primarily contains a `main()` function with no other function definitions.
 
-### External Dependencies
+## External Dependencies
 * `dataProcessor.h` - For all data processing functions used in the menu options:
   - `scaleToVector` - Converts SCALE output to vector format
   - `vectToTherm` - Converts vector data to Thermochimica input
