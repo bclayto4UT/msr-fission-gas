@@ -195,6 +195,68 @@ Various standard library functions from <algorithm>, <iostream>, and <fstream>
 ### Description
 This header file defines thermodynamic and electrochemical data structures and function declarations used for calculations involving metals and fluorides. It contains maps for element properties (atomic numbers, weights, oxidation states) and thermodynamic data for heat capacity calculations.
 
+
+### Data Structures and Maps
+
+```c++
+const std::unordered_map<std::string, int> atomNumMap
+```
+* **Summary:** Maps element symbols to their atomic numbers
+* **Content:** All elements from H (1) to Og (118)
+
+```c++
+const std::unordered_map<std::string, double> atomWeightMap
+```
+* **Summary:** Maps element symbols to their atomic weights in g/mol
+* **Content:** Elements from H (1.0080) to U (238.03)
+* **Note:** Comment suggests this map may not be used anywhere
+
+```c++
+const std::unordered_map<std::string, int> oxiStateMap
+```
+* **Summary:** Maps element symbols to their common oxidation states
+* **Content:** Includes alkali metals (+1), alkaline earth metals (+2), halogens (-1), and various transition/rare earth elements
+
+```c++
+const std::unordered_map<std::string, strVect> surrogateMap
+```
+* **Summary:** Groups elements by surrogate categories
+* **Content:** 5 surrogate groups (I, Ca, La, Pu, Th) with their respective element members
+* **Purpose:** Used for substituting elements with similar chemical properties
+
+```c++
+const std::unordered_map<std::string, std::string> surrogateMapInv
+```
+* **Summary:** Inverse mapping of surrogateMap
+* **Content:** Maps individual elements to their surrogate group representative
+* **Example:** "Pr" → "La", "Zr" → "Th"
+
+```c++
+const size_t CP_TERMS = 6
+using thermoArray = std::array<double, CP_TERMS+3>
+const std::unordered_map<std::string, thermoArray> heatData
+```
+* **Summary:** Stores thermodynamic data for various compounds
+* **Content:** Each thermoArray contains:
+  1. ΔHf: Enthalpy of formation at 298.15 K (kJ/mol)
+  2. ΔS: Entropy at 298.15 K (J/mol·K)
+  3-8. Six coefficients for heat capacity calculation: Cp = a + bT + cT² + dT³ + eT⁻¹ + fT⁻²
+  9. T_ref: Reference temperature (K)
+
+```c++
+const double R = 8.314
+```
+* **Summary:** Universal gas constant in J/mol·K
+
+```c++
+const double gamma_UF3 = 50
+const double gamma_UF4 = 0.55
+const double gamma_Inf_CrF2 = 0.5
+const double gamma_Inf_FeF2 = 1.6
+```
+* **Summary:** Activity coefficients for specific compounds
+
+
 ### Functions Defined
 ```c++
 gamma_Inf_NiF2(double xLiF)
