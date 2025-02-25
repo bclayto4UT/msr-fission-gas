@@ -530,3 +530,132 @@ double G_F(const double xUF3, const double xUF4, const double T)
 * Uses `pow()` and mathematical functions from the C++ standard math library
 * Accesses data from `heatData` map and constants defined in the header file
 * Uses the gas constant `R` from the header file
+  
+## miscellaneous.h
+### Description
+This header file defines various utility functions and constants for mathematical and string manipulation operations. It includes mathematical constants (e, phi, pi), string processing functions, and template functions for numeric operations that appear to be used across other parts of the application.
+
+### Functions Defined
+```c++
+std::string elementSymb(const std::string&)
+```
+* **Parameters:** A string reference
+* **Returns:** A string
+* **Summary:** Converts an element name to proper case (first letter uppercase, rest lowercase).
+
+```c++
+strVect strToVect(std::string&, char=' ')
+```
+* **Parameters:** A string reference and an optional character delimiter (defaults to space)
+* **Returns:** A vector of strings (strVect)
+* **Summary:** Splits a string into a vector of strings using the specified delimiter.
+
+```c++
+std::vector<double> strToVectDouble(const std::string&)
+```
+* **Parameters:** A constant string reference
+* **Returns:** A vector of doubles
+* **Summary:** Converts a string to a vector of doubles, supporting various parsing options.
+
+```c++
+bool containsNumber(const std::string&) noexcept
+```
+* **Parameters:** A constant string reference
+* **Returns:** A boolean
+* **Summary:** Checks if a string contains any numeric digits.
+
+```c++
+bool isNumeric(const std::string&) noexcept
+```
+* **Parameters:** A constant string reference
+* **Returns:** A boolean
+* **Summary:** Determines if a string can be converted to a number.
+
+```c++
+void convertibleNum(std::string&)
+```
+* **Parameters:** A string reference
+* **Returns:** void
+* **Summary:** Trims leading characters until string can be converted to a double.
+
+```c++
+template<typename T> inline constexpr int sgn(T x) noexcept
+```
+* **Parameters:** A value of type T
+* **Returns:** An integer (-1, 0, or 1)
+* **Summary:** Returns the sign of a number as an integer.
+
+```c++
+inline int factorial(int n)
+```
+* **Parameters:** An integer
+* **Returns:** An integer
+* **Summary:** Calculates the factorial of a number using recursion.
+
+```c++
+inline int ordMag(double x)
+```
+* **Parameters:** A double
+* **Returns:** An integer
+* **Summary:** Calculates the order of magnitude of a number.
+
+### External Function Calls
+The file includes the following external dependencies:
+* C++ Standard Library's `<string>`: For string operations
+* C++ Standard Library's `<vector>`: For vector data structure
+* C++ Standard Library's `<cmath>`: For mathematical functions like exp(), sqrt(), atan(), log10(), and fabs()
+
+## miscellaneous.cpp
+### Description
+This implementation file provides the code for the functions declared in miscellaneous.h. It includes string manipulation utilities for parsing and converting data between different formats, with special handling for numeric string processing.
+
+### Functions Defined
+```c++
+std::string elementSymb(const std::string& str)
+```
+* **Parameters:** A constant string reference
+* **Returns:** A string
+* **Summary:** Converts first character to uppercase and rest to lowercase, mimicking Python's string casing functions.
+
+```c++
+strVect strToVect(std::string& data, char deli)
+```
+* **Parameters:** A string reference and a character delimiter
+* **Returns:** A vector of strings (strVect)
+* **Summary:** Splits a string into a vector of strings by a delimiter, handling both spaces and tabs.
+
+```c++
+std::vector<double> strToVectDouble(const std::string& str)
+```
+* **Parameters:** A constant string reference
+* **Returns:** A vector of doubles
+* **Summary:** Parses a string into a vector of doubles, supporting space, colon, and comma-separated formats.
+
+```c++
+bool isNumeric(const std::string& str) noexcept
+```
+* **Parameters:** A constant string reference
+* **Returns:** A boolean
+* **Summary:** Checks if a string represents a valid number, handling decimals, scientific notation, and signs.
+
+```c++
+bool containsNumber(const std::string& str) noexcept
+```
+* **Parameters:** A constant string reference
+* **Returns:** A boolean
+* **Summary:** Determines if a string contains any numeric digit.
+
+```c++
+void convertibleNum(std::string& str)
+```
+* **Parameters:** A string reference
+* **Returns:** void
+* **Summary:** Removes leading characters until the string can be converted to a double.
+
+### External Function Calls
+The file includes the following external dependencies:
+* `miscellaneous.h`: For declarations of functions implemented in this file
+* C++ Standard Library's `<stdexcept>`: For exception handling classes like std::invalid_argument and std::domain_error
+* C++ Standard Library character functions: toupper(), tolower(), isdigit()
+* C++ Standard Library conversion functions: std::stod() for string to double conversion
+* C++ Standard Library math functions: ceil()
