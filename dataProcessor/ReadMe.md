@@ -721,3 +721,230 @@ The file includes the following external dependencies:
 * C++ Standard Library character functions: toupper(), tolower(), isdigit()
 * C++ Standard Library conversion functions: std::stod() for string to double conversion
 * C++ Standard Library math functions: ceil()
+
+## gaussElim.h
+
+### Description
+This header file defines functions for performing Gaussian elimination and related matrix operations. It declares functions for performing LU factorization, solving linear equations, calculating determinants, and finding inverse matrices.
+
+### Functions Defined
+```cpp
+Matrix luFactorize(Matrix& a, Permutation& p, bool inplace=false)
+```
+* **Parameters:** A matrix `a`, a permutation array `p`, and a boolean `inplace` (default: false)
+* **Returns:** The factorized matrix
+* **Summary:** Performs LU factorization on a square matrix, optionally modifying the original matrix
+
+```cpp
+Vector luSolve(const Matrix& a, const Permutation& p, Vector& x, bool inplace=false)
+```
+* **Parameters:** A factorized matrix `a`, permutation array `p`, vector `x`, and boolean `inplace` (default: false)
+* **Returns:** Solution vector
+* **Summary:** Solves a linear system using a pre-factorized matrix
+
+```cpp
+Vector solve(Matrix& a, Permutation& p, Vector& x, bool inplace=false)
+```
+* **Parameters:** A matrix `a`, permutation array `p`, vector `x`, and boolean `inplace` (default: false)
+* **Returns:** Solution vector
+* **Summary:** Factorizes the matrix and solves the linear system
+
+```cpp
+double detFactoredMatrix(const Matrix& a, const Permutation& p) noexcept
+```
+* **Parameters:** A factorized matrix `a` and permutation array `p`
+* **Returns:** Determinant of the matrix
+* **Summary:** Calculates determinant from a pre-factorized matrix
+
+```cpp
+double det(Matrix& a) noexcept
+```
+* **Parameters:** A matrix `a`
+* **Returns:** Determinant of the matrix
+* **Summary:** Factorizes the matrix and calculates its determinant
+
+```cpp
+Matrix invFactoredMatrix(const Matrix& a, const Permutation& p)
+```
+* **Parameters:** A factorized matrix `a` and permutation array `p`
+* **Returns:** Inverse matrix
+* **Summary:** Calculates inverse of a pre-factorized matrix
+
+```cpp
+Matrix inv(Matrix& a)
+```
+* **Parameters:** A matrix `a`
+* **Returns:** Inverse matrix
+* **Summary:** Factorizes the matrix and calculates its inverse
+
+### External Dependencies
+* `matrix.h` - Provides Matrix and Permutation classes
+
+## gaussElim.cpp
+
+### Description
+This file implements the functions declared in gaussElim.h, providing algorithms for Gaussian elimination with scaled partial pivoting to perform LU factorization, solve linear systems, calculate determinants, and find inverse matrices.
+
+### Functions Defined
+
+```cpp
+static void swapRows(Matrix& a, int i, int j)
+```
+* **Parameters:** A matrix `a`, row indices `i` and `j` 
+* **Returns:** void
+* **Summary:** Swaps two rows in a matrix
+
+```cpp
+static void swap(Vector& v, int i, int j)
+```
+* **Parameters:** A vector `v`, indices `i` and `j`
+* **Returns:** void
+* **Summary:** Swaps two elements in a vector
+
+```cpp
+static void rowReplacement(Matrix& a, int i, int j)
+```
+* **Parameters:** A matrix `a`, row indices `i` and `j`
+* **Returns:** void
+* **Summary:** Performs row replacement operation in Gaussian elimination
+
+### External Dependencies
+* `matrix.h` - Provides Matrix, Vector, and Permutation classes
+* `cmath` - For mathematical functions like `abs` and `fabs`
+
+## iterativeNL.h
+
+### Description
+This header file declares functions for solving nonlinear equations using various iterative methods including fixed point iteration, Newton's method, and Broyden's methods.
+
+### Functions Defined
+
+```cpp
+Vector fixedpt(std::function<Vector(const Vector&)> g, Vector& x, int maxIter, double tol)
+```
+* **Parameters:** Function `g`, initial guess vector `x`, maximum iterations `maxIter`, tolerance `tol`
+* **Returns:** Solution vector
+* **Summary:** Implements fixed point iteration method for vector functions
+
+```cpp
+Vector newton(std::function<Vector(const Vector&)> f, std::function<Matrix(const Vector&)> df, Vector& x, int maxIter, double tol)
+```
+* **Parameters:** Function `f`, Jacobian `df`, initial guess `x`, maximum iterations `maxIter`, tolerance `tol`
+* **Returns:** Solution vector
+* **Summary:** Implements Newton's method with analytical Jacobian for vector functions
+
+```cpp
+Vector newton(std::function<Vector(const Vector&)> f, Vector& x, int maxIter, double tol)
+```
+* **Parameters:** Function `f`, initial guess `x`, maximum iterations `maxIter`, tolerance `tol`
+* **Returns:** Solution vector
+* **Summary:** Implements Newton's method with numerical Jacobian for vector functions
+
+```cpp
+Vector broyden1(std::function<Vector(const Vector&)> f, Matrix& A, Vector& x, int maxIter, double tol)
+```
+* **Parameters:** Function `f`, initial Jacobian approximation `A`, initial guess `x`, maximum iterations `maxIter`, tolerance `tol`
+* **Returns:** Solution vector
+* **Summary:** Implements Broyden's first method for vector functions
+
+```cpp
+Vector broyden2(std::function<Vector(const Vector&)> f, Matrix& B, Vector& x, int maxIter, double tol)
+```
+* **Parameters:** Function `f`, initial inverse Jacobian approximation `B`, initial guess `x`, maximum iterations `maxIter`, tolerance `tol`
+* **Returns:** Solution vector
+* **Summary:** Implements Broyden's second method for vector functions
+
+### External Dependencies
+* `functional` - For std::function
+* `matrix.h` - For Matrix and Vector classes
+
+## iterativeNL.cpp
+
+### Description
+This file implements the functions declared in iterativeNL.h, providing algorithms for various iterative methods to solve systems of nonlinear equations, including fixed point iteration, Newton's method, and Broyden's methods.
+
+### Functions Defined
+
+```cpp
+static bool checkTol(const Vector& x, const Vector& dx, const double tol)
+```
+* **Parameters:** Current solution `x`, step vector `dx`, tolerance `tol`
+* **Returns:** Boolean indicating if convergence is achieved
+* **Summary:** Checks if relative change in solution is within tolerance
+
+### External Dependencies
+* `calculus.h` - Provides numerical differentiation functions for the Jacobian
+* `gaussElim.h` - For solving linear systems in each iteration
+* `matrix.h` - For Matrix and Vector classes
+* `cmath` - For mathematical functions
+
+## rootFinding.h
+
+### Description
+This header file declares functions for finding roots of scalar nonlinear equations using various methods including bisection, fixed point iteration, Newton's method, and the secant method.
+
+### Functions Defined
+
+```cpp
+double bisection(std::function<double(double)> f, double x0, double x1, int maxIter=20, double tol=1e-6)
+```
+* **Parameters:** Function `f`, interval endpoints `x0` and `x1`, maximum iterations `maxIter` (default: 20), tolerance `tol` (default: 1e-6)
+* **Returns:** Root approximation
+* **Summary:** Implements the bisection method for finding roots
+
+```cpp
+double fixedpt(std::function<double(double)> f, double x0, int maxIter=20, double tol=1e-6)
+```
+* **Parameters:** Function `f`, initial guess `x0`, maximum iterations `maxIter` (default: 20), tolerance `tol` (default: 1e-6)
+* **Returns:** Fixed point
+* **Summary:** Implements fixed point iteration for scalar functions
+
+```cpp
+double newton(std::function<double(double)> f, std::function<double(double)> df, double x0, int maxIter=20, double tol=1e-6)
+```
+* **Parameters:** Function `f`, derivative `df`, initial guess `x0`, maximum iterations `maxIter` (default: 20), tolerance `tol` (default: 1e-6)
+* **Returns:** Root approximation
+* **Summary:** Implements Newton's method with analytical derivative
+
+```cpp
+double newton(std::function<double(double)> f, double x0, int maxIter=20, double tol=1e-6)
+```
+* **Parameters:** Function `f`, initial guess `x0`, maximum iterations `maxIter` (default: 20), tolerance `tol` (default: 1e-6)
+* **Returns:** Root approximation
+* **Summary:** Implements Newton's method with numerical derivative
+
+```cpp
+double secant(std::function<double(double)> f, double x0, double x1, int maxIter=20, double tol=1e-6)
+```
+* **Parameters:** Function `f`, initial guesses `x0` and `x1`, maximum iterations `maxIter` (default: 20), tolerance `tol` (default: 1e-6)
+* **Returns:** Root approximation
+* **Summary:** Implements the secant method for finding roots
+
+### External Dependencies
+* `functional` - For std::function
+
+## rootFinding.cpp
+
+### Description
+This file implements the functions declared in rootFinding.h, providing algorithms for root-finding methods including bisection, fixed point iteration, Newton's method, and the secant method for scalar equations.
+
+### External Dependencies
+* `calculus.h` - For numerical differentiation (deriv function)
+* `miscellaneous.h` - For utility functions (sgn function)
+* `math.h` - For mathematical functions
+
+## main.cpp
+
+### Description
+This file contains the main program with a menu-driven interface for data processing operations related to the SCALE nuclear code and Thermochimica thermochemical calculation software. It allows users to convert data between formats, extract information, combine files, and decouple surrogate elements.
+
+### Functions Defined
+The file primarily contains a `main()` function with no other function definitions.
+
+### External Dependencies
+* `dataProcessor.h` - For all data processing functions used in the menu options:
+  - `scaleToVector` - Converts SCALE output to vector format
+  - `vectToTherm` - Converts vector data to Thermochimica input
+  - `textToExcel` - Extracts data from Thermochimica output
+  - `mergeTherm` - Combines multiple Thermochimica outputs
+  - `decoupleSurr` - Decouples surrogate elements
