@@ -191,8 +191,6 @@ Various standard library functions from <algorithm>, <iostream>, and <fstream>
 
 ```"thermoElectroChem.h"``` - Probably contains thermodynamic and electrochemical definitions
 
-# Code Analysis
-
 ## thermoElectroChem.h
 ### Description
 This header file defines thermodynamic and electrochemical data structures and function declarations used for calculations involving metals and fluorides. It contains maps for element properties (atomic numbers, weights, oxidation states) and thermodynamic data for heat capacity calculations.
