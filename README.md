@@ -57,3 +57,151 @@ Note that there are other columns besides these two in the string, namely "x_U2F
 
 ## Concept Mapping the Code 
 
+I'll help you map out the process flow for each of the 4 functionalities in the data processor code. Let me break down how each option works by tracing through the various files and functions.
+
+## Option 1: Convert SCALE Output to Thermochimica Input Files
+
+```mermaid
+flowchart TD
+    A[User Input: SCALE .out/.f71 file] --> B[main.cpp: Menu interface]
+    B --> C[dataProcessor.cpp: scaleToVector function]
+    C --> D[Parse element concentrations from SCALE output]
+    D --> E[Create concMap: Map of element names to concentration vectors]
+    
+    F[User Input: Temperature and Pressure values] --> G[Parse T & P inputs]
+    G --> H[Create temperature and pressure arrays]
+    
+    E --> I[dataProcessor.cpp: vectToTherm function]
+    H --> I
+    I --> J[Create .F90 Thermochimica input files]
+    J --> K[Store files in thermochimica/test directory]
+    
+    L[miscellaneous.cpp: Helper Functions] --> C
+    L --> G
+    L --> I
+
+    subgraph "Key Data Structures"
+    M[concMap: Elements to concentration vectors]
+    N[strVect: Vector of strings]
+    end
+
+```
+
+## Option 2: Extract Data from Thermochimica Output
+
+```mermaid
+flowchart TD
+    A[User Input: Thermochimica result file] --> B[main.cpp: Menu interface]
+    B --> C[dataProcessor.cpp: textToExcel function]
+    
+    D[User Input: Data types to extract] --> C
+    D --> E[Parse data type string]
+    E --> F[Create list of data types to extract]
+    
+    C --> G[Parse Thermochimica output file]
+    G --> H[Extract requested data types]
+    H --> I[Create tabular data format]
+    I --> J[Write to output CSV file]
+    
+    K[miscellaneous.cpp: String processing functions] --> E
+    K --> G
+
+```
+
+## Option 3: Merge Thermochimica Output Files
+
+```mermaid
+flowchart TD
+    A[User Input: Multiple Thermochimica result files] --> B[main.cpp: Menu interface]
+    B --> C[dataProcessor.cpp: mergeTherm function]
+    
+    C --> D[Parse input Thermochimica files]
+    D --> E[Extract species concentrations]
+    E --> F[Sum concentrations across phases]
+    F --> G[Combine salt and gas phase data]
+    G --> H[Write merged data to output file]
+    
+    I[miscellaneous.cpp: String processing functions] --> C
+    I --> D
+
+```
+
+## Option 4: Decouple Surrogate Elements
+
+```mermaid
+flowchart TD
+    A[User Input: SCALE .f71 output] --> B[main.cpp: Menu interface]
+    C[User Input: Thermochimica result file] --> B
+    
+    B --> D[dataProcessor.cpp: decoupleSurr function]
+    
+    D --> E[Parse SCALE data using scaleToVector]
+    E --> F[Create concMap of element concentrations]
+    
+    D --> G[Parse Thermochimica result file]
+    G --> H[Extract chemical system data]
+    
+    F --> I[Decouple surrogate elements]
+    I --> J[Map surrogate elements to actual elements]
+    J --> K[thermoElectroChem.cpp: Calculate thermodynamic properties]
+    
+    L[Optional: Include structural metals] --> M[Calculate fluoride corrosion products]
+    N[Optional: Include fission products] --> O[Calculate fission product fluorides]
+    
+    K --> P[Update chemical composition]
+    M --> P
+    O --> P
+    
+    P --> Q[Calculate HF concentration]
+    Q --> R[Write updated composition to output file]
+    
+    S[thermoElectroChem.cpp: Metal fluoride G functions] --> K
+    S --> M
+    S --> O
+    S --> Q
+    
+    T[iterativeNL.cpp: Solve nonlinear equations] --> K
+    T --> M
+    T --> O
+    T --> Q
+    
+    U[Root finding algorithms] --> T
+
+```
+
+## Detailed Process Description for Each Option
+
+### Option 1: Convert SCALE Output to Thermochimica Input
+1. The user provides a SCALE output file containing element concentrations and specifies temperature and pressure values.
+2. The `scaleToVector` function parses the SCALE output file, extracting element names and their concentration vectors over time.
+3. The data is organized into a `concMap` (a map of element names to concentration vectors).
+4. Temperature and pressure inputs are parsed using string processing functions from `miscellaneous.cpp`.
+5. The `vectToTherm` function takes the concentration data and temperature/pressure values to generate Thermochimica input files (.F90).
+6. The input files are created for each time step and stored in the thermochimica/test directory.
+
+### Option 2: Extract Data from Thermochimica Output
+1. The user provides a Thermochimica result file and specifies which data types to extract (e.g., "x_UF3 x_UF4").
+2. The `textToExcel` function parses the input string to identify the requested data types.
+3. It then scans the Thermochimica output file to extract the corresponding values.
+4. The data is organized into a tabular format with each column representing a data type.
+5. The extracted data is written to an output CSV file for further analysis.
+
+### Option 3: Merge Thermochimica Output Files
+1. The user provides multiple Thermochimica result files.
+2. The `mergeTherm` function reads each file and extracts species concentrations from both salt and gas phases.
+3. It combines the data by summing concentrations across files for corresponding species.
+4. The merged data is written to a new output file that consolidates all the input data.
+
+### Option 4: Decouple Surrogate Elements
+1. The user provides a SCALE output file and a Thermochimica result file.
+2. The `decoupleSurr` function first calls `scaleToVector` to extract element concentrations from the SCALE file.
+3. It then parses the Thermochimica result file to get the current chemical system state.
+4. Using `surrogateMap` and `surrogateMapInv` from `thermoElectroChem.h`, it decouples surrogate elements into their actual constituents.
+5. Optionally, it can calculate:
+   - Fluorides of structural metals (Cr, Fe, Ni) using thermodynamic functions from `thermoElectroChem.cpp`
+   - Fission product fluorides
+   - HF concentration
+6. These calculations involve solving nonlinear equations using functions from `iterativeNL.cpp` and `rootFinding.cpp`.
+7. The updated chemical composition is written to an output file in a format similar to Thermochimica output.
+
+Each option relies on a combination of data processing functions, numerical methods, and thermodynamic calculations to transform and analyze the molten salt reactor data.
