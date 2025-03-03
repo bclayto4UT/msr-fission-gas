@@ -1436,3 +1436,168 @@ The matrix.cpp file implements all functions declared in matrix.h. Key implement
 * `abs()`: Used from the math.h header for absolute value calculations
 * `fabs()`: Used from the math.h header for floating-point absolute values
 * `sqrt()`: Used from the math.h header to calculate square root in norm functions
+
+# Calculus Library
+_________________
+# calculus.h
+
+## Description
+This header file defines various calculus functions including first and second derivatives, differential operators (gradient, divergence, curl, etc.), and integrals. It provides a comprehensive set of numerical calculus tools that work with both scalar and vector functions.
+
+## Functions Defined
+```cpp
+double deriv(std::function<double(double)>, const double)
+```
+* **Parameters:** A function taking a double and returning a double, and a point x
+* **Returns:** The numerical derivative of the function at point x
+* **Summary:** Calculates the first derivative of a scalar function at a given point
+
+```cpp
+Vector deriv(std::function<Vector(double)>, const double)
+```
+* **Parameters:** A function taking a double and returning a Vector, and a point x
+* **Returns:** A Vector containing the derivatives of each component
+* **Summary:** Calculates the first derivative of a vector function at a given point
+
+```cpp
+double pderiv(std::function<double(Vector&)>, const Vector&, int)
+```
+* **Parameters:** A function taking a Vector and returning a double, a Vector point, and an integer index
+* **Returns:** The partial derivative with respect to the indexed variable
+* **Summary:** Calculates the partial derivative of a multivariate scalar function
+
+```cpp
+Vector pderiv(std::function<Vector(Vector&)>, const Vector&, int)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, a Vector point, and an integer index
+* **Returns:** A Vector of partial derivatives
+* **Summary:** Calculates the partial derivative of a multivariate vector function
+
+```cpp
+Vector grad(std::function<double(Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a double, and a Vector point
+* **Returns:** The gradient vector
+* **Summary:** Calculates the gradient of a scalar function
+
+```cpp
+double div(std::function<Vector(const Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, and a Vector point
+* **Returns:** The divergence scalar
+* **Summary:** Calculates the divergence of a vector field
+
+```cpp
+Vector curl(std::function<Vector(const Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, and a Vector point
+* **Returns:** The curl vector
+* **Summary:** Calculates the curl of a vector field
+
+```cpp
+Matrix jacobian(std::function<Vector(const Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, and a Vector point
+* **Returns:** The Jacobian matrix
+* **Summary:** Calculates the Jacobian matrix of a vector function
+
+```cpp
+double deriv2(std::function<double(double)>, const double)
+```
+* **Parameters:** A function taking a double and returning a double, and a point x
+* **Returns:** The second derivative
+* **Summary:** Calculates the second derivative of a scalar function
+
+```cpp
+Vector deriv2(std::function<Vector(double)>, const double)
+```
+* **Parameters:** A function taking a double and returning a Vector, and a point x
+* **Returns:** A Vector of second derivatives
+* **Summary:** Calculates the second derivative of a vector function
+
+```cpp
+double pderiv2(std::function<double(Vector&)>, const Vector&, int, int)
+```
+* **Parameters:** A function taking a Vector and returning a double, a Vector point, and two integer indices
+* **Returns:** The second partial derivative
+* **Summary:** Calculates the second partial derivative of a multivariate scalar function
+
+```cpp
+Vector pderiv2(std::function<Vector(Vector&)>, const Vector&, int, int)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, a Vector point, and two integer indices
+* **Returns:** A Vector of second partial derivatives
+* **Summary:** Calculates the second partial derivative of a multivariate vector function
+
+```cpp
+double laplace(std::function<double(Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a double, and a Vector point
+* **Returns:** The Laplacian scalar
+* **Summary:** Calculates the Laplacian of a scalar function
+
+```cpp
+Vector laplace(std::function<Vector(const Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a Vector, and a Vector point
+* **Returns:** The Laplacian vector
+* **Summary:** Calculates the Laplacian of a vector field
+
+```cpp
+Matrix hessian(std::function<double(const Vector&)>, const Vector&)
+```
+* **Parameters:** A function taking a Vector and returning a double, and a Vector point
+* **Returns:** The Hessian matrix
+* **Summary:** Calculates the Hessian matrix of a scalar function
+
+```cpp
+double intClose(std::function<double(double)>, double, double, double, double)
+```
+* **Parameters:** A function, integration bounds, tolerance, and magnitude estimate
+* **Returns:** The definite integral value
+* **Summary:** Calculates a definite integral using a closed method
+
+```cpp
+double intOpen(std::function<double(double)>, double, double, double, double)
+```
+* **Parameters:** A function, integration bounds, tolerance, and magnitude estimate
+* **Returns:** The definite integral value
+* **Summary:** Calculates a definite integral using an open method
+
+```cpp
+double intGauss(std::function<double(double)>, double, double, double, double)
+```
+* **Parameters:** A function, integration bounds, tolerance, and magnitude estimate
+* **Returns:** The definite integral value
+* **Summary:** Calculates a definite integral using Gaussian quadrature
+
+```cpp
+double integral(std::function<double(double)>, double, double, double, double)
+```
+* **Parameters:** A function, integration bounds, tolerance, and magnitude estimate
+* **Returns:** The definite integral value
+* **Summary:** Calculates a definite integral using the most appropriate method
+
+## External Functions Used
+* Functions from standard library: `std::isfinite`, `std::function`
+* Classes/types: `Vector`, `Matrix` (defined in "matrix.h")
+
+# calculus.cpp
+
+## Description
+This implementation file contains the numerical algorithms for calculating derivatives, integrals, and differential operators defined in calculus.h. It uses finite difference methods for derivatives and would use quadrature methods for integrals (though these appear to be commented out in the code).
+
+## Functions Implemented
+The file implements most of the functions declared in calculus.h with detailed numerical algorithms. Each implementation includes error handling for invalid inputs or numerical issues.
+
+## External Functions Used
+* From standard library: `std::isfinite`, `std::function`, `std::runtime_error`, `std::domain_error`, `std::length_error`
+* From "miscellaneous.h": `ordMag` (likely computes order of magnitude)
+* From "matrix.h": `Vector` and `Matrix` classes with their methods like `isFinite()`, `resize()`, etc.
+* Commented-out code references to: `factorial` and `polynomial` class (likely from "polynomial.h")
+
+## Note
+The integral calculation functions are commented out in the implementation file, but their declarations are present in the header, suggesting they are either implemented elsewhere or planned for future implementation.
+
+
+
