@@ -961,3 +961,478 @@ The file primarily contains a `main()` function with no other function definitio
   - `textToExcel` - Extracts data from Thermochimica output
   - `mergeTherm` - Combines multiple Thermochimica outputs
   - `decoupleSurr` - Decouples surrogate elements
+
+# LinearAlgebra
+_________________
+# matrix.h
+## Description
+This header file defines Vector, Matrix, and Permutation classes for mathematical operations. It provides comprehensive functionality for vector and matrix manipulation including arithmetic operations, transformations, and utility functions that support linear algebra operations.
+
+## Classes Defined
+
+### Vector Class
+```c++
+class Vector
+```
+* **Member Variables:**
+  * `int size`: Size of the vector
+  * `std::vector<double> array`: Storage for vector elements
+
+* **Constructors:**
+```c++
+Vector(int n=0)
+```
+* **Parameters:** Integer size (default 0)
+* **Summary:** Constructs a vector of size n initialized to zeros
+
+```c++
+Vector(const Vector&)
+```
+* **Parameters:** Another Vector object
+* **Summary:** Copy constructor for Vector class
+
+```c++
+Vector(std::initializer_list<double> il)
+```
+* **Parameters:** List of double values
+* **Summary:** Constructs a vector from an initializer list
+
+* **Member Functions:**
+```c++
+int n(int=0) const
+```
+* **Parameters:** Unused integer parameter (default 0)
+* **Returns:** Size of the vector
+* **Summary:** Returns the size of the vector
+
+```c++
+double operator() (int i) const
+```
+* **Parameters:** Integer index
+* **Returns:** Vector element at index i
+* **Summary:** Access operator for reading vector elements
+
+```c++
+double& operator() (int i)
+```
+* **Parameters:** Integer index
+* **Returns:** Reference to vector element at index i
+* **Summary:** Access operator for modifying vector elements
+
+```c++
+Vector& operator=(double)
+```
+* **Parameters:** Double value
+* **Returns:** Reference to the vector
+* **Summary:** Fills all elements of the vector with a single value
+
+```c++
+Vector& operator=(double*)
+```
+* **Parameters:** Pointer to an array of doubles
+* **Returns:** Reference to the vector
+* **Summary:** Copies values from an array into the vector (unsafe)
+
+```c++
+Vector& operator=(std::vector<double>&)
+```
+* **Parameters:** Standard vector of doubles
+* **Returns:** Reference to the vector
+* **Summary:** Copies values from a std::vector into the vector
+
+```c++
+Vector& operator=(const Vector&)
+```
+* **Parameters:** Another Vector object
+* **Returns:** Reference to the vector
+* **Summary:** Copy assignment operator
+
+```c++
+Vector& operator=(Vector&&)
+```
+* **Parameters:** Rvalue reference to a Vector
+* **Returns:** Reference to the vector
+* **Summary:** Move assignment operator
+
+```c++
+bool operator==(const Vector&) const noexcept
+```
+* **Parameters:** Another Vector object
+* **Returns:** Boolean indicating equality
+* **Summary:** Equality comparison operator
+
+```c++
+Vector operator+(const Vector&) const
+```
+* **Parameters:** Another Vector object
+* **Returns:** New Vector containing the sum
+* **Summary:** Vector addition operator
+
+```c++
+Vector operator+(const double d) const
+```
+* **Parameters:** Double value
+* **Returns:** New Vector with scalar added to each element
+* **Summary:** Scalar addition operator
+
+```c++
+Vector& operator+=(const Vector&)
+```
+* **Parameters:** Another Vector object
+* **Returns:** Reference to the vector
+* **Summary:** Add-and-assign operator for vectors
+
+```c++
+Vector& operator+=(const double d)
+```
+* **Parameters:** Double value
+* **Returns:** Reference to the vector
+* **Summary:** Add-and-assign operator for scalar
+
+```c++
+Vector operator*(const double) const
+```
+* **Parameters:** Double value
+* **Returns:** New Vector containing the scaled result
+* **Summary:** Scalar multiplication operator
+
+```c++
+Vector& operator*=(const double d)
+```
+* **Parameters:** Double value
+* **Returns:** Reference to the vector
+* **Summary:** Multiply-and-assign operator for scalar
+
+```c++
+double operator*(const Vector&) const
+```
+* **Parameters:** Another Vector object
+* **Returns:** Double result of dot product
+* **Summary:** Dot product operator
+
+```c++
+Vector operator-() const
+```
+* **Parameters:** None
+* **Returns:** New Vector containing negated values
+* **Summary:** Unary minus operator
+
+```c++
+void assign(const Vector&, const int begin=0)
+```
+* **Parameters:** Source Vector and starting index (default 0)
+* **Returns:** None
+* **Summary:** Assigns values from another vector starting at the specified index
+
+```c++
+void resize(const int n, const int begin=0)
+```
+* **Parameters:** New size and starting index (default 0)
+* **Returns:** None
+* **Summary:** Resizes the vector, preserving values from the specified index
+
+```c++
+int count(double val, double tol=0) const noexcept
+```
+* **Parameters:** Value to search for and tolerance (default 0)
+* **Returns:** Count of matching elements
+* **Summary:** Counts occurrences of a specific value within a tolerance
+
+```c++
+bool isFinite() const
+```
+* **Parameters:** None
+* **Returns:** Boolean indicating finiteness
+* **Summary:** Checks if all vector elements are finite
+
+### Matrix Class
+```c++
+class Matrix
+```
+* **Member Variables:**
+  * `std::array<size_t, 2> size`: Dimensions of the matrix [rows, columns]
+  * `std::vector<double> array`: Storage for matrix elements
+
+* **Constructors:**
+```c++
+Matrix(int n0, int n1)
+```
+* **Parameters:** Number of rows and columns
+* **Summary:** Constructs an n0×n1 matrix initialized to zeros
+
+```c++
+Matrix(const Matrix&)
+```
+* **Parameters:** Another Matrix object
+* **Summary:** Copy constructor for Matrix class
+
+```c++
+Matrix(const Vector&)
+```
+* **Parameters:** Vector object
+* **Summary:** Constructs a column matrix from a Vector
+
+* **Member Functions:**
+```c++
+int n(int i) const
+```
+* **Parameters:** Dimension index (0 for rows, 1 for columns)
+* **Returns:** Size of the specified dimension
+* **Summary:** Returns the number of rows or columns
+
+```c++
+bool isDiagDominant() const noexcept
+```
+* **Parameters:** None
+* **Returns:** Boolean indicating diagonal dominance
+* **Summary:** Checks if matrix is diagonally dominant
+
+```c++
+bool isSymmetric() const noexcept
+```
+* **Parameters:** None
+* **Returns:** Boolean indicating symmetry
+* **Summary:** Checks if matrix is symmetric
+
+```c++
+double operator() (int i, int j) const
+```
+* **Parameters:** Row and column indices
+* **Returns:** Matrix element at position (i,j)
+* **Summary:** Access operator for reading matrix elements
+
+```c++
+double& operator() (int i, int j)
+```
+* **Parameters:** Row and column indices
+* **Returns:** Reference to matrix element at position (i,j)
+* **Summary:** Access operator for modifying matrix elements
+
+```c++
+Matrix& operator=(double)
+```
+* **Parameters:** Double value
+* **Returns:** Reference to the matrix
+* **Summary:** Fills all elements of the matrix with a single value
+
+```c++
+Vector row(const int) const
+```
+* **Parameters:** Row index
+* **Returns:** Vector containing the specified row
+* **Summary:** Extracts a row from the matrix
+
+```c++
+Vector col(const int) const
+```
+* **Parameters:** Column index
+* **Returns:** Vector containing the specified column
+* **Summary:** Extracts a column from the matrix
+
+```c++
+Matrix T(bool inplace=false) noexcept
+```
+* **Parameters:** Boolean indicating in-place operation (default false)
+* **Returns:** Transposed matrix (unless in-place)
+* **Summary:** Transposes the matrix, either in-place or returning a new matrix
+
+```c++
+void assign(const Vector&, int, bool colAssign=true)
+```
+* **Parameters:** Vector of values, position index, and flag for column/row assignment
+* **Returns:** None
+* **Summary:** Assigns values to a specified row or column
+
+```c++
+void assign(const Matrix&, const int rbegin=0, const int cbegin=0)
+```
+* **Parameters:** Source matrix and starting row/column indices
+* **Returns:** None
+* **Summary:** Assigns a submatrix starting at the specified position
+
+```c++
+void resize(const int r, const int c, const int rbegin=0, const int cbegin=0)
+```
+* **Parameters:** New dimensions and starting indices
+* **Returns:** None
+* **Summary:** Resizes the matrix, preserving values from the specified position
+
+```c++
+int count(double val, double tol=0) const noexcept
+```
+* **Parameters:** Value to search for and tolerance (default 0)
+* **Returns:** Count of matching elements
+* **Summary:** Counts occurrences of a specific value within a tolerance
+
+### Permutation Class
+```c++
+class Permutation
+```
+* **Member Variables:**
+  * `int size`: Size of the permutation
+  * `std::vector<int> array`: Storage for permutation indices
+  * `int my_parity`: Tracks the parity of the permutation
+
+* **Constructor:**
+```c++
+Permutation(int n)
+```
+* **Parameters:** Permutation size
+* **Summary:** Constructs a permutation of size n and initializes to identity
+
+* **Member Functions:**
+```c++
+int n(int=0) const
+```
+* **Parameters:** Unused integer parameter (default 0)
+* **Returns:** Size of the permutation
+* **Summary:** Returns the size of the permutation
+
+```c++
+int operator() (int i) const
+```
+* **Parameters:** Index into the permutation
+* **Returns:** Value at the specified index
+* **Summary:** Access operator for reading permutation elements
+
+```c++
+void identity()
+```
+* **Parameters:** None
+* **Returns:** None
+* **Summary:** Sets the permutation to the identity permutation
+
+```c++
+void swap(int i, int j)
+```
+* **Parameters:** Two indices to swap
+* **Returns:** None
+* **Summary:** Swaps two elements of the permutation and updates parity
+
+```c++
+double parity() const
+```
+* **Parameters:** None
+* **Returns:** 1.0 or -1.0 indicating parity
+* **Summary:** Returns the parity of the permutation (+1 for even, -1 for odd)
+
+```c++
+void permute(Vector& b) const
+```
+* **Parameters:** Vector to permute
+* **Returns:** None
+* **Summary:** Applies the permutation to a Vector
+
+```c++
+void permute(Matrix& M) const
+```
+* **Parameters:** Matrix to permute
+* **Returns:** None
+* **Summary:** Applies the permutation to the rows of a Matrix
+
+## Global Functions Declared
+```c++
+std::ostream& operator<< (std::ostream&, const Vector&)
+```
+* **Parameters:** Output stream and Vector
+* **Returns:** Reference to output stream
+* **Summary:** Outputs a formatted Vector to a stream
+
+```c++
+std::ostream& operator<< (std::ostream&, const Matrix&)
+```
+* **Parameters:** Output stream and Matrix
+* **Returns:** Reference to output stream
+* **Summary:** Outputs a formatted Matrix to a stream
+
+```c++
+std::ostream& operator<< (std::ostream&, const Permutation&)
+```
+* **Parameters:** Output stream and Permutation
+* **Returns:** Reference to output stream
+* **Summary:** Outputs a formatted Permutation to a stream
+
+```c++
+std::istream& operator>> (std::istream&, Vector&)
+```
+* **Parameters:** Input stream and Vector reference
+* **Returns:** Reference to input stream
+* **Summary:** Reads Vector data from a stream
+
+```c++
+std::istream& operator>> (std::istream&, Matrix&)
+```
+* **Parameters:** Input stream and Matrix reference
+* **Returns:** Reference to input stream
+* **Summary:** Reads Matrix data from a stream
+
+```c++
+double l2norm(const Vector&)
+```
+* **Parameters:** Vector
+* **Returns:** L2-norm value
+* **Summary:** Calculates the Euclidean (L2) norm of a Vector
+
+```c++
+double maxNorm(const Vector&)
+```
+* **Parameters:** Vector
+* **Returns:** Maximum absolute value
+* **Summary:** Calculates the maximum (infinity) norm of a Vector
+
+```c++
+double maxNorm(const Matrix&)
+```
+* **Parameters:** Matrix
+* **Returns:** Maximum row sum
+* **Summary:** Calculates the maximum row sum norm of a Matrix
+
+```c++
+Matrix eye(int)
+```
+* **Parameters:** Size of the matrix
+* **Returns:** Identity matrix
+* **Summary:** Creates an identity matrix of the specified size
+
+```c++
+double scDot(const Vector&, const Vector&)
+```
+* **Parameters:** Two Vector objects
+* **Returns:** Dot product result
+* **Summary:** Calculates the scalar dot product of two Vectors
+
+```c++
+Vector cross(const Vector&, const Vector&)
+```
+* **Parameters:** Two Vector objects
+* **Returns:** Cross product Vector
+* **Summary:** Calculates the cross product of two Vectors
+
+```c++
+Matrix outer(const Vector&, const Vector&)
+```
+* **Parameters:** Two Vector objects
+* **Returns:** Outer product Matrix
+* **Summary:** Calculates the outer product of two Vectors
+
+_________________
+# matrix.cpp
+## Description
+This implementation file provides the definitions for all functions declared in matrix.h. It implements the Vector, Matrix, and Permutation classes along with all their associated operations and global functions.
+
+## Implementation Details
+The matrix.cpp file implements all functions declared in matrix.h. Key implementation details include:
+
+* Vector operations are implemented element-wise
+* Matrix operations handle indexing using the formula `i + size[0]*j` for 2D access
+* Extensive error checking is included for incompatible sizes and out-of-bounds access
+* Special mathematical functions like norms, cross products, and outer products are implemented
+* I/O operations format vectors and matrices for readability
+* The Permutation class maintains parity tracking during swaps
+* The Matrix transpose function supports both in-place and return-value operations
+
+## External Function Calls
+* `isfinite()`: Called from the math.h header to check if values are finite
+* `abs()`: Used from the math.h header for absolute value calculations
+* `fabs()`: Used from the math.h header for floating-point absolute values
+* `sqrt()`: Used from the math.h header to calculate square root in norm functions
