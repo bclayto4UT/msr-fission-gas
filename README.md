@@ -57,7 +57,6 @@ Note that there are other columns besides these two in the string, namely "x_U2F
 
 ## Concept Mapping the Code 
 
-I'll help you map out the process flow for each of the 4 functionalities in the data processor code. Let me break down how each option works by tracing through the various files and functions.
 
 ## Option 1: Convert SCALE Output to Thermochimica Input Files
 
