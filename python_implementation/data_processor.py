@@ -666,42 +666,53 @@ class DataProcessor:
         if total_gas > 0:
             output_file.write(format_output(spec_gas, total_gas, "gas_ideal"))
 
+
 def main():
-    """
-    Main entry point for data processing
-    """
-    print("Thermochimica Data Processing")
-    print("1. Convert SCALE output to Thermochimica input files")
-    print("2. Extract data from Thermochimica output")
-    print("3. Merge Thermochimica output files")
-    print("4. Decouple surrogate elements")
-    
-    option = int(input("Enter your choice (1-4): "))
-    
-    if option == 1:
-        # Example usage for Option 1
-        scale_file = input("Enter SCALE output file path: ")
-        output_base = input("Enter base name for Thermochimica input files: ")
-        temp_range = input("Enter temperature range/values: ")
-        press_range = input("Enter pressure range/values: ")
+    """Enhanced main entry point with more robust error handling"""
+    try:
+        print("Thermochimica Data Processing")
+        print("1. Convert SCALE output to Thermochimica input files")
+        print("2. Extract data from Thermochimica output")
+        print("3. Merge Thermochimica output files")
+        print("4. Decouple surrogate elements")
         
-        data = DataProcessor.scale_to_vector(scale_file)
-        DataProcessor.vector_to_therm(data, output_base, temp_range, press_range)
+        option = int(input("Enter your choice (1-4): "))
+        
+        processor = DataProcessor()
+        
+        if option == 1:
+            scale_file = input("Enter SCALE output file path: ")
+            output_base = input("Enter base name for Thermochimica input files: ")
+            temp_range = input("Enter temperature range/values: ")
+            press_range = input("Enter pressure range/values: ")
+            
+            data = processor.scale_to_vector(scale_file)
+            processor.vector_to_therm(data, output_base, temp_range, press_range)
+        
+        elif option == 2:
+            in_file = input("Enter Thermochimica output file: ")
+            out_file = input("Enter output Excel file: ")
+            data_type = input("Enter data types to extract: ")
+            processor.text_to_excel(in_file, out_file, data_type)
+        
+        elif option == 3:
+            in_files = input("Enter input files (comma-separated): ").split(',')
+            out_file = input("Enter output merged file: ")
+            processor.merge_therm(in_files, out_file)
+        
+        elif option == 4:
+            scale_file = input("Enter SCALE output file: ")
+            thermo_file = input("Enter Thermochimica result file: ")
+            out_file = input("Enter output file: ")
+            
+            scale_data = processor.scale_to_vector(scale_file)
+            processor.decouple_surr(scale_data, thermo_file, out_file)
+        
+        else:
+            print("Invalid option selected.")
     
-    elif option == 2:
-        # Placeholder for Option 2
-        pass
-    
-    elif option == 3:
-        # Placeholder for Option 3
-        pass
-    
-    elif option == 4:
-        # Placeholder for Option 4
-        pass
-    
-    else:
-        print("Invalid option selected.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
